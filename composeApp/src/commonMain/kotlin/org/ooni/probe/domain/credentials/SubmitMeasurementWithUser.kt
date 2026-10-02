@@ -14,7 +14,8 @@ import org.ooni.passport.models.PassportException
 import org.ooni.passport.models.SubmitCredentialConfig
 import org.ooni.passport.models.SubmitError
 import org.ooni.passport.models.VerificationStatus
-import org.ooni.probe.config.BuildTypeDefaults
+import org.ooni.passport.models.isOfflineFailure
+import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.data.models.Credential
 import org.ooni.probe.data.models.Manifest
 import org.ooni.probe.data.models.MeasurementModel
@@ -46,9 +47,41 @@ class SubmitMeasurementWithUser(
 
         val credentialConfig = buildCredentialConfig(manifest, credential, data)
 
-        return when (
+        val primaryUrl = "${OrganizationConfig.ooniApiBaseUrl}/api/v1/submit_measurement"
+        val fallbackUrl = "${OrganizationConfig.ooniApiFallbackUrl}/api/v1/submit_measurement"
+
+        var result = submitToUrl(
+            url = primaryUrl,
+            stamped = stamped,
+            data = data,
+            credentialConfig = credentialConfig,
+            credential = credential,
+        )
+
+        if (result is Failure && !result.reason.isOfflineFailure() && primaryUrl != fallbackUrl) {
+            Logger.w("Primary user submit failed, trying fallback endpoint: $fallbackUrl", result.reason)
+            result = submitToUrl(
+                url = fallbackUrl,
+                stamped = stamped,
+                data = data,
+                credentialConfig = credentialConfig,
+                credential = credential,
+            )
+        }
+
+        return result
+    }
+
+    private suspend fun submitToUrl(
+        url: String,
+        stamped: String,
+        data: MeasurementData,
+        credentialConfig: SubmitCredentialConfig?,
+        credential: Credential?,
+    ): Result<SubmitMeasurement.ResponseData, Throwable?> =
+        when (
             val result = userAuthSubmit(
-                "${BuildTypeDefaults.ooniApiBaseUrl}/api/v1/submit_measurement",
+                url,
                 stamped,
                 data.probeCc,
                 data.probeAsn,
@@ -56,7 +89,7 @@ class SubmitMeasurementWithUser(
             )
         ) {
             is Failure -> {
-                Logger.w("Failed to submit measurement with user", result.reason)
+                Logger.w("Failed to submit measurement with user to $url", result.reason)
                 Failure(result.reason)
             }
 
@@ -67,10 +100,11 @@ class SubmitMeasurementWithUser(
                         statusCode = credentialResponse.response.statusCode,
                         responseBody = credentialResponse.response.bodyText?.take(MAX_ERROR_BODY_LENGTH),
                     )
-                    Logger.w("Submit returned non-2XX", exception)
+                    Logger.w("Submit to $url returned non-2XX", exception)
                     Instrumentation.reportTransaction(
                         operation = "SubmitHttpError",
                         data = mapOf(
+                            "url" to url,
                             "status_code" to credentialResponse.response.statusCode,
                             "error" to (credentialResponse.response.bodyText?.take(10) ?: "unknown"),
                         ),
@@ -103,7 +137,6 @@ class SubmitMeasurementWithUser(
                 }
             }
         }
-    }
 
     private fun httpRecoveryError(statusCode: Int): SubmitError? =
         when (statusCode) {

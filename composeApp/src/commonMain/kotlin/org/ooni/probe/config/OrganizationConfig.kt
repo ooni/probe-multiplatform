@@ -17,6 +17,7 @@ interface OrganizationConfigInterface {
     val descriptorLanguageCodes: Set<String>
 
     val ooniApiBaseUrl get() = BuildTypeDefaults.ooniApiBaseUrl
+    val ooniApiFallbackUrl get() = BuildTypeDefaults.ooniApiFallbackUrl
     val ooniRunDomain get() = BuildTypeDefaults.ooniRunDomain
     val ooniRunDashboardUrl get() = BuildTypeDefaults.ooniRunDashboardUrl
     val explorerUrl get() = BuildTypeDefaults.explorerUrl
@@ -24,6 +25,7 @@ interface OrganizationConfigInterface {
 
 interface BuildTypeDefaultsInterface {
     val ooniApiBaseUrl: String
+    val ooniApiFallbackUrl: String
     val ooniRunDomain: String
     val ooniRunDashboardUrl: String
     val explorerUrl: String
