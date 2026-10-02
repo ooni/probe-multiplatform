@@ -131,7 +131,7 @@
     </plurals>
     <string name="Dashboard_Stats_Title">統計</string>
     <plurals name="Dashboard_Stats_Countries">
-        <item quantity="other">カ国</item>
+        <item quantity="other">か国</item>
     </plurals>
     <string name="Dashboard_Stats_Empty">テストを実行することで統計情報が表示されます。</string>
     <string name="Dashboard_Articles_Title">OONI ニュース</string>
@@ -470,4 +470,5 @@
     <string name="Settings_AnonymousCredentials_Reset_InProgress">新しい匿名クレデンシャルを取得しています…</string>
     <string name="Settings_AnonymousCredentials_Reset_Success">新しい匿名クレデンシャルが作成されました。今後の計測結果は新しい Probe ID に紐付けられます。</string>
     <string name="Settings_AnonymousCredentials_Reset_Failed">古いクレデンシャルは削除されましたが、新しいクレデンシャルを取得できませんでした。インターネット接続を確認して、もう一度お試しください。OONI Probe は次回テストを実行する際にも自動的に再試行します。</string>
+    <string name="Dashboard_Runv2_Overview_Description_Compact">%1$s に作成されました</string>
 </resources>
