@@ -142,8 +142,8 @@ fun MeasurementScreen(
     }
 
     val showState = state as? MeasurementViewModel.State.ShowMeasurement ?: return
-    LaunchedEffect(showState.url) {
-        controller.load(showState.url)
+    LaunchedEffect(showState.webViewUrl) {
+        controller.load(showState.webViewUrl)
     }
     LaunchedEffect(showState.copyMessageToClipboard) {
         showState.copyMessageToClipboard?.let {

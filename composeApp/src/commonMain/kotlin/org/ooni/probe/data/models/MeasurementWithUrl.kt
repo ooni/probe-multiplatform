@@ -10,19 +10,26 @@ data class MeasurementWithUrl(
     val measurement: MeasurementModel,
     val url: UrlModel?,
 ) {
-    val webViewUrl: String?
+    val explorerUrl: String?
         get() {
-            val webViewUrl = URLBuilder(OrganizationConfig.explorerUrl)
+            val urlBuilder = URLBuilder(OrganizationConfig.explorerUrl)
             if (measurement.uid != null && measurement.uid.value.isNotBlank()) {
-                webViewUrl.appendPathSegments(listOf("m", measurement.uid.value))
+                urlBuilder.appendPathSegments(listOf("m", measurement.uid.value))
             } else if (measurement.reportId != null) {
-                webViewUrl.appendPathSegments(listOf("measurement", measurement.reportId.value))
+                urlBuilder.appendPathSegments(listOf("measurement", measurement.reportId.value))
                 url?.url?.let {
-                    webViewUrl.parameters.append("input", it)
+                    urlBuilder.parameters.append("input", it)
                 }
             } else {
                 return null
             }
+            return urlBuilder.build().toString()
+        }
+
+    val webViewUrl: String?
+        get() {
+            val explorerUrl = explorerUrl ?: return null
+            val webViewUrl = URLBuilder(explorerUrl)
             webViewUrl.parameters.append("webview", "true")
             webViewUrl.parameters.append("language", Locale.current.languageRegionString)
             return webViewUrl.build().toString()
