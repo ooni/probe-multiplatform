@@ -112,6 +112,16 @@ struct iOSApp: App {
                     print(error ?? "none")
                 })
             }
+        } else if host == "login" {
+            if let token = url["token"], !token.isEmpty {
+                deepLinkFlow.emit(value: DeepLink.Login(token: token), completionHandler: {error in
+                    print(error ?? "none")
+                })
+            } else {
+                deepLinkFlow.emit(value: DeepLink.Error(), completionHandler: {error in
+                    print(error ?? "none")
+                })
+            }
         }
     }
 }
