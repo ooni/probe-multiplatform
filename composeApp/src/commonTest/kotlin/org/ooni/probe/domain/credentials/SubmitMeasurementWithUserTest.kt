@@ -9,6 +9,9 @@ import org.ooni.passport.models.CredentialResponse
 import org.ooni.passport.models.PassportException
 import org.ooni.passport.models.PassportHttpResponse
 import org.ooni.passport.models.SubmitError
+import org.ooni.probe.config.OrganizationConfig
+import org.ooni.probe.data.models.MeasurementModel
+import org.ooni.probe.domain.SubmitMeasurement
 import org.ooni.testing.factories.ManifestFactory
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -40,6 +43,103 @@ class SubmitMeasurementWithUserTest {
         json = json,
         handleSubmitOutcome = { _, error -> onSubmitOutcome(error) },
     )
+
+    @Test
+    fun primaryEndpointIsUsedByDefault() =
+        runTest {
+            val calledUrls = mutableListOf<String>()
+            val subject = SubmitMeasurementWithUser(
+                getManifest = { flowOf(ManifestFactory.build()) },
+                getCredential = { null },
+                setCredential = SetCredential(
+                    writeSecureStorage = { _, _ -> error("setCredential should not be used") },
+                    json = json,
+                ),
+                stampMeasurement = StampMeasurement(
+                    passportGetProbeId = { _, _, _ -> error("getProbeId should not be used") },
+                    getCredential = { null },
+                    json = json,
+                ),
+                resolveSubmissionPolicy = ResolveSubmissionPolicy(),
+                userAuthSubmit = { url, _, _, _, _ ->
+                    calledUrls.add(url)
+                    Success(
+                        CredentialResponse(
+                            response = PassportHttpResponse(
+                                statusCode = 200,
+                                version = "HTTP/1.1",
+                                headersListText = emptyList(),
+                                bodyText = """{"measurement_uid":"uid-123"}""",
+                            ),
+                            credential = null,
+                        ),
+                    )
+                },
+                json = json,
+            )
+
+            val result = subject(measurementData)
+
+            val success = assertIs<Success<SubmitMeasurement.ResponseData>>(result)
+            assertEquals(MeasurementModel.Uid("uid-123"), success.value.uid)
+            assertEquals(
+                listOf("${OrganizationConfig.ooniApiBaseUrl}/api/v1/submit_measurement"),
+                calledUrls,
+            )
+        }
+
+    @Test
+    fun fallbackEndpointIsAttemptedWhenPrimaryFails() =
+        runTest {
+            val calledUrls = mutableListOf<String>()
+            val subject = SubmitMeasurementWithUser(
+                getManifest = { flowOf(ManifestFactory.build()) },
+                getCredential = { null },
+                setCredential = SetCredential(
+                    writeSecureStorage = { _, _ -> error("setCredential should not be used") },
+                    json = json,
+                ),
+                stampMeasurement = StampMeasurement(
+                    passportGetProbeId = { _, _, _ -> error("getProbeId should not be used") },
+                    getCredential = { null },
+                    json = json,
+                ),
+                resolveSubmissionPolicy = ResolveSubmissionPolicy(),
+                userAuthSubmit = { url, _, _, _, _ ->
+                    calledUrls.add(url)
+                    when {
+                        calledUrls.size == 1 && (OrganizationConfig.ooniApiBaseUrl != OrganizationConfig.ooniApiFallbackUrl) ->
+                            Failure(PassportException.HttpClientError("Primary failed"))
+                        calledUrls.size == 1 ->
+                            Failure(PassportException.HttpClientError("Single call failed"))
+                        else ->
+                            Success(
+                                CredentialResponse(
+                                    response = PassportHttpResponse(
+                                        statusCode = 200,
+                                        version = "HTTP/1.1",
+                                        headersListText = emptyList(),
+                                        bodyText = """{"measurement_uid":"fallback-uid"}""",
+                                    ),
+                                    credential = null,
+                                ),
+                            )
+                    }
+                },
+                json = json,
+            )
+
+            val result = subject(measurementData)
+
+            if (OrganizationConfig.ooniApiBaseUrl != OrganizationConfig.ooniApiFallbackUrl) {
+                val success = assertIs<Success<SubmitMeasurement.ResponseData>>(result)
+                assertEquals(MeasurementModel.Uid("fallback-uid"), success.value.uid)
+                assertEquals(2, calledUrls.size)
+            } else {
+                assertIs<Failure<*>>(result)
+                assertEquals(1, calledUrls.size)
+            }
+        }
 
     @Test
     fun nonSuccessfulResponseSurfacesStatusAndDecodedError() =
