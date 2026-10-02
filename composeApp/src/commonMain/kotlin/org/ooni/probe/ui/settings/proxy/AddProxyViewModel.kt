@@ -12,7 +12,9 @@ import kotlinx.coroutines.flow.update
 import org.ooni.probe.data.models.CustomProxyProtocol
 import org.ooni.probe.data.models.ProxyOption
 import org.ooni.probe.data.models.validateHost
+import org.ooni.probe.data.models.validatePassword
 import org.ooni.probe.data.models.validatePort
+import org.ooni.probe.data.models.validateUsername
 
 class AddProxyViewModel(
     onBack: () -> Unit,
@@ -52,18 +54,44 @@ class AddProxyViewModel(
             }.launchIn(viewModelScope)
 
         events
+            .filterIsInstance<Event.UsernameChanged>()
+            .onEach {
+                _state.update { state ->
+                    state.copy(
+                        username = it.username,
+                        showUsernameAsInvalid = false,
+                    )
+                }
+            }.launchIn(viewModelScope)
+
+        events
+            .filterIsInstance<Event.PasswordChanged>()
+            .onEach {
+                _state.update { state ->
+                    state.copy(
+                        password = it.password,
+                        showPasswordAsInvalid = false,
+                    )
+                }
+            }.launchIn(viewModelScope)
+
+        events
             .filterIsInstance<Event.SaveClicked>()
             .onEach {
                 val state = _state.value
                 val isHostValid = validateHost(state.host)
                 val isPortValid = validatePort(state.port)
+                val isUsernameValid = validateUsername(state.username, state.password)
+                val isPasswordValid = validatePassword(state.password)
 
-                if (isHostValid && isPortValid) {
+                if (isHostValid && isPortValid && isUsernameValid && isPasswordValid) {
                     addCustomProxy(
                         ProxyOption.Custom.build(
-                            state.protocol.value,
-                            state.host,
-                            state.port,
+                            protocol = state.protocol.value,
+                            hostname = state.host,
+                            port = state.port,
+                            username = state.username.takeIf { it.isNotBlank() },
+                            password = state.password.takeIf { it.isNotBlank() },
                         ),
                     )
                     onBack()
@@ -71,7 +99,17 @@ class AddProxyViewModel(
                     _state.value = state.copy(
                         showHostAsInvalid = !isHostValid,
                         showPortAsInvalid = !isPortValid,
+                        showUsernameAsInvalid = !isUsernameValid,
+                        showPasswordAsInvalid = !isPasswordValid,
                     )
+                }
+            }.launchIn(viewModelScope)
+
+        events
+            .filterIsInstance<Event.TogglePasswordVisibility>()
+            .onEach {
+                _state.update { state ->
+                    state.copy(isPasswordVisible = !state.isPasswordVisible)
                 }
             }.launchIn(viewModelScope)
 
@@ -91,6 +129,11 @@ class AddProxyViewModel(
         val showHostAsInvalid: Boolean = false,
         val port: String = "1080",
         val showPortAsInvalid: Boolean = false,
+        val username: String = "",
+        val showUsernameAsInvalid: Boolean = false,
+        val password: String = "",
+        val showPasswordAsInvalid: Boolean = false,
+        val isPasswordVisible: Boolean = false,
     )
 
     sealed interface Event {
@@ -107,6 +150,16 @@ class AddProxyViewModel(
         data class PortChanged(
             val port: String,
         ) : Event
+
+        data class UsernameChanged(
+            val username: String,
+        ) : Event
+
+        data class PasswordChanged(
+            val password: String,
+        ) : Event
+
+        data object TogglePasswordVisibility : Event
 
         data object SaveClicked : Event
     }

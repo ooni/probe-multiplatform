@@ -248,8 +248,15 @@
     <string name="Settings_Proxy_Custom_Protocol">Protocol</string>
     <string name="Settings_Proxy_Custom_Hostname">Hostname</string>
     <string name="Settings_Proxy_Custom_Port">Port</string>
+    <string name="Settings_Proxy_Custom_Authentication">Authentication (optional)</string>
+    <string name="Settings_Proxy_Custom_Username">Username</string>
+    <string name="Settings_Proxy_Custom_Password">Password</string>
     <string name="Settings_Proxy_Custom_HostnameInvalid">Hostname is invalid</string>
     <string name="Settings_Proxy_Custom_PortInvalid">Port is invalid</string>
+    <string name="Settings_Proxy_Custom_UsernameInvalid">Username is invalid</string>
+    <string name="Settings_Proxy_Custom_PasswordInvalid">Password is invalid</string>
+    <string name="Settings_Proxy_Custom_ShowPassword">Show password</string>
+    <string name="Settings_Proxy_Custom_HidePassword">Hide password</string>
     <string name="Settings_Proxy_Custom_Testing">Testing</string>
     <string name="Settings_Proxy_Custom_Available">Available</string>
     <string name="Settings_Proxy_Custom_Unavailable">Unavailable</string>
