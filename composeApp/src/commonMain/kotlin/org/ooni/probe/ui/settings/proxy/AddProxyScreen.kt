@@ -3,13 +3,19 @@ package org.ooni.probe.ui.settings.proxy
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.ime
+import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -81,158 +87,165 @@ fun AddProxyScreen(
 
         Column(
             Modifier
-                .selectableGroup()
-                .padding(bottom = 24.dp)
-                .background(MaterialTheme.colorScheme.background)
-                .padding(vertical = 8.dp),
+                .verticalScroll(rememberScrollState())
+                .padding(WindowInsets.navigationBars.asPaddingValues())
+                .padding(WindowInsets.ime.asPaddingValues()),
         ) {
-            Text(
-                stringResource(Res.string.Settings_Proxy_Custom_Protocol),
-                style = MaterialTheme.typography.titleSmall,
-                modifier = Modifier.padding(horizontal = 16.dp),
-            )
+            Column(
+                Modifier
+                    .selectableGroup()
+                    .padding(bottom = 24.dp)
+                    .background(MaterialTheme.colorScheme.background)
+                    .padding(vertical = 8.dp),
+            ) {
+                Text(
+                    stringResource(Res.string.Settings_Proxy_Custom_Protocol),
+                    style = MaterialTheme.typography.titleSmall,
+                    modifier = Modifier.padding(horizontal = 16.dp),
+                )
 
-            CustomProxyProtocol.entries.forEach { protocol ->
-                Row(
-                    Modifier
-                        .fillMaxWidth()
-                        .defaultMinSize(minHeight = 56.dp)
-                        .selectable(
-                            selected = state.protocol == protocol,
-                            onClick = {
-                                onEvent(AddProxyViewModel.Event.ProtocolChanged(protocol))
-                            },
-                            role = Role.RadioButton,
-                        ).padding(horizontal = 16.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                ) {
-                    RadioButton(
-                        selected = state.protocol == protocol,
-                        onClick = null,
-                    )
-                    Text(
-                        text = protocol.value.uppercase(),
-                        style = MaterialTheme.typography.bodyLarge,
-                        modifier = Modifier.padding(start = 16.dp),
-                    )
-                }
-            }
-        }
-
-        Column(
-            Modifier
-                .background(MaterialTheme.colorScheme.background)
-                .padding(16.dp),
-        ) {
-            OutlinedTextField(
-                value = state.host,
-                onValueChange = { onEvent(AddProxyViewModel.Event.HostChanged(it)) },
-                label = { Text(stringResource(Res.string.Settings_Proxy_Custom_Hostname)) },
-                keyboardOptions = KeyboardOptions.Default.copy(
-                    keyboardType = KeyboardType.Uri,
-                ),
-                maxLines = 1,
-                isError = state.showHostAsInvalid,
-                supportingText = {
-                    if (state.showHostAsInvalid) {
-                        Text(stringResource(Res.string.Settings_Proxy_Custom_HostnameInvalid))
-                    }
-                },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .testTag("AddProxy-HostField"),
-            )
-
-            OutlinedTextField(
-                value = state.port,
-                onValueChange = { onEvent(AddProxyViewModel.Event.PortChanged(it)) },
-                label = { Text(stringResource(Res.string.Settings_Proxy_Custom_Port)) },
-                keyboardOptions = KeyboardOptions.Default.copy(
-                    keyboardType = KeyboardType.Number,
-                ),
-                maxLines = 1,
-                isError = state.showPortAsInvalid,
-                supportingText = {
-                    if (state.showPortAsInvalid) {
-                        Text(stringResource(Res.string.Settings_Proxy_Custom_PortInvalid))
-                    }
-                },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .testTag("AddProxy-PortField"),
-            )
-
-            Text(
-                text = stringResource(Res.string.Settings_Proxy_Custom_Authentication),
-                style = MaterialTheme.typography.titleSmall,
-                modifier = Modifier.padding(top = 24.dp, bottom = 8.dp),
-            )
-
-            OutlinedTextField(
-                value = state.username,
-                onValueChange = { onEvent(AddProxyViewModel.Event.UsernameChanged(it)) },
-                label = { Text(stringResource(Res.string.Settings_Proxy_Custom_Username)) },
-                keyboardOptions = KeyboardOptions.Default.copy(
-                    keyboardType = KeyboardType.Text,
-                ),
-                maxLines = 1,
-                isError = state.showUsernameAsInvalid,
-                supportingText = {
-                    if (state.showUsernameAsInvalid) {
-                        Text(stringResource(Res.string.Settings_Proxy_Custom_UsernameInvalid))
-                    }
-                },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .testTag("AddProxy-UsernameField"),
-            )
-
-            OutlinedTextField(
-                value = state.password,
-                onValueChange = { onEvent(AddProxyViewModel.Event.PasswordChanged(it)) },
-                label = { Text(stringResource(Res.string.Settings_Proxy_Custom_Password)) },
-                keyboardOptions = KeyboardOptions.Default.copy(
-                    keyboardType = KeyboardType.Password,
-                ),
-                visualTransformation = if (state.isPasswordVisible) {
-                    VisualTransformation.None
-                } else {
-                    PasswordVisualTransformation()
-                },
-                trailingIcon = {
-                    IconButton(
-                        onClick = { onEvent(AddProxyViewModel.Event.TogglePasswordVisibility) },
-                        modifier = Modifier.testTag("AddProxy-TogglePasswordVisibility"),
+                CustomProxyProtocol.entries.forEach { protocol ->
+                    Row(
+                        Modifier
+                            .fillMaxWidth()
+                            .defaultMinSize(minHeight = 56.dp)
+                            .selectable(
+                                selected = state.protocol == protocol,
+                                onClick = {
+                                    onEvent(AddProxyViewModel.Event.ProtocolChanged(protocol))
+                                },
+                                role = Role.RadioButton,
+                            ).padding(horizontal = 16.dp),
+                        verticalAlignment = Alignment.CenterVertically,
                     ) {
-                        Icon(
-                            painter = painterResource(
-                                if (state.isPasswordVisible) {
-                                    Res.drawable.ic_visibility_off
-                                } else {
-                                    Res.drawable.ic_visibility
-                                },
-                            ),
-                            contentDescription = stringResource(
-                                if (state.isPasswordVisible) {
-                                    Res.string.Settings_Proxy_Custom_HidePassword
-                                } else {
-                                    Res.string.Settings_Proxy_Custom_ShowPassword
-                                },
-                            ),
+                        RadioButton(
+                            selected = state.protocol == protocol,
+                            onClick = null,
+                        )
+                        Text(
+                            text = protocol.value.uppercase(),
+                            style = MaterialTheme.typography.bodyLarge,
+                            modifier = Modifier.padding(start = 16.dp),
                         )
                     }
-                },
-                maxLines = 1,
-                isError = state.showPasswordAsInvalid,
-                supportingText = {
-                    if (state.showPasswordAsInvalid) {
-                        Text(stringResource(Res.string.Settings_Proxy_Custom_PasswordInvalid))
-                    }
-                },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .testTag("AddProxy-PasswordField"),
-            )
+                }
+            }
+
+            Column(
+                Modifier
+                    .background(MaterialTheme.colorScheme.background)
+                    .padding(16.dp),
+            ) {
+                OutlinedTextField(
+                    value = state.host,
+                    onValueChange = { onEvent(AddProxyViewModel.Event.HostChanged(it)) },
+                    label = { Text(stringResource(Res.string.Settings_Proxy_Custom_Hostname)) },
+                    keyboardOptions = KeyboardOptions.Default.copy(
+                        keyboardType = KeyboardType.Uri,
+                    ),
+                    maxLines = 1,
+                    isError = state.showHostAsInvalid,
+                    supportingText = {
+                        if (state.showHostAsInvalid) {
+                            Text(stringResource(Res.string.Settings_Proxy_Custom_HostnameInvalid))
+                        }
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .testTag("AddProxy-HostField"),
+                )
+
+                OutlinedTextField(
+                    value = state.port,
+                    onValueChange = { onEvent(AddProxyViewModel.Event.PortChanged(it)) },
+                    label = { Text(stringResource(Res.string.Settings_Proxy_Custom_Port)) },
+                    keyboardOptions = KeyboardOptions.Default.copy(
+                        keyboardType = KeyboardType.Number,
+                    ),
+                    maxLines = 1,
+                    isError = state.showPortAsInvalid,
+                    supportingText = {
+                        if (state.showPortAsInvalid) {
+                            Text(stringResource(Res.string.Settings_Proxy_Custom_PortInvalid))
+                        }
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .testTag("AddProxy-PortField"),
+                )
+
+                Text(
+                    text = stringResource(Res.string.Settings_Proxy_Custom_Authentication),
+                    style = MaterialTheme.typography.titleSmall,
+                    modifier = Modifier.padding(top = 24.dp, bottom = 8.dp),
+                )
+
+                OutlinedTextField(
+                    value = state.username,
+                    onValueChange = { onEvent(AddProxyViewModel.Event.UsernameChanged(it)) },
+                    label = { Text(stringResource(Res.string.Settings_Proxy_Custom_Username)) },
+                    keyboardOptions = KeyboardOptions.Default.copy(
+                        keyboardType = KeyboardType.Text,
+                    ),
+                    maxLines = 1,
+                    isError = state.showUsernameAsInvalid,
+                    supportingText = {
+                        if (state.showUsernameAsInvalid) {
+                            Text(stringResource(Res.string.Settings_Proxy_Custom_UsernameInvalid))
+                        }
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .testTag("AddProxy-UsernameField"),
+                )
+
+                OutlinedTextField(
+                    value = state.password,
+                    onValueChange = { onEvent(AddProxyViewModel.Event.PasswordChanged(it)) },
+                    label = { Text(stringResource(Res.string.Settings_Proxy_Custom_Password)) },
+                    keyboardOptions = KeyboardOptions.Default.copy(
+                        keyboardType = KeyboardType.Password,
+                    ),
+                    visualTransformation = if (state.isPasswordVisible) {
+                        VisualTransformation.None
+                    } else {
+                        PasswordVisualTransformation()
+                    },
+                    trailingIcon = {
+                        IconButton(
+                            onClick = { onEvent(AddProxyViewModel.Event.TogglePasswordVisibility) },
+                            modifier = Modifier.testTag("AddProxy-TogglePasswordVisibility"),
+                        ) {
+                            Icon(
+                                painter = painterResource(
+                                    if (state.isPasswordVisible) {
+                                        Res.drawable.ic_visibility_off
+                                    } else {
+                                        Res.drawable.ic_visibility
+                                    },
+                                ),
+                                contentDescription = stringResource(
+                                    if (state.isPasswordVisible) {
+                                        Res.string.Settings_Proxy_Custom_HidePassword
+                                    } else {
+                                        Res.string.Settings_Proxy_Custom_ShowPassword
+                                    },
+                                ),
+                            )
+                        }
+                    },
+                    maxLines = 1,
+                    isError = state.showPasswordAsInvalid,
+                    supportingText = {
+                        if (state.showPasswordAsInvalid) {
+                            Text(stringResource(Res.string.Settings_Proxy_Custom_PasswordInvalid))
+                        }
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .testTag("AddProxy-PasswordField"),
+                )
+            }
         }
     }
 }

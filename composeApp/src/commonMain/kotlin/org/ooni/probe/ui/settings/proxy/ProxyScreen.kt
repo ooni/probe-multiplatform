@@ -94,7 +94,7 @@ fun ProxyScreen(
                                     onEvent(ProxyViewModel.Event.OptionSelected(item.option))
                                 },
                                 role = Role.RadioButton,
-                            ).padding(horizontal = 16.dp),
+                            ).padding(horizontal = 16.dp, vertical = 8.dp),
                         verticalAlignment = Alignment.CenterVertically,
                     ) {
                         RadioButton(
