@@ -96,23 +96,14 @@ struct iOSApp: App {
             return
         }
 
-        if host == "runv2" || host == appDependencies.ooniRunDomain() {
+        let path = url.path
+
+        if host == "runv2" || (host == appDependencies.ooniRunDomain() && (path.hasPrefix("/runv2") || path.hasPrefix("/v2"))) {
             let id = url.lastPathComponent
             deepLinkFlow.emit(value: DeepLink.AddDescriptor(id: id), completionHandler: {error in
                 print(error ?? "none")
             })
-        } else if host == "nettest" {
-            if let webAddress = url["url"] {
-                deepLinkFlow.emit(value: DeepLink.RunUrls(url: webAddress), completionHandler: {error in
-                    print(error ?? "none")
-                })
-            } else {
-
-                deepLinkFlow.emit(value: DeepLink.Error(), completionHandler: {error in
-                    print(error ?? "none")
-                })
-            }
-        } else if host == "login" {
+        } else if host == "login" || (host == appDependencies.ooniRunDomain() && path.hasPrefix("/login")) {
             if let token = url["token"], !token.isEmpty {
                 deepLinkFlow.emit(value: DeepLink.Login(token: token), completionHandler: {error in
                     print(error ?? "none")
@@ -122,6 +113,24 @@ struct iOSApp: App {
                     print(error ?? "none")
                 })
             }
+        } else if host == "nettest" {
+            if let webAddress = url["url"] {
+                deepLinkFlow.emit(value: DeepLink.RunUrls(url: webAddress), completionHandler: {error in
+                    print(error ?? "none")
+                })
+            } else {
+                deepLinkFlow.emit(value: DeepLink.Error(), completionHandler: {error in
+                    print(error ?? "none")
+                })
+            }
+        } else if host == appDependencies.ooniRunDomain() || url.scheme == "http" || url.scheme == "https" {
+            deepLinkFlow.emit(value: DeepLink.RunUrls(url: url.absoluteString), completionHandler: {error in
+                print(error ?? "none")
+            })
+        } else {
+            deepLinkFlow.emit(value: DeepLink.Error(), completionHandler: {error in
+                print(error ?? "none")
+            })
         }
     }
 }

@@ -88,15 +88,16 @@ class MainActivity : ComponentActivity() {
 
     private fun manageOoniRun(intent: Intent) {
         val uri = intent.data ?: return
-        when (uri.host) {
-            "runv2",
-            OrganizationConfig.ooniRunDomain,
-            -> {
+        val host = uri.host
+        val path = uri.path ?: ""
+
+        when {
+            host == "runv2" || (host == OrganizationConfig.ooniRunDomain && (path.startsWith("/runv2") || path.startsWith("/v2"))) -> {
                 val id = uri.lastPathSegment ?: return
                 deepLinkFlow.tryEmit(DeepLink.AddDescriptor(id))
             }
 
-            "login" -> {
+            host == "login" || (host == OrganizationConfig.ooniRunDomain && path.startsWith("/login")) -> {
                 val token = uri.getQueryParameter("token")
                 if (token.isNullOrBlank()) {
                     deepLinkFlow.tryEmit(DeepLink.Error)
@@ -104,6 +105,10 @@ class MainActivity : ComponentActivity() {
                 } else {
                     deepLinkFlow.tryEmit(DeepLink.Login(token))
                 }
+            }
+
+            host == OrganizationConfig.ooniRunDomain || uri.scheme == "http" || uri.scheme == "https" -> {
+                deepLinkFlow.tryEmit(DeepLink.RunUrls(uri.toString()))
             }
 
             else -> {
