@@ -26,7 +26,8 @@ import kotlin.coroutines.CoroutineContext
 class PassportHttpClient(
     @get:VisibleForTesting
     var passportGet: PassportGet,
-    private val passportPost: PassportPost,
+    @get:VisibleForTesting
+    var passportPost: PassportPost,
     private val passportAuthRegister: PassportAuthRegister,
     private val passportAuthSubmit: PassportAuthSubmit,
     private val getProxyOption: () -> Flow<ProxyOption>,
@@ -45,11 +46,12 @@ class PassportHttpClient(
         url: String,
         proxyOverride: String? = null,
         timeout: Float = PassportTimeouts.DEFAULT_SECONDS,
+        extraHeaders: List<PassportBridge.KeyValue> = emptyList(),
     ): Result<PassportHttpResponse, PassportException> =
         dispatch(url, proxyOverride) { proxy ->
             passportGet.get(
                 url = url,
-                headers = commonHeaders(),
+                headers = commonHeaders() + extraHeaders,
                 query = emptyList(),
                 proxy = proxy,
                 timeout = timeout,
@@ -60,11 +62,14 @@ class PassportHttpClient(
         url: String,
         payload: String,
         timeout: Float = PassportTimeouts.DEFAULT_SECONDS,
+        extraHeaders: List<PassportBridge.KeyValue> = emptyList(),
     ): Result<PassportHttpResponse, PassportException> =
         dispatch(url) { proxy ->
             passportPost.post(
                 url = url,
-                headers = commonHeaders() + PassportBridge.KeyValue("Content-Type", "application/json"),
+                headers = commonHeaders() +
+                    PassportBridge.KeyValue("Content-Type", "application/json") +
+                    extraHeaders,
                 payload = payload,
                 proxy = proxy,
                 timeout = timeout,
