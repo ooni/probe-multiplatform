@@ -39,10 +39,26 @@ class DeepLinkParserTest {
     }
 
     @Test
+    fun loginWithUrl() {
+        assertEquals(
+            DeepLink.Login("abc123"),
+            DeepLinkParser("https://${OrganizationConfig.ooniRunDomain}/login?token=abc123"),
+        )
+    }
+
+    @Test
     fun loginWithoutToken() {
         assertEquals(
             DeepLink.Error,
             DeepLinkParser("ooni://login"),
+        )
+    }
+
+    @Test
+    fun loginWithUrlWithoutToken() {
+        assertEquals(
+            DeepLink.Error,
+            DeepLinkParser("https://${OrganizationConfig.ooniRunDomain}/login"),
         )
     }
 
