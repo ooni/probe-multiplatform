@@ -506,6 +506,15 @@
                 "inputs_extra": null
             },
             {
+                "test_name": "tlsmiddlebox",
+                "inputs": [],
+                "options": {},
+                "is_background_run_enabled_default": false,
+                "is_manual_run_enabled_default": false,
+                "targets_name": null,
+                "inputs_extra": null
+            },
+            {
                 "test_name": "openvpn",
                 "inputs": [],
                 "options": {},
@@ -611,7 +620,7 @@
         "oonirun_link_id": "00108",
         "date_created": "2024-11-06T14:58:44.000000Z",
         "date_updated": "2026-02-09T11:18:23.000000Z",
-        "revision": "1",
+        "revision": "3",
         "is_mine": false,
         "is_expired": false
     }

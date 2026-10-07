@@ -136,7 +136,9 @@ class RunDescriptors(
     ): List<NetTest> =
         map { test ->
             val inputs =
-                if (test.test !is TestType.WebConnectivity || test.inputs?.isNotEmpty() == true) {
+                if (test.test is TestType.TLSMiddleBox) {
+                    listOf("tlstrace://bricspress.live/")
+                } else if (test.test !is TestType.WebConnectivity || test.inputs?.isNotEmpty() == true) {
                     test.inputs
                 } else if (!checkInUrls.isNullOrEmpty()) {
                     checkInUrls.map { it.url }

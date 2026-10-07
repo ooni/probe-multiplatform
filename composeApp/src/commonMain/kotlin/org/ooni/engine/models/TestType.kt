@@ -79,6 +79,17 @@ sealed class TestType {
         override fun runtime(inputs: List<String>?) = 30.seconds
     }
 
+    data object TLSMiddleBox : TestType() {
+        override val name: String = "tlsmiddlebox"
+        override val labelRes: StringResource = Res.string.Test_Experimental_Fullname
+        override val iconRes: DrawableResource = Res.drawable.test_experimental
+
+        override val isBackgroundRunEnabled: Boolean = false
+        override val isManualRunEnabled: Boolean = true
+
+        override fun runtime(inputs: List<String>?) = 30.seconds + inputs.orEmpty().size.times(5.seconds)
+    }
+
     data object FacebookMessenger : TestType() {
         override val name: String = "facebook_messenger"
         override val labelRes: StringResource = Res.string.Test_FacebookMessenger_Fullname
@@ -202,6 +213,7 @@ sealed class TestType {
                 Tor,
                 WebConnectivity,
                 Whatsapp,
+                TLSMiddleBox,
             )
         }
 

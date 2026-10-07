@@ -16,7 +16,7 @@ fun evaluateMeasurementKeys(
                 isFailed = keys?.failure != null,
             )
 
-        is TestType.Experimental ->
+        is TestType.Experimental, TestType.TLSMiddleBox ->
             MeasurementKeysResult()
 
         TestType.FacebookMessenger ->
