@@ -82,7 +82,7 @@ coil = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil" }
 coil-network = { module = "io.coil-kt.coil3:coil-network-ktor3", version.ref = "coil" }
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
 ktor-client-jvm = { module = "io.ktor:ktor-client-java", version.ref = "ktor" }
-ktor-client-android = { module = "io.ktor:ktor-client-android", version.ref = "ktor" }
+ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
 ktor-client-ios = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor" }
 
 # Preferences
@@ -201,7 +201,7 @@ android = [
     "android-work",
     "sqldelight-android",
     "android-appcompat",
-    "ktor-client-android",
+    "ktor-client-okhttp",
 ]
 ios = [
     "ktor-client-ios",
