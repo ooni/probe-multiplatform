@@ -221,7 +221,7 @@ dependencies {
     implementation(libs.navigation)
 
     // Android libraries used by the moved entry points / workers
-    implementation(libs.bundles.android) // activity, fragment, webkit, work, sqldelight-android, appcompat, ktor-android
+    implementation(libs.bundles.android) // activity, fragment, webkit, work, sqldelight-android, appcompat, ktor-okhttp
     implementation(libs.kermit)
     implementation(libs.kotlin.serialization.json)
     implementation(libs.androidx.datastore.preferences.core)
