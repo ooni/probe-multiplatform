@@ -505,4 +505,6 @@
     <string name="Settings_Proxy_Custom_PasswordInvalid">Das Passwort ist ungültig</string>
     <string name="Settings_Proxy_Custom_ShowPassword">Passwort anzeigen</string>
     <string name="Settings_Proxy_Custom_HidePassword">Passwort verbergen</string>
+    <string name="Settings_Proxy_Custom_Username">Benutzername</string>
+    <string name="Settings_Proxy_Custom_Password">Passwort</string>
 </resources>
