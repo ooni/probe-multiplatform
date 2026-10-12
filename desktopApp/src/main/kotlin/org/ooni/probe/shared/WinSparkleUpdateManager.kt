@@ -30,6 +30,10 @@ class WinSparkleUpdateManager : UpdateManager {
         checkIntervalHours: Int,
     ): Int
 
+    private external fun nativeSetFeedUrl(url: String): Int
+
+    private external fun nativeSetErrorCallback(callback: Any?): Int
+
     private external fun nativeCheckForUpdates(showUI: Boolean): Int
 
     private external fun nativeSetAutomaticCheckEnabled(enabled: Boolean): Int
@@ -84,6 +88,15 @@ class WinSparkleUpdateManager : UpdateManager {
         updateState(UpdateState.NO_UPDATE_AVAILABLE)
     }
 
+    // Callback from native code for update check/download errors
+    @Suppress("unused")
+    fun onUpdateError(
+        errorCode: Int,
+        errorMessage: String,
+    ) {
+        logErrorAndUpdateState(errorCode, errorMessage, "updateCheck")
+    }
+
     // State management
     private var lastError: UpdateError? = null
     private var currentState: UpdateState = UpdateState.IDLE
@@ -134,6 +147,18 @@ class WinSparkleUpdateManager : UpdateManager {
             -2 -> logErrorAndUpdateState(result, "Failed to load required WinSparkle functions", "initialize")
             -3 -> logErrorAndUpdateState(result, "Invalid WinSparkle EdDSA public key", "initialize")
             else -> logErrorAndUpdateState(result, "Unknown error occurred", "initialize")
+        }
+    }
+
+    override fun setAppcastUrl(url: String) {
+        lastAppcastUrl = url
+        val result = nativeSetFeedUrl(url)
+        when (result) {
+            0 -> logCallback?.invoke(UpdateLogMessage(UpdateLogLevel.INFO, "setAppcastUrl", "Switched appcast feed to $url"))
+            -1 -> logCallback?.invoke(
+                UpdateLogMessage(UpdateLogLevel.WARN, "setAppcastUrl", "WinSparkle not initialized, cannot switch feed"),
+            )
+            else -> logErrorAndUpdateState(result, "Unknown error switching appcast feed", "setAppcastUrl")
         }
     }
 
@@ -208,6 +233,8 @@ class WinSparkleUpdateManager : UpdateManager {
     // Error and state management implementation
     override fun setErrorCallback(callback: UpdateErrorCallback?) {
         errorCallback = callback
+        // Set native callback - pass this object so native code can call onUpdateError
+        nativeSetErrorCallback(if (callback != null) this else null)
     }
 
     override fun setStateCallback(callback: UpdateStateCallback?) {
@@ -241,5 +268,7 @@ class WinSparkleUpdateManager : UpdateManager {
         }
     }
 
-    override fun isHealthy(): Boolean = currentState != UpdateState.ERROR
+    override fun isHealthy(): Boolean =
+        // Network/feed failures during a check are recoverable via retry or feed failover.
+        currentState != UpdateState.ERROR || lastError?.operation == "updateCheck"
 }

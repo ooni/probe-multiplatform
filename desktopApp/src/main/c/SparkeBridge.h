@@ -32,6 +32,13 @@ typedef void (*SparkleUpdateCallback)(const char* version, const char* descripti
 typedef void (*SparkleNoUpdateCallback)(void);
 
 /**
+ * Error callback function type
+ * @param code The platform error code (e.g. NSURLErrorDomain / Sparkle error code)
+ * @param message Human-readable error description
+ */
+typedef void (*SparkleErrorCallback)(int code, const char* message);
+
+/**
  * Set log callback for receiving log messages
  * @param callback Function pointer to log callback, or NULL to disable
  */
@@ -44,6 +51,34 @@ void sparkle_set_log_callback(SparkleLogCallback callback);
 void sparkle_set_shutdown_callback(SparkleShutdownCallback callback);
 void sparkle_set_update_callback(SparkleUpdateCallback callback);
 void sparkle_set_no_update_callback(SparkleNoUpdateCallback callback);
+
+/**
+ * Set error callback for update check/download failures
+ * @param callback Function pointer to error callback, or NULL to disable
+ */
+void sparkle_set_error_callback(SparkleErrorCallback callback);
+
+/**
+ * Switch the appcast feed URL at runtime (e.g. to fail over to a mirror).
+ * Safe to call after initialization; the new URL is used on the next check.
+ * @param url The new appcast feed URL (UTF-8 encoded)
+ * @return 0 on success, -1 if the updater is not initialized
+ */
+int sparkle_set_feed_url(const char* url);
+
+/**
+ * Hold back Sparkle's error alert instead of showing it, so the app can try another feed
+ * first. Disabling it also drops any held-back error.
+ * @param enabled 1 to hold back error alerts, 0 to show them as usual
+ * @return 0 on success, -1 if the updater is not initialized
+ */
+int sparkle_set_defer_errors(int enabled);
+
+/**
+ * Show the last held-back error with Sparkle's standard error alert.
+ * @return 0 on success, -1 if the updater is not initialized
+ */
+int sparkle_show_deferred_error(void);
 
 /**
  * Initialize Sparkle updater with appcast URL and optional public key
