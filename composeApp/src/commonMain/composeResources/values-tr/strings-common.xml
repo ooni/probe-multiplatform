@@ -500,4 +500,11 @@
     <string name="Settings_Language_SystemDefault">Sistem varsayılanı</string>
     <string name="Desktop_ForceQuit">Zorla Çık</string>
     <string name="Dashboard_Runv2_Overview_Description_Compact">%1$s tarihinde oluşturuldu</string>
+    <string name="Settings_Proxy_Custom_Authentication">Kimlik Doğrulama (isteğe bağlı)</string>
+    <string name="Settings_Proxy_Custom_Username">Kullanıcı adı</string>
+    <string name="Settings_Proxy_Custom_Password">Parola</string>
+    <string name="Settings_Proxy_Custom_UsernameInvalid">Kullanıcı adı geçersiz</string>
+    <string name="Settings_Proxy_Custom_PasswordInvalid">Parola geçersiz</string>
+    <string name="Settings_Proxy_Custom_ShowPassword">Parolayı göster</string>
+    <string name="Settings_Proxy_Custom_HidePassword">Parolayı gizle</string>
 </resources>

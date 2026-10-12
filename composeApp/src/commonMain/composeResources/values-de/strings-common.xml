@@ -500,4 +500,11 @@
     <string name="Settings_AnonymousCredentials_Reset_Success">Es wurden neue anonyme Anmeldedaten erstellt. Ihre zukünftigen Messungen werden einer neuen Probe-ID zugeordnet.</string>
     <string name="Settings_AnonymousCredentials_Reset_Failed">Die alten Anmeldedaten wurden entfernt, es konnten jedoch keine neuen abgerufen werden. Überprüfe deine Internetverbindung und versuche es erneut. OONI Probe wird es außerdem beim nächsten Test automatisch erneut versuchen.</string>
     <string name="Dashboard_Runv2_Overview_Description_Compact">Erstellt am %1$s</string>
+    <string name="Settings_Proxy_Custom_Authentication">Authentifizierung (optional)</string>
+    <string name="Settings_Proxy_Custom_UsernameInvalid">Der Benutzername ist ungültig</string>
+    <string name="Settings_Proxy_Custom_PasswordInvalid">Das Passwort ist ungültig</string>
+    <string name="Settings_Proxy_Custom_ShowPassword">Passwort anzeigen</string>
+    <string name="Settings_Proxy_Custom_HidePassword">Passwort verbergen</string>
+    <string name="Settings_Proxy_Custom_Username">Benutzername</string>
+    <string name="Settings_Proxy_Custom_Password">Passwort</string>
 </resources>

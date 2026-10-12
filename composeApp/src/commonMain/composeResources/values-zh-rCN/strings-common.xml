@@ -478,4 +478,11 @@
     <string name="Settings_AnonymousCredentials_Reset_Success">已创建新的匿名凭据。您未来的测量将与新的 Probe ID 关联。</string>
     <string name="Settings_AnonymousCredentials_Reset_Failed">旧凭据已被移除，但无法获取新凭据。请检查您的互联网连接并重试。OONI Probe 也会在您下次运行测试时自动重试。</string>
     <string name="Dashboard_Runv2_Overview_Description_Compact">创建于 %1$s</string>
+    <string name="Settings_Proxy_Custom_Authentication">身份认证（可选）</string>
+    <string name="Settings_Proxy_Custom_Username">用户名</string>
+    <string name="Settings_Proxy_Custom_Password">密码</string>
+    <string name="Settings_Proxy_Custom_UsernameInvalid">用户名无效</string>
+    <string name="Settings_Proxy_Custom_PasswordInvalid">密码无效</string>
+    <string name="Settings_Proxy_Custom_ShowPassword">显示密码</string>
+    <string name="Settings_Proxy_Custom_HidePassword">隐藏密码</string>
 </resources>

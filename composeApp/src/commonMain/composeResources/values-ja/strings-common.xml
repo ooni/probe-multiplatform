@@ -471,4 +471,11 @@
     <string name="Settings_AnonymousCredentials_Reset_Success">新しい匿名クレデンシャルが作成されました。今後の計測結果は新しい Probe ID に紐付けられます。</string>
     <string name="Settings_AnonymousCredentials_Reset_Failed">古いクレデンシャルは削除されましたが、新しいクレデンシャルを取得できませんでした。インターネット接続を確認して、もう一度お試しください。OONI Probe は次回テストを実行する際にも自動的に再試行します。</string>
     <string name="Dashboard_Runv2_Overview_Description_Compact">%1$s に作成されました</string>
+    <string name="Settings_Proxy_Custom_Authentication">認証 (任意)</string>
+    <string name="Settings_Proxy_Custom_Username">ユーザー名</string>
+    <string name="Settings_Proxy_Custom_UsernameInvalid">ユーザー名が無効です</string>
+    <string name="Settings_Proxy_Custom_PasswordInvalid">パスワードが無効です</string>
+    <string name="Settings_Proxy_Custom_ShowPassword">パスワードを表示</string>
+    <string name="Settings_Proxy_Custom_HidePassword">パスワードを隠す</string>
+    <string name="Settings_Proxy_Custom_Password">パスワード</string>
 </resources>
