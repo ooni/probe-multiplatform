@@ -286,4 +286,6 @@
     <string name="Dashboard_ReviewDescriptor_Reject">បដិសេធការធ្វើបច្ចុប្បន្នភាព</string>
     <string name="Dashboard_Update_Ready">ការធ្វើបច្ចុប្បន្នភាពកម្មវិធីទើបតែត្រូវបានទាញយក</string>
     <string name="Dashboard_AutoRun_Enabled"><![CDATA[Auto-run is <i>បានបើកណើរការ</i>]]></string>
+    <string name="Settings_Proxy_Custom_HidePassword">លាក់ពាក្យសម្ងាត់</string>
+    <string name="Settings_Proxy_Custom_Testing">សាកល្បង</string>
 </resources>
