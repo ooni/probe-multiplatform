@@ -477,4 +477,5 @@
     <string name="Settings_Proxy_Custom_PasswordInvalid">パスワードが無効です</string>
     <string name="Settings_Proxy_Custom_ShowPassword">パスワードを表示</string>
     <string name="Settings_Proxy_Custom_HidePassword">パスワードを隠す</string>
+    <string name="Settings_Proxy_Custom_Password">パスワード</string>
 </resources>
