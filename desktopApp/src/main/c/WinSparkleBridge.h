@@ -38,6 +38,12 @@ typedef void (*WinSparkleUpdateCallback)(const char* version, const char* descri
 typedef void (*WinSparkleNoUpdateCallback)(void);
 
 /**
+ * Error callback function type. WinSparkle's own error callback carries no
+ * payload, so this callback is invoked without details; check the log output.
+ */
+typedef void (*WinSparkleErrorCallback)(void);
+
+/**
  * Set log callback for receiving log messages
  * @param callback Function pointer to log callback, or NULL to disable
  */
@@ -50,6 +56,19 @@ void winsparkle_set_log_callback(WinSparkleLogCallback callback);
 void winsparkle_set_shutdown_callback(WinSparkleShutdownCallback callback);
 void winsparkle_set_update_callback(WinSparkleUpdateCallback callback);
 void winsparkle_set_no_update_callback(WinSparkleNoUpdateCallback callback);
+
+/**
+ * Set error callback for update check/download failures
+ * @param callback Function pointer to error callback, or NULL to disable
+ */
+void winsparkle_set_error_callback(WinSparkleErrorCallback callback);
+
+/**
+ * Switch the appcast feed URL at runtime (e.g. to fail over to a mirror).
+ * @param url The new appcast feed URL (UTF-8 encoded)
+ * @return 0 on success, -1 if WinSparkle is not initialized
+ */
+int winsparkle_set_feed_url(const char* url);
 
 /**
  * Initialize WinSparkle after applying its update configuration.

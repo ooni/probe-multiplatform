@@ -79,6 +79,7 @@ class PreferenceRepository(
             SettingsKey.MAX_RUNTIME,
             SettingsKey.LEGACY_PROXY_PORT,
             SettingsKey.DELETE_OLD_RESULTS_THRESHOLD,
+            SettingsKey.LAST_WORKING_UPDATE_FEED_INDEX,
             -> PreferenceKey.IntKey(intPreferencesKey(preferenceKey))
 
             SettingsKey.MMDB_LAST_CHECK,

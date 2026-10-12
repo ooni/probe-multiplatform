@@ -7,19 +7,27 @@ import org.ooni.probe.shared.Platform
 object UpdateConfig {
     const val CHECK_INTERVAL_HOURS = 6
 
-    private const val MAC_URL =
+    private const val GITHUB_MAC_URL =
         "https://github.com/ooni/probe-multiplatform/releases/latest/download/feed-mac.rss"
-    private const val WINDOWS_URL =
+    private const val GITHUB_WINDOWS_URL =
         "https://github.com/ooni/probe-multiplatform/releases/latest/download/feed-windows.rss"
+    private const val MIRROR_MAC_URL =
+        "https://distribution.ooni.org/feed-mac.rss"
+    private const val MIRROR_WINDOWS_URL =
+        "https://distribution.ooni.org/feed-windows.rss"
 
-    val URL = when (val platform = dependencies.platformInfo.platform) {
+    /**
+     * Ordered appcast feed URLs for the current platform. The first reachable host is used;
+     * later entries are fallbacks for networks where GitHub is throttled or unreachable.
+     */
+    val URLS: List<String> = when (val platform = dependencies.platformInfo.platform) {
         is Platform.Desktop -> when (platform.os) {
-            DesktopOS.Mac -> MAC_URL
-            DesktopOS.Windows -> WINDOWS_URL
-            else -> ""
+            DesktopOS.Mac -> listOf(GITHUB_MAC_URL, MIRROR_MAC_URL)
+            DesktopOS.Windows -> listOf(GITHUB_WINDOWS_URL, MIRROR_WINDOWS_URL)
+            else -> emptyList()
         }
 
-        else -> ""
+        else -> emptyList()
     }
 
     val PUBLIC_KEY by lazy {

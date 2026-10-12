@@ -42,7 +42,29 @@ interface UpdateManager {
         publicKey: String? = null,
     )
 
+    /**
+     * Switch the appcast feed URL at runtime (used to fail over to a mirror host).
+     */
+    fun setAppcastUrl(url: String)
+
     fun checkForUpdates(showUI: Boolean = false)
+
+    /**
+     * Whether error dialogs of checks with UI can be held back with [setDeferErrorDialogs]
+     * and shown later with [showDeferredErrorDialog].
+     */
+    val canDeferErrorDialogs: Boolean get() = false
+
+    /**
+     * Hold back the native error dialog of checks with UI, so another feed can be tried
+     * before the user is told. Disabling it drops any held-back error.
+     */
+    fun setDeferErrorDialogs(enabled: Boolean) {}
+
+    /**
+     * Show the last held-back error with the native error dialog.
+     */
+    fun showDeferredErrorDialog() {}
 
     fun setAutomaticUpdatesEnabled(enabled: Boolean)
 
@@ -78,6 +100,8 @@ class NoOpUpdateManager : UpdateManager {
         appcastUrl: String,
         publicKey: String?,
     ) {}
+
+    override fun setAppcastUrl(url: String) {}
 
     override fun checkForUpdates(showUI: Boolean) {}
 

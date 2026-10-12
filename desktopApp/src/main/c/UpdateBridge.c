@@ -42,6 +42,8 @@ static jmethodID g_updateFoundCallbackMethod = NULL;
 static jmethodID g_noUpdateCallbackMethod = NULL;
 static jobject g_shutdownCallbackObject = NULL;
 static jmethodID g_shutdownCallbackMethod = NULL;
+static jobject g_errorCallbackObject = NULL;
+static jmethodID g_errorCallbackMethod = NULL;
 
 // Helper function to convert jstring to C string
 static const char* jstring_to_cstring(JNIEnv* env, jstring jstr) {
@@ -149,6 +151,74 @@ static void native_no_update_callback(void) {
     if (env == NULL) return;
     (*env)->CallVoidMethod(env, g_logCallbackObject, g_noUpdateCallbackMethod);
     if (detach_when_done) (*g_jvm)->DetachCurrentThread(g_jvm);
+}
+
+// Error callback function that forwards to Java
+static void native_error_callback(int code, const char* message) {
+    if (g_jvm == NULL || g_errorCallbackObject == NULL || g_errorCallbackMethod == NULL) {
+        return;
+    }
+
+    int detach_when_done;
+    JNIEnv* env = get_callback_env(&detach_when_done);
+    if (env == NULL) return;
+
+    jstring jMessage = (*env)->NewStringUTF(env, message != NULL ? message : "");
+    if (jMessage != NULL) {
+        (*env)->CallVoidMethod(env, g_errorCallbackObject, g_errorCallbackMethod,
+                (jint)code, jMessage);
+        (*env)->DeleteLocalRef(env, jMessage);
+    }
+
+    if (detach_when_done) (*g_jvm)->DetachCurrentThread(g_jvm);
+}
+
+#ifdef _WIN32
+// WinSparkle's error callback carries no payload; adapt it to the common error callback
+static void __cdecl winsparkle_error_trampoline(void) {
+    native_error_callback(-1, "WinSparkle update check or download failed");
+}
+#endif
+
+static jint set_error_callback(JNIEnv* env, jobject callback) {
+    if (g_jvm == NULL && (*env)->GetJavaVM(env, &g_jvm) != JNI_OK) {
+        return -1;
+    }
+
+    if (g_errorCallbackObject != NULL) {
+        (*env)->DeleteGlobalRef(env, g_errorCallbackObject);
+        g_errorCallbackObject = NULL;
+        g_errorCallbackMethod = NULL;
+    }
+
+    if (callback == NULL) {
+#ifdef __APPLE__
+        sparkle_set_error_callback(NULL);
+#else
+        winsparkle_set_error_callback(NULL);
+#endif
+        return 0;
+    }
+
+    g_errorCallbackObject = (*env)->NewGlobalRef(env, callback);
+    if (g_errorCallbackObject == NULL) return -2;
+
+    jclass callbackClass = (*env)->GetObjectClass(env, callback);
+    g_errorCallbackMethod = (*env)->GetMethodID(env, callbackClass, "onUpdateError", "(ILjava/lang/String;)V");
+    (*env)->DeleteLocalRef(env, callbackClass);
+
+    if (g_errorCallbackMethod == NULL) {
+        (*env)->DeleteGlobalRef(env, g_errorCallbackObject);
+        g_errorCallbackObject = NULL;
+        return -3;
+    }
+
+#ifdef __APPLE__
+    sparkle_set_error_callback(native_error_callback);
+#else
+    winsparkle_set_error_callback(winsparkle_error_trampoline);
+#endif
+    return 0;
 }
 
 static jint set_log_callback(JNIEnv* env, jobject callback) {
@@ -302,6 +372,29 @@ Java_org_ooni_probe_shared_SparkleUpdateManager_nativeCleanup(JNIEnv* env, jobje
 }
 
 JNIEXPORT jint JNICALL
+Java_org_ooni_probe_shared_SparkleUpdateManager_nativeSetErrorCallback(JNIEnv* env, jobject obj, jobject callback) {
+    return set_error_callback(env, callback);
+}
+
+JNIEXPORT jint JNICALL
+Java_org_ooni_probe_shared_SparkleUpdateManager_nativeSetFeedUrl(JNIEnv* env, jobject obj, jstring appcastUrl) {
+    const char* url = jstring_to_cstring(env, appcastUrl);
+    int result = sparkle_set_feed_url(url);
+    release_cstring(env, appcastUrl, url);
+    return result;
+}
+
+JNIEXPORT jint JNICALL
+Java_org_ooni_probe_shared_SparkleUpdateManager_nativeSetDeferErrors(JNIEnv* env, jobject obj, jboolean enabled) {
+    return sparkle_set_defer_errors(enabled ? 1 : 0);
+}
+
+JNIEXPORT jint JNICALL
+Java_org_ooni_probe_shared_SparkleUpdateManager_nativeShowDeferredError(JNIEnv* env, jobject obj) {
+    return sparkle_show_deferred_error();
+}
+
+JNIEXPORT jint JNICALL
 Java_org_ooni_probe_shared_SparkleUpdateManager_nativeSetShutdownCallback(JNIEnv* env, jobject obj, jobject callback) {
     // Get JavaVM for later use
     if (g_jvm == NULL) {
@@ -411,6 +504,19 @@ Java_org_ooni_probe_shared_WinSparkleUpdateManager_nativeSetDllRoot(JNIEnv* env,
 JNIEXPORT jint JNICALL
 Java_org_ooni_probe_shared_WinSparkleUpdateManager_nativeCleanup(JNIEnv* env, jobject obj) {
     return winsparkle_cleanup();
+}
+
+JNIEXPORT jint JNICALL
+Java_org_ooni_probe_shared_WinSparkleUpdateManager_nativeSetErrorCallback(JNIEnv* env, jobject obj, jobject callback) {
+    return set_error_callback(env, callback);
+}
+
+JNIEXPORT jint JNICALL
+Java_org_ooni_probe_shared_WinSparkleUpdateManager_nativeSetFeedUrl(JNIEnv* env, jobject obj, jstring appcastUrl) {
+    const char* url = jstring_to_cstring(env, appcastUrl);
+    int result = winsparkle_set_feed_url(url);
+    release_cstring(env, appcastUrl, url);
+    return result;
 }
 
 #endif
