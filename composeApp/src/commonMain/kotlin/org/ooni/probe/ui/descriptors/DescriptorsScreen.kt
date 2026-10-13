@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LocalContentColor
@@ -44,10 +45,12 @@ import ooniprobe.composeapp.generated.resources.Common_Clear
 import ooniprobe.composeapp.generated.resources.Common_Collapse
 import ooniprobe.composeapp.generated.resources.Common_Expand
 import ooniprobe.composeapp.generated.resources.Common_Search
+import ooniprobe.composeapp.generated.resources.CreateDescriptor_Title
 import ooniprobe.composeapp.generated.resources.DescriptorUpdate_CheckUpdates
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.Tests_Search
 import ooniprobe.composeapp.generated.resources.Tests_Title
+import ooniprobe.composeapp.generated.resources.fa_pen_nib
 import ooniprobe.composeapp.generated.resources.ic_add
 import ooniprobe.composeapp.generated.resources.ic_close
 import ooniprobe.composeapp.generated.resources.ic_keyboard_arrow_down
@@ -72,6 +75,7 @@ fun DescriptorsScreen(
     state: DescriptorsViewModel.State,
     onEvent: (DescriptorsViewModel.Event) -> Unit,
 ) {
+    val canCreateTest = OrganizationConfig.canInstallDescriptors && !state.isFiltering
     val pullRefreshState = rememberPullToRefreshState()
     Box(
         Modifier
@@ -172,7 +176,10 @@ fun DescriptorsScreen(
                 val lazyListState = rememberLazyListState()
                 LazyColumn(
                     modifier = Modifier.testTag("Descriptors-List"),
-                    contentPadding = PaddingValues(top = 8.dp, bottom = 16.dp),
+                    contentPadding = PaddingValues(
+                        top = 8.dp,
+                        bottom = 16.dp + (if (canCreateTest) 80.dp else 0.dp),
+                    ),
                     state = lazyListState,
                 ) {
                     val allSectionsHaveValues = state.sections.all { it.descriptors.any() }
@@ -232,6 +239,24 @@ fun DescriptorsScreen(
             isRefreshing = state.isRefreshing,
             state = pullRefreshState,
         )
+
+        if (canCreateTest) {
+            ExtendedFloatingActionButton(
+                onClick = { onEvent(DescriptorsViewModel.Event.CreateClicked) },
+                icon = {
+                    Icon(
+                        painter = painterResource(Res.drawable.fa_pen_nib),
+                        contentDescription = null,
+                        modifier = Modifier.size(24.dp),
+                    )
+                },
+                text = { Text(stringResource(Res.string.CreateDescriptor_Title)) },
+                modifier = Modifier
+                    .testTag("CreateDescriptor-FAB")
+                    .align(Alignment.BottomEnd)
+                    .padding(16.dp),
+            )
+        }
     }
 
     NavigationBackHandler(
