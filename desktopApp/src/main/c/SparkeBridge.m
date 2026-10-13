@@ -2,11 +2,12 @@
 #import <Sparkle/Sparkle.h>
 #include "SparkeBridge.h"
 
-static SPUStandardUpdaterController* updaterController = nil;
+static SPUUpdater* sparkleUpdater = nil;
 static SparkleLogCallback logCallback = NULL;
 static SparkleShutdownCallback shutdownCallback = NULL;
 static SparkleUpdateCallback updateCallback = NULL;
 static SparkleNoUpdateCallback noUpdateCallback = NULL;
+static SparkleErrorCallback errorCallback = NULL;
 
 // Internal logging function that handles both NSLog and callback
 static void sparkle_log(SparkleLogLevel level, const char* operation, const char* format, ...) {
@@ -88,13 +89,74 @@ static void sparkle_log(SparkleLogLevel level, const char* operation, const char
 }
 
 - (void)updater:(SPUUpdater *)updater didAbortWithError:(NSError *)error {
+    // Sparkle also aborts the update cycle for outcomes that are not failures: no update
+    // found (reported through updaterDidNotFindUpdate:) and the user cancelling the install.
+    // Forwarding them would make every up-to-date check look like a feed failure.
+    if ([error.domain isEqualToString:SUSparkleErrorDomain] &&
+            (error.code == SUNoUpdateError || error.code == SUInstallationCanceledError)) {
+        sparkle_log(SPARKLE_LOG_INFO, "update_lifecycle", "Update cycle ended without error (%ld): %s",
+                (long)error.code, [error.localizedDescription UTF8String]);
+        return;
+    }
+
     sparkle_log(SPARKLE_LOG_ERROR, "update_lifecycle", "Update aborted with error (%ld): %s",
-            error.code, [error.localizedDescription UTF8String]);
+            (long)error.code, [error.localizedDescription UTF8String]);
+    if (errorCallback != NULL) {
+        errorCallback((int)error.code, [error.localizedDescription UTF8String]);
+    }
 }
 
 @end
 
 static OONIUpdaterDelegate* updaterDelegate = nil;
+
+// Standard Sparkle UI, except that error alerts can be held back while the app fails over to
+// another feed, so the user only sees an error once every feed has been tried.
+@interface OONIUserDriver : SPUStandardUserDriver
+@property (nonatomic) BOOL deferErrors;
+@property (nonatomic, strong, nullable) NSError *deferredError;
+- (void)showDeferredError;
+@end
+
+@implementation OONIUserDriver
+
+- (void)showUpdaterError:(NSError *)error acknowledgement:(void (^)(void))acknowledgement {
+    if (!self.deferErrors) {
+        [super showUpdaterError:error acknowledgement:acknowledgement];
+        return;
+    }
+    sparkle_log(SPARKLE_LOG_INFO, "user_driver", "Deferring error alert (%ld): %s",
+            (long)error.code, [error.localizedDescription UTF8String]);
+    self.deferredError = error;
+    // Acknowledge right away so Sparkle ends this update session and a new check can start
+    acknowledgement();
+}
+
+- (void)showDeferredError {
+    NSError *error = self.deferredError;
+    if (error == nil) {
+        sparkle_log(SPARKLE_LOG_WARN, "user_driver", "No deferred error to show");
+        return;
+    }
+    [super showUpdaterError:error acknowledgement:^{}];
+    // Cleared only after use: without ARC, clearing the property releases the error
+    self.deferredError = nil;
+}
+
+@end
+
+static OONIUserDriver* userDriver = nil;
+
+// Run a block synchronously on the main queue. Bridge entry points can be invoked from
+// Sparkle delegate callbacks (already on the main thread), where a plain dispatch_sync
+// to the main queue would assert and crash.
+static void sparkle_dispatch_main_sync(dispatch_block_t block) {
+    if ([NSThread isMainThread]) {
+        block();
+    } else {
+        dispatch_sync(dispatch_get_main_queue(), block);
+    }
+}
 
 void sparkle_set_log_callback(SparkleLogCallback callback) {
     logCallback = callback;
@@ -114,14 +176,71 @@ void sparkle_set_no_update_callback(SparkleNoUpdateCallback callback) {
     noUpdateCallback = callback;
 }
 
+void sparkle_set_error_callback(SparkleErrorCallback callback) {
+    errorCallback = callback;
+    sparkle_log(SPARKLE_LOG_INFO, "callback", "Error callback %s", callback ? "enabled" : "disabled");
+}
+
+int sparkle_set_defer_errors(int enabled) {
+    __block int result = 0;
+
+    sparkle_dispatch_main_sync(^{
+        if (userDriver == nil) {
+            result = -1;
+            return;
+        }
+        userDriver.deferErrors = enabled ? YES : NO;
+        if (!enabled) {
+            userDriver.deferredError = nil;
+        }
+    });
+
+    return result;
+}
+
+int sparkle_show_deferred_error(void) {
+    __block int result = 0;
+
+    sparkle_dispatch_main_sync(^{
+        @autoreleasepool {
+            if (userDriver == nil) {
+                result = -1;
+                return;
+            }
+            [userDriver showDeferredError];
+        }
+    });
+
+    return result;
+}
+
+int sparkle_set_feed_url(const char* url) {
+    __block int result = 0;
+
+    sparkle_dispatch_main_sync(^{
+        @autoreleasepool {
+            if (updaterDelegate == nil || url == NULL) {
+                sparkle_log(SPARKLE_LOG_WARN, "set_feed_url", "Updater not initialized, cannot set feed URL");
+                result = -1;
+                return;
+            }
+            updaterDelegate.feedURLString = [NSString stringWithUTF8String:url];
+            sparkle_log(SPARKLE_LOG_INFO, "set_feed_url", "Switched appcast feed URL to: %s", url);
+            result = 0;
+        }
+    });
+
+    return result;
+}
+
 int sparkle_init(const char* appcast_url, const char* public_key) {
     __block int result = 0;
 
     sparkle_log(SPARKLE_LOG_INFO, "init", "Starting Sparkle initialization");
 
-    dispatch_sync(dispatch_get_main_queue(), ^{
+    sparkle_dispatch_main_sync(^{
         @autoreleasepool {
-            if (updaterController != nil) {
+            if (sparkleUpdater != nil) {
                 sparkle_log(SPARKLE_LOG_WARN, "init", "Sparkle already initialized, skipping");
                 result = 0; // Already initialized
                 return;
@@ -175,22 +294,25 @@ int sparkle_init(const char* appcast_url, const char* public_key) {
             updaterDelegate = [[OONIUpdaterDelegate alloc] init];
             updaterDelegate.feedURLString = urlString;
 
-            sparkle_log(SPARKLE_LOG_DEBUG, "init", "Creating updater controller with delegate");
+            sparkle_log(SPARKLE_LOG_DEBUG, "init", "Creating updater with delegate");
 
-            // Create updater controller with delegate
+            // Create updater with our user driver and delegate
             @try {
-                updaterController = [[SPUStandardUpdaterController alloc] initWithStartingUpdater:NO
-                                                                                  updaterDelegate:updaterDelegate
-                                                                               userDriverDelegate:nil];
+                NSBundle *hostBundle = [NSBundle mainBundle];
+                userDriver = [[OONIUserDriver alloc] initWithHostBundle:hostBundle delegate:nil];
+                sparkleUpdater = [[SPUUpdater alloc] initWithHostBundle:hostBundle
+                                               applicationBundle:hostBundle
+                                                      userDriver:userDriver
+                                                        delegate:updaterDelegate];
 
-                if (updaterController == nil) {
-                    sparkle_log(SPARKLE_LOG_ERROR, "init", "Failed to create updater controller");
+                if (sparkleUpdater == nil) {
+                    sparkle_log(SPARKLE_LOG_ERROR, "init", "Failed to create updater");
                     result = -2;
                     return;
                 }
 
                 NSError *updaterError = nil;
-                if (![updaterController.updater startUpdater:&updaterError]) {
+                if (![sparkleUpdater startUpdater:&updaterError]) {
                     sparkle_log(SPARKLE_LOG_ERROR, "init", "Fatal updater error (%ld): %s",
                             updaterError.code, [updaterError.localizedDescription UTF8String]);
                     result = -999;
@@ -215,9 +337,9 @@ int sparkle_check_for_updates(int show_ui) {
 
     sparkle_log(SPARKLE_LOG_INFO, "check_updates", "Starting update check (show_ui: %s)", show_ui ? "true" : "false");
 
-    dispatch_sync(dispatch_get_main_queue(), ^{
+    sparkle_dispatch_main_sync(^{
         @autoreleasepool {
-            if (updaterController == nil) {
+            if (sparkleUpdater == nil) {
                 sparkle_log(SPARKLE_LOG_ERROR, "check_updates", "Updater not initialized");
                 result = -1;
                 return;
@@ -226,10 +348,10 @@ int sparkle_check_for_updates(int show_ui) {
             @try {
                 if (show_ui) {
                     sparkle_log(SPARKLE_LOG_DEBUG, "check_updates", "Checking for updates with UI");
-                    [updaterController checkForUpdates:nil];
+                    [sparkleUpdater checkForUpdates];
                 } else {
                     sparkle_log(SPARKLE_LOG_DEBUG, "check_updates", "Checking for updates in background");
-                    [updaterController.updater checkForUpdatesInBackground];
+                    [sparkleUpdater checkForUpdatesInBackground];
                 }
                 sparkle_log(SPARKLE_LOG_INFO, "check_updates", "Update check initiated successfully");
                 result = 0;
@@ -248,16 +370,16 @@ int sparkle_set_automatic_check_enabled(int enabled) {
 
     sparkle_log(SPARKLE_LOG_INFO, "set_automatic", "Setting automatic checks to: %s", enabled ? "enabled" : "disabled");
 
-    dispatch_sync(dispatch_get_main_queue(), ^{
+    sparkle_dispatch_main_sync(^{
         @autoreleasepool {
-            if (updaterController == nil) {
+            if (sparkleUpdater == nil) {
                 sparkle_log(SPARKLE_LOG_ERROR, "set_automatic", "Updater not initialized");
                 result = -1;
                 return;
             }
 
             @try {
-                [updaterController.updater setAutomaticallyChecksForUpdates:(enabled != 0)];
+                [sparkleUpdater setAutomaticallyChecksForUpdates:(enabled != 0)];
                 sparkle_log(SPARKLE_LOG_INFO, "set_automatic", "Automatic checks successfully %s", enabled ? "enabled" : "disabled");
                 result = 0;
             } @catch (NSException *exception) {
@@ -275,9 +397,9 @@ int sparkle_set_update_check_interval(int hours) {
 
     sparkle_log(SPARKLE_LOG_INFO, "set_interval", "Setting update check interval to %d hours", hours);
 
-    dispatch_sync(dispatch_get_main_queue(), ^{
+    sparkle_dispatch_main_sync(^{
         @autoreleasepool {
-            if (updaterController == nil) {
+            if (sparkleUpdater == nil) {
                 sparkle_log(SPARKLE_LOG_ERROR, "set_interval", "Updater not initialized");
                 result = -1;
                 return;
@@ -285,7 +407,7 @@ int sparkle_set_update_check_interval(int hours) {
 
             @try {
                 NSTimeInterval interval = hours * 3600; // Convert hours to seconds
-                [updaterController.updater setUpdateCheckInterval:interval];
+                [sparkleUpdater setUpdateCheckInterval:interval];
                 sparkle_log(SPARKLE_LOG_INFO, "set_interval", "Update check interval set to %d hours (%d seconds)", hours, (int)interval);
                 result = 0;
             } @catch (NSException *exception) {
@@ -302,10 +424,11 @@ int sparkle_cleanup(void) {
     sparkle_log(SPARKLE_LOG_INFO, "cleanup", "Starting Sparkle cleanup");
 
     @autoreleasepool {
-        if (updaterController != nil) {
-            sparkle_log(SPARKLE_LOG_DEBUG, "cleanup", "Releasing updater controller");
-            updaterController = nil;
+        if (sparkleUpdater != nil) {
+            sparkle_log(SPARKLE_LOG_DEBUG, "cleanup", "Releasing updater");
+            sparkleUpdater = nil;
         }
+        userDriver = nil;
         if (updaterDelegate != nil) {
             sparkle_log(SPARKLE_LOG_DEBUG, "cleanup", "Releasing updater delegate");
             updaterDelegate = nil;

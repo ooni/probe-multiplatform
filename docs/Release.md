@@ -174,6 +174,17 @@ download URL prefix at the GitHub release assets for this version:
   Sparkle EdDSA private key and publish the resulting `sparkle:edSignature` and byte length in
   `feed-windows.rss`; direct Windows builds reject an unsigned or incorrectly signed update.
 
+##### 2.7.4 Publish the OONI mirror feeds
+
+The desktop app falls back to an OONI-hosted mirror (`https://distribution.ooni.org/feed-mac.rss`
+and `feed-windows.rss`) when GitHub is throttled or unreachable. Both feeds *and* the signed
+binaries must be published on the mirror, and each feed's enclosure URLs must point at the host
+serving it (EdDSA signatures are host-independent, so the binaries can be mirrored as-is):
+
+- Generate a second copy of each appcast with `--download-url-prefix https://distribution.ooni.org/`
+  (or rewrite the enclosure URLs of the GitHub feeds).
+- Upload the mirror feeds together with the signed `.dmg`/`.exe` to `distribution.ooni.org`.
+
 #### 2.8 Publish OONI Probe Desktop (app stores)
 
 The app store builds are produced from the same workflow but with different distribution targets

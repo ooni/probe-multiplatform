@@ -82,5 +82,9 @@ enum class SettingsKey(
 
     ROUTE("route"),
 
+    // Desktop auto-update: index of the appcast feed that last succeeded, so the next
+    // launch starts with the reachable host instead of retrying a throttled one.
+    LAST_WORKING_UPDATE_FEED_INDEX("last_working_update_feed_index"),
+
     CLEAR_LEGACY_DIRECTORIES("clear_legacy_directories"),
 }

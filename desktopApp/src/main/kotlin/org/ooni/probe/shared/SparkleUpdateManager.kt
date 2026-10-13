@@ -47,6 +47,14 @@ class SparkleUpdateManager : UpdateManager {
         publicKey: String?,
     ): Int
 
+    private external fun nativeSetFeedUrl(url: String): Int
+
+    private external fun nativeSetErrorCallback(callback: Any?): Int
+
+    private external fun nativeSetDeferErrors(enabled: Boolean): Int
+
+    private external fun nativeShowDeferredError(): Int
+
     private external fun nativeCheckForUpdates(showUI: Boolean): Int
 
     private external fun nativeSetAutomaticCheckEnabled(enabled: Boolean): Int
@@ -208,6 +216,18 @@ class SparkleUpdateManager : UpdateManager {
         }
     }
 
+    override fun setAppcastUrl(url: String) {
+        lastAppcastUrl = url
+        val result = nativeSetFeedUrl(url)
+        when (result) {
+            0 -> logCallback?.invoke(UpdateLogMessage(UpdateLogLevel.INFO, "setAppcastUrl", "Switched appcast feed to $url"))
+            -1 -> logCallback?.invoke(
+                UpdateLogMessage(UpdateLogLevel.WARN, "setAppcastUrl", "Updater not initialized, cannot switch feed"),
+            )
+            else -> logErrorAndUpdateState(result, "Unknown error switching appcast feed", "setAppcastUrl")
+        }
+    }
+
     override fun checkForUpdates(showUI: Boolean) {
         if (currentState == UpdateState.ERROR && !isHealthy()) {
             logCallback?.invoke(
@@ -227,6 +247,24 @@ class SparkleUpdateManager : UpdateManager {
             -1 -> logErrorAndUpdateState(result, "Updater not initialized", "checkForUpdates")
             -2 -> logErrorAndUpdateState(result, "Exception occurred during update check", "checkForUpdates")
             else -> logErrorAndUpdateState(result, "Unknown error occurred during update check", "checkForUpdates")
+        }
+    }
+
+    override val canDeferErrorDialogs: Boolean get() = true
+
+    override fun setDeferErrorDialogs(enabled: Boolean) {
+        if (nativeSetDeferErrors(enabled) != 0) {
+            logCallback?.invoke(
+                UpdateLogMessage(UpdateLogLevel.WARN, "setDeferErrorDialogs", "Updater not initialized, cannot defer error dialogs"),
+            )
+        }
+    }
+
+    override fun showDeferredErrorDialog() {
+        if (nativeShowDeferredError() != 0) {
+            logCallback?.invoke(
+                UpdateLogMessage(UpdateLogLevel.WARN, "showDeferredErrorDialog", "Updater not initialized, cannot show error dialog"),
+            )
         }
     }
 
@@ -279,6 +317,8 @@ class SparkleUpdateManager : UpdateManager {
     // Error and state management implementation
     override fun setErrorCallback(callback: UpdateErrorCallback?) {
         errorCallback = callback
+        // Set native callback - pass this object so native code can call onUpdateError
+        nativeSetErrorCallback(if (callback != null) this else null)
     }
 
     override fun setStateCallback(callback: UpdateStateCallback?) {
@@ -316,8 +356,9 @@ class SparkleUpdateManager : UpdateManager {
         when (currentState) {
             UpdateState.ERROR -> {
                 val error = lastError
-                // Consider recoverable if it's a network issue or temporary problem
-                error?.code in listOf(-1, -2) // Initialization errors might be recoverable
+                // Network/feed failures during a check are recoverable via retry or feed
+                // failover; setup and signature errors are persistent.
+                error?.operation == "updateCheck" || error?.code in listOf(-1, -2) // Initialization errors might be recoverable
             }
             else -> true
         }

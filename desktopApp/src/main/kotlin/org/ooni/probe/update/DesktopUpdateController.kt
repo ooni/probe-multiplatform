@@ -2,17 +2,24 @@ package org.ooni.probe.update
 
 import androidx.compose.ui.window.ApplicationScope
 import co.touchlab.kermit.Logger
+import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.plus
+import kotlinx.coroutines.withTimeoutOrNull
 import ooniprobe.composeapp.generated.resources.Res
 import ooniprobe.composeapp.generated.resources.Tray_Notification_Check_Updates
 import ooniprobe.composeapp.generated.resources.Tray_Notification_Checking_Updates
 import ooniprobe.composeapp.generated.resources.Tray_Notification_Updates_Available
 import org.jetbrains.compose.resources.StringResource
 import org.ooni.probe.config.UpdateConfig
+import org.ooni.probe.data.models.SettingsKey
+import org.ooni.probe.data.repositories.PreferenceRepository
 import org.ooni.probe.dependencies
 import org.ooni.probe.shared.DesktopOS
 import org.ooni.probe.shared.Distribution
@@ -23,19 +30,40 @@ import org.ooni.probe.shared.UpdateError
 import org.ooni.probe.shared.UpdateManager
 import org.ooni.probe.shared.UpdateState
 import org.ooni.probe.shared.WinSparkleUpdateManager
+import kotlin.time.Duration.Companion.minutes
 
 /**
  * DesktopUpdateController encapsulates update logic for desktop targets.
- * Owns an [UpdateManager], exposes state and error as flows, and provides actions.
+ * It is the only owner of the [UpdateManager]: it exposes state and error as flows,
+ * provides actions, and runs single feed checks for [UpdateFeedFailover].
+ *
+ * On networks where a feed host is throttled or unreachable, failed checks are retried
+ * with backoff and then failed over to the next feed URL in [UpdateConfig.URLS].
  */
 class DesktopUpdateController(
     private val updateManager: UpdateManager,
+    private val preferenceRepository: PreferenceRepository = dependencies.preferenceRepository,
 ) {
     private val _state = MutableStateFlow(UpdateState.IDLE)
     val state: StateFlow<UpdateState> = _state
 
     private val _error = MutableStateFlow<UpdateError?>(null)
     val error: StateFlow<UpdateError?> = _error
+
+    private val urls: List<String> get() = UpdateConfig.URLS
+
+    @Volatile
+    private var failover: UpdateFeedFailover? = null
+
+    // Feed checks run one at a time on a single-threaded dispatcher
+    @Volatile
+    private var checkScope: CoroutineScope? = null
+    private var checkJob: Job? = null
+
+    private var activeUrl: String? = null
+
+    @Volatile
+    private var pendingOutcome: CompletableDeferred<CheckOutcome>? = null
 
     /**
      * Initialize update manager and set callbacks. Safe to call multiple times.
@@ -47,32 +75,42 @@ class DesktopUpdateController(
                     updateManager.setDllRoot(System.getProperty("compose.application.resources.dir") ?: "")
                 }
 
+                if (urls.isEmpty()) {
+                    Logger.w("No appcast feed URLs configured for this platform, updates disabled")
+                    return@launch
+                }
+
+                val failover = UpdateFeedFailover(
+                    urls = urls,
+                    check = ::runCheck,
+                    loadSavedIndex = {
+                        preferenceRepository.getValueByKey(SettingsKey.LAST_WORKING_UPDATE_FEED_INDEX)
+                            .firstOrNull() as? Int
+                    },
+                    saveIndex = { index ->
+                        preferenceRepository.setValueByKey(SettingsKey.LAST_WORKING_UPDATE_FEED_INDEX, index)
+                    },
+                )
+                val initialUrl = failover.loadPreferredUrl()
+                activeUrl = initialUrl
+
                 updateManager.setErrorCallback { error ->
-                    Logger.e("Update system error: ${error.message} (code: ${error.code})")
+                    Logger.e("Update ${error.operation} failed with ${error.code} (${CheckOutcome.describe(error)}): ${error.message}")
                     _error.value = error
                     _state.value = updateManager.getCurrentState()
-
-                    when (error.code) {
-                        -3, -4 -> {
-                            Logger.i("Current key: ${UpdateConfig.PUBLIC_KEY.take(20)}...")
-                            Logger.e("EdDSA key validation failed. Please check SPARKLE_PUBLIC_KEY configuration.")
-                        }
-                        -1 -> {
-                            Logger.w("Network or URL error. Update check will be retried automatically.")
-                        }
-                        -999 -> {
-                            Logger.e("Update system setup or validation error: ${error.message}")
-                        }
-                        else -> {
-                            Logger.w("General update error (${error.code}): ${error.message}")
-                        }
-                    }
+                    pendingOutcome?.complete(CheckOutcome.fromError(error))
                 }
 
                 updateManager.setStateCallback { s ->
                     Logger.d("Update system state: $s")
                     _state.value = s
                     _error.value = updateManager.getLastError()
+
+                    when (s) {
+                        UpdateState.UPDATE_AVAILABLE -> pendingOutcome?.complete(CheckOutcome.UpdateAvailable)
+                        UpdateState.NO_UPDATE_AVAILABLE -> pendingOutcome?.complete(CheckOutcome.NoUpdate)
+                        else -> Unit
+                    }
                 }
 
                 updateManager.setLogCallback { message ->
@@ -80,12 +118,15 @@ class DesktopUpdateController(
                 }
 
                 Logger.i("Initializing update system...")
-                Logger.i("Appcast URL: ${UpdateConfig.URL}")
+                Logger.i("Appcast feeds: ${urls.joinToString()} (starting with $initialUrl)")
                 Logger.i("Public key configured: ${UpdateConfig.PUBLIC_KEY.isNotEmpty()}")
 
-                updateManager.initialize(UpdateConfig.URL, UpdateConfig.PUBLIC_KEY)
+                updateManager.initialize(initialUrl, UpdateConfig.PUBLIC_KEY)
                 updateManager.setAutomaticUpdatesEnabled(true)
                 updateManager.setUpdateCheckInterval(UpdateConfig.CHECK_INTERVAL_HOURS)
+
+                checkScope = scope + Dispatchers.Default.limitedParallelism(1)
+                this@DesktopUpdateController.failover = failover
                 checkOnForeground()
             } catch (e: Throwable) {
                 Logger.e("Failed to initialize update system: $e")
@@ -113,17 +154,25 @@ class DesktopUpdateController(
     }
 
     fun checkNow() {
-        when {
-            _error.value != null -> {
-                Logger.i("Retrying update check after error")
-                updateManager.retryLastOperation()
-            }
-            updateManager.isHealthy() -> {
-                updateManager.checkForUpdates(showUI = true)
-            }
-            else -> {
-                Logger.w("Update system unhealthy, checking for updates anyway")
-                updateManager.checkForUpdates(showUI = true)
+        val failover = failover ?: return
+        if (!updateManager.isHealthy()) {
+            // Checks are refused in this state, so retry the operation that failed instead
+            Logger.i("Retrying update operation after error")
+            updateManager.retryLastOperation()
+            return
+        }
+        // A user check replaces any check in progress, including one waiting to retry
+        startCheck(replaceRunning = true) {
+            val canDeferErrors = updateManager.canDeferErrorDialogs
+            if (canDeferErrors) updateManager.setDeferErrorDialogs(true)
+            try {
+                val outcome = failover.checkByUser(canDeferErrors)
+                if (canDeferErrors && !outcome.feedWorked) {
+                    updateManager.showDeferredErrorDialog()
+                }
+            } finally {
+                if (canDeferErrors) updateManager.setDeferErrorDialogs(false)
+                useFeed(failover.currentUrl)
             }
         }
     }
@@ -139,7 +188,61 @@ class DesktopUpdateController(
     fun checkOnForeground() {
         if (!supportsUpdates()) return
         if (_state.value == UpdateState.CHECKING_FOR_UPDATES) return
-        updateManager.checkForUpdates(showUI = false)
+        val failover = failover ?: return
+        // A check in progress (or waiting to retry) already covers this one
+        startCheck(replaceRunning = false) {
+            try {
+                failover.checkInBackground()
+            } finally {
+                useFeed(failover.currentUrl)
+            }
+        }
+    }
+
+    @Synchronized
+    private fun startCheck(
+        replaceRunning: Boolean,
+        block: suspend () -> Unit,
+    ) {
+        val scope = checkScope ?: return
+        val running = checkJob
+        if (running?.isActive == true) {
+            if (!replaceRunning) return
+            running.cancel()
+        }
+        checkJob = scope.launch {
+            running?.join()
+            block()
+        }
+    }
+
+    /**
+     * Runs one check against [url] and waits for the updater to report how it ended.
+     */
+    private suspend fun runCheck(
+        url: String,
+        showUI: Boolean,
+    ): CheckOutcome {
+        if (!updateManager.isHealthy()) {
+            Logger.w("Update system unhealthy, skipping check of $url")
+            return CheckOutcome.OtherError
+        }
+        useFeed(url)
+        val outcome = CompletableDeferred<CheckOutcome>()
+        pendingOutcome = outcome
+        try {
+            updateManager.checkForUpdates(showUI)
+            return withTimeoutOrNull(CHECK_TIMEOUT) { outcome.await() }
+                ?: CheckOutcome.FeedFailure.also { Logger.w("Update check of $url timed out") }
+        } finally {
+            if (pendingOutcome === outcome) pendingOutcome = null
+        }
+    }
+
+    private fun useFeed(url: String) {
+        if (url == activeUrl) return
+        activeUrl = url
+        updateManager.setAppcastUrl(url)
     }
 
     fun getMenuText(): StringResource =
@@ -163,4 +266,9 @@ class DesktopUpdateController(
             updateManager !is NoOpUpdateManager &&
             (dependencies.platformInfo.platform as? Platform.Desktop)?.os in listOf(DesktopOS.Mac, DesktopOS.Windows) &&
             updateManager.isHealthy()
+
+    companion object {
+        // Upper bound for when the native updater never reports back (e.g. a swallowed check)
+        private val CHECK_TIMEOUT = 2.minutes
+    }
 }
