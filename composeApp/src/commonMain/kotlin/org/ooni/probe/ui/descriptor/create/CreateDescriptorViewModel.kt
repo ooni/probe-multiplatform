@@ -127,6 +127,12 @@ class CreateDescriptorViewModel(
             }.launchIn(viewModelScope)
 
         events
+            .filterIsInstance<Event.PublishEmailChanged>()
+            .onEach { event ->
+                updateLoggedIn { it.copy(publishEmail = event.value, errorMessage = null) }
+            }.launchIn(viewModelScope)
+
+        events
             .filterIsInstance<Event.UrlChanged>()
             .onEach { event ->
                 updateLoggedIn { state ->
@@ -228,6 +234,7 @@ class CreateDescriptorViewModel(
             author = current.session.emailAddress,
             icon = current.icon,
             expirationDate = current.expirationDate.atStartOfDayIn(TimeZone.UTC),
+            publishEmail = current.publishEmail,
             nettests = listOf(
                 NetTest(
                     test = TestType.WebConnectivity,
@@ -338,6 +345,7 @@ class CreateDescriptorViewModel(
             val shortDescription: String = "",
             val description: String = "",
             val icon: String? = null,
+            val publishEmail: Boolean = true,
             val urls: List<UrlItem> = listOf(UrlItem()),
             val expirationDate: LocalDate = defaultExpirationDate(),
             val isSubmitting: Boolean = false,
@@ -397,6 +405,10 @@ class CreateDescriptorViewModel(
 
         data class ExpirationDateChanged(
             val value: LocalDate,
+        ) : Event
+
+        data class PublishEmailChanged(
+            val value: Boolean,
         ) : Event
 
         data class UrlChanged(

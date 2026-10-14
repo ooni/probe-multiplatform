@@ -27,5 +27,7 @@ data class OONIRunLinkCreateRequest(
     @SerialName("color") val color: String? = null,
     // Server defaults to now + 6 months when omitted.
     @SerialName("expiration_date") val expirationDate: Instant? = null,
+    // Required by the API: whether the author email is shown publicly on the link.
+    @SerialName("publish_email") val publishEmail: Boolean = true,
     @SerialName("nettests") val nettests: List<OONINetTest>,
 )

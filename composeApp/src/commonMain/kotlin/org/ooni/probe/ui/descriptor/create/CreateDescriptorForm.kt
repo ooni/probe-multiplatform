@@ -11,11 +11,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DatePickerDialog
@@ -37,6 +39,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
@@ -75,6 +78,8 @@ import org.ooni.probe.ui.descriptor.create.CreateDescriptorViewModel.UrlItem
 import org.ooni.probe.ui.shared.rememberClickableInteractionSource
 import org.ooni.probe.ui.theme.AppTheme
 import kotlin.time.Clock
+import ooniprobe.composeapp.generated.resources.CreateDescriptor_PublishEmail
+import ooniprobe.composeapp.generated.resources.CreateDescriptor_PublishEmail_Explanation
 
 @Composable
 internal fun CreateDescriptorForm(
@@ -149,6 +154,33 @@ internal fun CreateDescriptorForm(
                 onEvent = onEvent,
                 modifier = Modifier.weight(1f),
             )
+        }
+
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier
+                .fillMaxWidth()
+                .toggleable(
+                    value = state.publishEmail,
+                    onValueChange = { onEvent(Event.PublishEmailChanged(it)) },
+                    role = Role.Checkbox,
+                ).padding(top = 8.dp),
+        ) {
+            Checkbox(
+                checked = state.publishEmail,
+                onCheckedChange = null,
+            )
+            Column(Modifier.padding(start = 8.dp)) {
+                Text(
+                    stringResource(Res.string.CreateDescriptor_PublishEmail),
+                    style = MaterialTheme.typography.bodyLarge,
+                )
+                Text(
+                    stringResource(Res.string.CreateDescriptor_PublishEmail_Explanation),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            }
         }
 
         Text(
