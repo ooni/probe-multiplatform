@@ -163,7 +163,7 @@ fun DescriptorsScreen(
 
         if (canCreateTest) {
             ExtendedFloatingActionButton(
-                onClick = { onEvent(DescriptorsViewModel.Event.CreateClicked) },
+                onClick = { onEvent(Event.CreateClicked) },
                 icon = {
                     Icon(
                         painter = painterResource(Res.drawable.fa_pen_nib),
