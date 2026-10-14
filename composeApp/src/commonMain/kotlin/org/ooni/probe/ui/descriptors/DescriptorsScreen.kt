@@ -174,6 +174,7 @@ fun DescriptorsScreen(
 
             Box {
                 val lazyListState = rememberLazyListState()
+                val showSectionTitles = !state.isFiltering && state.sections.size >= 2
                 LazyColumn(
                     modifier = Modifier.testTag("Descriptors-List"),
                     contentPadding = PaddingValues(
@@ -182,9 +183,8 @@ fun DescriptorsScreen(
                     ),
                     state = lazyListState,
                 ) {
-                    val allSectionsHaveValues = state.sections.all { it.descriptors.any() }
                     state.sections.forEach { (type, descriptors, isCollapsed) ->
-                        if (!state.isFiltering && allSectionsHaveValues && descriptors.isNotEmpty()) {
+                        if (showSectionTitles) {
                             item(type) {
                                 TestDescriptorSectionTitle(
                                     type = type,
