@@ -182,9 +182,8 @@ fun DescriptorsScreen(
                     ),
                     state = lazyListState,
                 ) {
-                    val allSectionsHaveValues = state.sections.all { it.descriptors.any() }
                     state.sections.forEach { (type, descriptors, isCollapsed) ->
-                        if (!state.isFiltering && allSectionsHaveValues && descriptors.isNotEmpty()) {
+                        if (!state.isFiltering && descriptors.isNotEmpty()) {
                             item(type) {
                                 TestDescriptorSectionTitle(
                                     type = type,

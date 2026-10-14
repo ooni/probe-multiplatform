@@ -7,6 +7,10 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.navigationevent.compose.LocalNavigationEventDispatcherOwner
 import androidx.navigationevent.compose.rememberNavigationEventDispatcherOwner
+import ooniprobe.composeapp.generated.resources.Dashboard_RunV2_MyLinks_Title
+import ooniprobe.composeapp.generated.resources.Dashboard_RunV2_Ooni_Title
+import ooniprobe.composeapp.generated.resources.Res
+import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.data.models.DescriptorType
 import org.ooni.testing.TestLifecycleOwner
 import org.ooni.testing.factories.DescriptorFactory
@@ -41,5 +45,71 @@ class DescriptorsScreenTest {
             }
 
             onNodeWithText(title).assertExists()
+        }
+
+    @Test
+    fun showsSectionTitleEvenWhenAnotherSectionIsEmpty() =
+        runComposeUiTest {
+            val descriptor = DescriptorFactory.buildDescriptorWithInstalled()
+            lateinit var defaultTitle: String
+
+            setContent {
+                defaultTitle = stringResource(Res.string.Dashboard_RunV2_Ooni_Title).uppercase()
+
+                CompositionLocalProvider(
+                    LocalLifecycleOwner provides TestLifecycleOwner(Lifecycle.State.RESUMED),
+                    LocalNavigationEventDispatcherOwner provides rememberNavigationEventDispatcherOwner(parent = null),
+                ) {
+                    DescriptorsScreen(
+                        state =
+                            DescriptorsViewModel.State(
+                                sections = listOf(
+                                    DescriptorsViewModel.DescriptorSection(
+                                        type = DescriptorType.Installed,
+                                        descriptors = emptyList(),
+                                    ),
+                                    DescriptorsViewModel.DescriptorSection(
+                                        type = DescriptorType.Default,
+                                        descriptors = listOf(descriptor),
+                                    ),
+                                ),
+                            ),
+                        onEvent = {},
+                    )
+                }
+            }
+
+            onNodeWithText(defaultTitle).assertExists()
+        }
+
+    @Test
+    fun showsCreatedByUserSectionTitle() =
+        runComposeUiTest {
+            val descriptor = DescriptorFactory.buildDescriptorWithInstalled()
+            lateinit var createdByUserTitle: String
+
+            setContent {
+                createdByUserTitle = stringResource(Res.string.Dashboard_RunV2_MyLinks_Title).uppercase()
+
+                CompositionLocalProvider(
+                    LocalLifecycleOwner provides TestLifecycleOwner(Lifecycle.State.RESUMED),
+                    LocalNavigationEventDispatcherOwner provides rememberNavigationEventDispatcherOwner(parent = null),
+                ) {
+                    DescriptorsScreen(
+                        state =
+                            DescriptorsViewModel.State(
+                                sections = listOf(
+                                    DescriptorsViewModel.DescriptorSection(
+                                        type = DescriptorType.CreatedByUser,
+                                        descriptors = listOf(descriptor),
+                                    ),
+                                ),
+                            ),
+                        onEvent = {},
+                    )
+                }
+            }
+
+            onNodeWithText(createdByUserTitle).assertExists()
         }
 }
