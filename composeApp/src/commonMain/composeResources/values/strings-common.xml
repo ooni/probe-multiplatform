@@ -426,6 +426,8 @@
     <string name="CreateDescriptor_Name">Name</string>
     <string name="CreateDescriptor_ShortDescription">Short description</string>
     <string name="CreateDescriptor_Description">Description</string>
+    <string name="CreateDescriptor_PublishEmail">Publish email address</string>
+    <string name="CreateDescriptor_PublishEmail_Explanation">Your email address will be publicly visible as the author of this link.</string>
     <string name="CreateDescriptor_Icon">Icon</string>
     <string name="CreateDescriptor_Icon_Choose">Choose an icon</string>
     <string name="CreateDescriptor_ExpiresOn">Expires on</string>
