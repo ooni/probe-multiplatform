@@ -1073,6 +1073,7 @@ class Dependencies(
         canPullToRefresh = platformInfo.canPullToRefresh,
         getPreference = preferenceRepository::getValueByKey,
         setPreference = preferenceRepository::setValueByKey,
+        getStoredSession = getStoredSession::invoke,
     )
 
     fun descriptorViewModel(

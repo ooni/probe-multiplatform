@@ -1,5 +1,6 @@
 package org.ooni.probe.data.models
 
+import ooniprobe.composeapp.generated.resources.Dashboard_RunV2_MyLinks_Title
 import ooniprobe.composeapp.generated.resources.Dashboard_RunV2_Ooni_Title
 import ooniprobe.composeapp.generated.resources.Dashboard_RunV2_Title
 import ooniprobe.composeapp.generated.resources.Res
@@ -11,6 +12,7 @@ enum class DescriptorType(
 ) {
     Default("default", Res.string.Dashboard_RunV2_Ooni_Title),
     Installed("installed", Res.string.Dashboard_RunV2_Title),
+    CreatedByUser("created_by_user", Res.string.Dashboard_RunV2_MyLinks_Title),
     ;
 
     companion object {
