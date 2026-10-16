@@ -37,7 +37,7 @@ sqldelight = { id = "app.cash.sqldelight", version.ref = "sqldelight" }
 javafx = { id = "org.openjfx.javafxplugin", version = "0.1.0" }
 # Crash Reporting
 sentryAndroid = { id = "io.sentry.android.gradle", version = "6.23.0" }
-sentryKmp = { id = "io.sentry.kotlin.multiplatform.gradle", version = "0.27.0" }
+sentryKmp = { id = "io.sentry.kotlin.multiplatform.gradle", version = "0.28.0" }
 
 
 [libraries]
