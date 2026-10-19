@@ -160,11 +160,12 @@ internal fun CreateDescriptorForm(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .fillMaxWidth()
+                .padding(top = 12.dp)
                 .toggleable(
                     value = state.publishEmail,
                     onValueChange = { onEvent(Event.PublishEmailChanged(it)) },
                     role = Role.Checkbox,
-                ).padding(top = 8.dp),
+                ).padding(all = 4.dp),
         ) {
             Checkbox(
                 checked = state.publishEmail,
@@ -173,7 +174,7 @@ internal fun CreateDescriptorForm(
             Column(Modifier.padding(start = 8.dp)) {
                 Text(
                     stringResource(Res.string.CreateDescriptor_PublishEmail),
-                    style = MaterialTheme.typography.bodyLarge,
+                    style = MaterialTheme.typography.bodyMedium,
                 )
                 Text(
                     stringResource(Res.string.CreateDescriptor_PublishEmail_Explanation),
