@@ -28,6 +28,8 @@ class PassportHttpClient(
     var passportGet: PassportGet,
     @get:VisibleForTesting
     var passportPost: PassportPost,
+    @get:VisibleForTesting
+    var passportPut: PassportPut,
     private val passportAuthRegister: PassportAuthRegister,
     private val passportAuthSubmit: PassportAuthSubmit,
     private val getProxyOption: () -> Flow<ProxyOption>,
@@ -66,6 +68,24 @@ class PassportHttpClient(
     ): Result<PassportHttpResponse, PassportException> =
         dispatch(url) { proxy ->
             passportPost.post(
+                url = url,
+                headers = commonHeaders() +
+                    PassportBridge.KeyValue("Content-Type", "application/json") +
+                    extraHeaders,
+                payload = payload,
+                proxy = proxy,
+                timeout = timeout,
+            )
+        }
+
+    suspend fun put(
+        url: String,
+        payload: String,
+        timeout: Float = PassportTimeouts.DEFAULT_SECONDS,
+        extraHeaders: List<PassportBridge.KeyValue> = emptyList(),
+    ): Result<PassportHttpResponse, PassportException> =
+        dispatch(url) { proxy ->
+            passportPut.put(
                 url = url,
                 headers = commonHeaders() +
                     PassportBridge.KeyValue("Content-Type", "application/json") +

@@ -35,6 +35,7 @@ sealed interface Screen {
     @Serializable
     data class CreateDescriptor(
         val loginToken: String? = null,
+        val descriptorId: String? = null,
     ) : Screen
 
     @Serializable

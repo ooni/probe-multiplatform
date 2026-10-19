@@ -158,6 +158,8 @@ class CreateDescriptorTest {
             val payload = capturedPayload!!
             assertTrue(payload.contains("\"name\":\"Test\""))
             assertTrue(payload.contains("\"nettests\""))
+            // publish_email is required by the API and always sent.
+            assertTrue(payload.contains("\"publish_email\":true"))
             // name_intl, icon, color, expiration_date, etc. are all unset - none should appear
             // as explicit nulls, or the server's own defaults (e.g. expiration_date = now+6mo)
             // never kick in.

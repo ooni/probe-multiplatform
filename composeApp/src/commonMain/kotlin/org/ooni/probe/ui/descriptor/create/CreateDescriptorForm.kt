@@ -53,9 +53,12 @@ import ooniprobe.composeapp.generated.resources.CreateDescriptor_Icon_Choose
 import ooniprobe.composeapp.generated.resources.CreateDescriptor_LogOut
 import ooniprobe.composeapp.generated.resources.CreateDescriptor_LoggedInAs
 import ooniprobe.composeapp.generated.resources.CreateDescriptor_Name
+import ooniprobe.composeapp.generated.resources.CreateDescriptor_PublishEmail
+import ooniprobe.composeapp.generated.resources.CreateDescriptor_PublishEmail_Explanation
 import ooniprobe.composeapp.generated.resources.CreateDescriptor_RemoveUrl
 import ooniprobe.composeapp.generated.resources.CreateDescriptor_ShortDescription
 import ooniprobe.composeapp.generated.resources.CreateDescriptor_Submit
+import ooniprobe.composeapp.generated.resources.CreateDescriptor_Submit_Edit
 import ooniprobe.composeapp.generated.resources.CreateDescriptor_Urls
 import ooniprobe.composeapp.generated.resources.CreateDescriptor_Urls_Placeholder
 import ooniprobe.composeapp.generated.resources.Modal_Cancel
@@ -78,8 +81,6 @@ import org.ooni.probe.ui.descriptor.create.CreateDescriptorViewModel.UrlItem
 import org.ooni.probe.ui.shared.rememberClickableInteractionSource
 import org.ooni.probe.ui.theme.AppTheme
 import kotlin.time.Clock
-import ooniprobe.composeapp.generated.resources.CreateDescriptor_PublishEmail
-import ooniprobe.composeapp.generated.resources.CreateDescriptor_PublishEmail_Explanation
 
 @Composable
 internal fun CreateDescriptorForm(
@@ -235,7 +236,13 @@ internal fun CreateDescriptorForm(
                 )
             }
             Text(
-                text = stringResource(Res.string.CreateDescriptor_Submit),
+                text = stringResource(
+                    if (state.isEditing) {
+                        Res.string.CreateDescriptor_Submit_Edit
+                    } else {
+                        Res.string.CreateDescriptor_Submit
+                    },
+                ),
                 style = MaterialTheme.typography.titleMedium,
             )
         }

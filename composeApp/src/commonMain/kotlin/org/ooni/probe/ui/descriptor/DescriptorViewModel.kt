@@ -16,8 +16,10 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import org.ooni.engine.models.TestType
 import org.ooni.probe.config.OrganizationConfig
+import org.ooni.probe.data.models.AuthSession
 import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.DescriptorItem
 import org.ooni.probe.data.models.DescriptorUpdateOperationState
@@ -43,6 +45,7 @@ class DescriptorViewModel(
     goToChooseWebsites: () -> Unit,
     goToResult: (ResultModel.Id) -> Unit,
     goToDescriptorWebsites: (Descriptor.Id) -> Unit,
+    goToEditDescriptor: (Descriptor.Id) -> Unit,
     getTestDescriptor: (Descriptor.Id) -> Flow<DescriptorItem?>,
     getLastResultOfDescriptor: (String) -> Flow<ResultListItem?>,
     private val preferenceRepository: PreferenceRepository,
@@ -56,6 +59,7 @@ class DescriptorViewModel(
     undoRejectedDescriptorUpdate: suspend (Descriptor.Id) -> Unit,
     private val startBackgroundRun: (RunSpecification) -> Unit,
     canPullToRefresh: Boolean,
+    private val getStoredSession: suspend () -> AuthSession?,
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
 
@@ -63,6 +67,11 @@ class DescriptorViewModel(
     val state = _state.asStateFlow()
 
     init {
+        viewModelScope.launch {
+            val session = getStoredSession()
+            _state.update { it.copy(sessionEmail = session?.emailAddress) }
+        }
+
         observeDescriptorsUpdateState()
             .onEach { updateState ->
                 _state.update {
@@ -284,6 +293,14 @@ class DescriptorViewModel(
             }.launchIn(viewModelScope)
 
         events
+            .filterIsInstance<Event.EditClicked>()
+            .onEach {
+                state.value.descriptor
+                    ?.descriptor
+                    ?.let { goToEditDescriptor(it.id) }
+            }.launchIn(viewModelScope)
+
+        events
             .filterIsInstance<Event.ShareClicked>()
             .onEach {
                 val descriptor = state.value.descriptor ?: return@onEach
@@ -338,6 +355,7 @@ class DescriptorViewModel(
         val showVpnWarning: Boolean = false,
         val showDisableVpnInstructions: Boolean = false,
         val copyMessageToClipboard: String? = null,
+        val sessionEmail: String? = null,
     ) {
         val isRefreshing: Boolean
             get() = updateOperationState == DescriptorUpdateOperationState.FetchingUpdates
@@ -348,6 +366,13 @@ class DescriptorViewModel(
                 else -> ToggleableState.Indeterminate
             }
         val isRefreshEnabled get() = descriptor?.descriptor != null
+
+        /** Edit is only offered for links authored by the logged-in account. */
+        val canEdit: Boolean
+            get() {
+                val author = descriptor?.descriptor?.author
+                return !sessionEmail.isNullOrEmpty() && author != null && author == sessionEmail
+            }
     }
 
     sealed interface Event {
@@ -401,6 +426,8 @@ class DescriptorViewModel(
         ) : Event
 
         data object SeeMoreWebsitesClicked : Event
+
+        data object EditClicked : Event
 
         data object ShareClicked : Event
 
