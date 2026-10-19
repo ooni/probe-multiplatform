@@ -49,6 +49,26 @@ class IosPassportBridge: PassportBridge {
         }
     }
 
+    func put(url: String, headers: [PassportBridgeKeyValue], payload: String, proxy: String?, timeout: KotlinFloat?) -> Result<PassportHttpResponse, PassportException> {
+        do {
+            let response = try clientPut(
+                url: url,
+                headers: headers.map { KeyValue(key: $0.key, value: $0.value) },
+                payload: payload,
+                proxy: proxy,
+                timeout: timeout?.floatValue,
+                userAgent: userAgent
+            )
+            return IosPassportBridgeHelpersKt.SuccessPassportHttpResponse(value: response.toPassport())
+        } catch let error as OoniError {
+            return IosPassportBridgeHelpersKt.FailureHttpPassportException(reason: error.toPassport())
+        } catch {
+            return IosPassportBridgeHelpersKt.FailureHttpPassportException(
+                reason: PassportException.Other(message: error.localizedDescription)
+            )
+        }
+    }
+
     func userAuthRegister(
         url: String,
         headers: [PassportBridgeKeyValue],

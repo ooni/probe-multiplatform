@@ -26,12 +26,14 @@ import ooniprobe.composeapp.generated.resources.CreateDescriptor_Error_InvalidTe
 import ooniprobe.composeapp.generated.resources.CreateDescriptor_Error_InvalidUrls
 import ooniprobe.composeapp.generated.resources.CreateDescriptor_Error_LoginFailed
 import ooniprobe.composeapp.generated.resources.CreateDescriptor_Error_Network
+import ooniprobe.composeapp.generated.resources.CreateDescriptor_Error_NotEditable
 import ooniprobe.composeapp.generated.resources.CreateDescriptor_Error_NotLoggedIn
 import ooniprobe.composeapp.generated.resources.CreateDescriptor_Error_RateLimited
 import ooniprobe.composeapp.generated.resources.CreateDescriptor_Error_Rejected
 import ooniprobe.composeapp.generated.resources.CreateDescriptor_Error_TokenEmpty
 import ooniprobe.composeapp.generated.resources.CreateDescriptor_Error_Unexpected
 import ooniprobe.composeapp.generated.resources.CreateDescriptor_Title
+import ooniprobe.composeapp.generated.resources.CreateDescriptor_Title_Edit
 import ooniprobe.composeapp.generated.resources.Res
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
@@ -59,7 +61,17 @@ fun CreateDescriptorScreen(
             .fillMaxSize(),
     ) {
         TopBar(
-            title = { Text(stringResource(Res.string.CreateDescriptor_Title)) },
+            title = {
+                Text(
+                    stringResource(
+                        if ((state as? State.LoggedIn)?.isEditing == true) {
+                            Res.string.CreateDescriptor_Title_Edit
+                        } else {
+                            Res.string.CreateDescriptor_Title
+                        },
+                    ),
+                )
+            },
             navigationIcon = {
                 NavigationBackButton(onClick = { onEvent(Event.BackClicked) })
             },
@@ -121,6 +133,7 @@ private fun ErrorMessage.toStringResource(): StringResource =
         ErrorMessage.FieldsRequired -> Res.string.CreateDescriptor_Error_FieldsRequired
         ErrorMessage.InvalidUrls -> Res.string.CreateDescriptor_Error_InvalidUrls
         ErrorMessage.InvalidNetTests -> Res.string.CreateDescriptor_Error_InvalidTests
+        ErrorMessage.NotEditable -> Res.string.CreateDescriptor_Error_NotEditable
         ErrorMessage.Rejected -> Res.string.CreateDescriptor_Error_Rejected
         ErrorMessage.Unexpected -> Res.string.CreateDescriptor_Error_Unexpected
     }
