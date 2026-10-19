@@ -13,7 +13,8 @@ interface PassportBridge :
     PassportAuthSubmit,
     PassportGetProbeId,
     PassportGetProtocolVersion,
-    PassportPost {
+    PassportPost,
+    PassportPut {
     override fun get(
         url: String,
         headers: List<KeyValue>,
@@ -23,6 +24,14 @@ interface PassportBridge :
     ): Result<PassportHttpResponse, PassportException>
 
     override fun post(
+        url: String,
+        headers: List<KeyValue>,
+        payload: String,
+        proxy: String?,
+        timeout: Float?,
+    ): Result<PassportHttpResponse, PassportException>
+
+    override fun put(
         url: String,
         headers: List<KeyValue>,
         payload: String,
@@ -76,6 +85,16 @@ fun interface PassportGet {
 
 fun interface PassportPost {
     fun post(
+        url: String,
+        headers: List<KeyValue>,
+        payload: String,
+        proxy: String?,
+        timeout: Float?,
+    ): Result<PassportHttpResponse, PassportException>
+}
+
+fun interface PassportPut {
+    fun put(
         url: String,
         headers: List<KeyValue>,
         payload: String,

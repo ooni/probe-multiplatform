@@ -51,10 +51,12 @@ import ooniprobe.composeapp.generated.resources.Dashboard_Overview_ChooseWebsite
 import ooniprobe.composeapp.generated.resources.Dashboard_Overview_Estimated
 import ooniprobe.composeapp.generated.resources.Dashboard_Runv2_Overview_ReviewUpdates
 import ooniprobe.composeapp.generated.resources.Dashboard_Runv2_Websites_SeeAll
+import ooniprobe.composeapp.generated.resources.Descriptor_Edit
 import ooniprobe.composeapp.generated.resources.Descriptor_LastTestResult
 import ooniprobe.composeapp.generated.resources.DescriptorUpdate_CheckUpdates
 import ooniprobe.composeapp.generated.resources.OONIRun_Run
 import ooniprobe.composeapp.generated.resources.Res
+import ooniprobe.composeapp.generated.resources.fa_pen_nib
 import ooniprobe.composeapp.generated.resources.ic_refresh
 import ooniprobe.composeapp.generated.resources.ic_share
 import ooniprobe.composeapp.generated.resources.ic_timer
@@ -136,6 +138,17 @@ fun DescriptorScreen(
                             Icon(
                                 painterResource(Res.drawable.ic_share),
                                 contentDescription = stringResource(Res.string.Common_Share),
+                            )
+                        }
+                    }
+                    if (state.canEdit) {
+                        IconButton(
+                            onClick = { onEvent(DescriptorViewModel.Event.EditClicked) },
+                            modifier = Modifier.testTag("Descriptor-Edit"),
+                        ) {
+                            Icon(
+                                painterResource(Res.drawable.fa_pen_nib),
+                                contentDescription = stringResource(Res.string.Descriptor_Edit),
                             )
                         }
                     }

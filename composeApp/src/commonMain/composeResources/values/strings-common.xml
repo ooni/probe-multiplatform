@@ -421,8 +421,10 @@
     <string name="DescriptorUpdate_CheckUpdates">Check for Updates</string>
     <string name="AddDescriptor_AutoRunDisabled">Auto-run is disabled. Please enable it to run tests automatically.</string>
     <string name="Descriptor_LastTestResult">Last Test Result</string>
+    <string name="Descriptor_Edit">Edit</string>
 
     <string name="CreateDescriptor_Title">Create Web Test</string>
+    <string name="CreateDescriptor_Title_Edit">Edit Web Test</string>
     <string name="CreateDescriptor_Login_Email">Email address</string>
     <string name="CreateDescriptor_Login_Explanation">Logging in is only needed to create and manage OONI Run links. Your email address isn’t used for anything else in the app.</string>
     <string name="CreateDescriptor_Login_SendLink">Send login link</string>
@@ -445,6 +447,7 @@
     <string name="CreateDescriptor_AddUrl">Add website</string>
     <string name="CreateDescriptor_RemoveUrl">Remove website</string>
     <string name="CreateDescriptor_Submit">Create</string>
+    <string name="CreateDescriptor_Submit_Edit">Save</string>
     <string name="CreateDescriptor_Error_EmailInvalid">Enter a valid email address</string>
     <string name="CreateDescriptor_Error_TokenEmpty">Paste the login link or token first</string>
     <string name="CreateDescriptor_Error_LoginFailed">Login failed, check the address or token</string>
@@ -454,6 +457,7 @@
     <string name="CreateDescriptor_Error_FieldsRequired">Name, short description and description are required</string>
     <string name="CreateDescriptor_Error_InvalidUrls">Enter a valid website address for every row</string>
     <string name="CreateDescriptor_Error_InvalidTests">Some tests are not valid</string>
+    <string name="CreateDescriptor_Error_NotEditable">This link can only be edited by its author.</string>
     <string name="CreateDescriptor_Error_Rejected">The server rejected this link</string>
     <string name="CreateDescriptor_Error_Unexpected">Something went wrong</string>
 
