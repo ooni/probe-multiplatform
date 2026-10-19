@@ -113,7 +113,7 @@ moko-permissions-compose = { module = "dev.icerock.moko:permissions-compose", ve
 moko-permissions-notifications = { module = "dev.icerock.moko:permissions-notifications", version.ref = "mokoPermissions" }
 
 # Markdown
-markdown = { module = "com.mikepenz:multiplatform-markdown-renderer-m3", version = "0.45.0" }
+markdown = { module = "com.mikepenz:multiplatform-markdown-renderer-m3", version = "0.46.0" }
 
 # WebView
 android-webkit = { module = "androidx.webkit:webkit", version = "1.17.1" }
