@@ -15,6 +15,7 @@ import uniffi.ooniprobe.KeyValue
 import uniffi.ooniprobe.OoniException
 import uniffi.ooniprobe.clientGet
 import uniffi.ooniprobe.clientPost
+import uniffi.ooniprobe.clientPut
 import uniffi.ooniprobe.userauthRegister
 import uniffi.ooniprobe.userauthSubmit
 
@@ -55,6 +56,29 @@ class DesktopPassportBridge(
     ): Result<PassportHttpResponse, PassportException> =
         try {
             val response = clientPost(
+                url = url,
+                headers = headers.map { KeyValue(it.key, it.value) },
+                payload = payload,
+                proxy = proxy,
+                timeout = timeout,
+                userAgent = userAgent,
+            )
+            Success(response.toPassport())
+        } catch (e: OoniException) {
+            Failure(e.toPassport())
+        } catch (e: Throwable) {
+            Failure(PassportException.Other(e.message))
+        }
+
+    override fun put(
+        url: String,
+        headers: List<PassportBridge.KeyValue>,
+        payload: String,
+        proxy: String?,
+        timeout: Float?,
+    ): Result<PassportHttpResponse, PassportException> =
+        try {
+            val response = clientPut(
                 url = url,
                 headers = headers.map { KeyValue(it.key, it.value) },
                 payload = payload,

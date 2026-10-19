@@ -14,8 +14,11 @@ import org.ooni.engine.models.Result
 import org.ooni.engine.models.Success
 import org.ooni.probe.data.models.AuthSession
 import org.ooni.probe.data.models.Descriptor
+import org.ooni.probe.data.models.NetTest
+import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
+import org.ooni.engine.models.TestType
 import org.ooni.probe.domain.auth.AuthException
 import org.ooni.probe.domain.descriptors.OonirunApiError
 import org.ooni.probe.domain.descriptors.SaveTestDescriptors
@@ -250,6 +253,7 @@ class CreateDescriptorViewModelTest {
             assertEquals("My link", request?.name)
             assertEquals(listOf("https://ooni.org"), request?.nettests?.single()?.inputs)
             assertEquals("web_connectivity", request?.nettests?.single()?.name)
+            assertEquals(true, request?.publishEmail)
             assertEquals(
                 CreateDescriptorViewModel.defaultExpirationDate(),
                 request?.expirationDate?.toLocalDateTime(TimeZone.UTC)?.date,
@@ -272,6 +276,24 @@ class CreateDescriptorViewModelTest {
             viewModel.onEvent(CreateDescriptorViewModel.Event.SubmitClicked)
 
             assertEquals("FaRocket", request?.icon)
+        }
+
+    @Test
+    fun publishEmailDefaultsToTrueAndFollowsTheCheckbox() =
+        runTest(dispatcher) {
+            val requests = mutableListOf<OONIRunLinkCreateRequest>()
+            val viewModel = buildViewModel(
+                createDescriptor = {
+                    requests.add(it)
+                    Success(descriptor("1234"))
+                },
+            )
+
+            fillInForm(viewModel)
+            viewModel.onEvent(CreateDescriptorViewModel.Event.PublishEmailChanged(false))
+            viewModel.onEvent(CreateDescriptorViewModel.Event.SubmitClicked)
+
+            assertEquals(false, requests.single().publishEmail)
         }
 
     @Test
@@ -332,6 +354,127 @@ class CreateDescriptorViewModelTest {
             assertEquals(CreateDescriptorViewModel.ErrorMessage.RateLimited, state.errorMessage)
         }
 
+    @Test
+    fun editingPrefillsTheFormFromTheStoredDescriptor() =
+        runTest(dispatcher) {
+            val installed = descriptor(
+                id = "1234",
+                netTests = listOf(
+                    NetTest(
+                        test = TestType.WebConnectivity,
+                        inputs = listOf("https://ooni.org", "https://example.org"),
+                        options = null,
+                    ),
+                ),
+            )
+            val viewModel = buildViewModel(
+                editingDescriptorId = Descriptor.Id("1234"),
+                getDescriptor = { installed },
+            )
+
+            val state = viewModel.state.first()
+            assertIs<CreateDescriptorViewModel.State.LoggedIn>(state)
+            assertTrue(state.isEditing)
+            assertEquals(Descriptor.Id("1234"), state.editingDescriptorId)
+            assertEquals("My link", state.name)
+            assertEquals("Short", state.shortDescription)
+            assertEquals("Long description", state.description)
+            assertEquals(
+                listOf("https://ooni.org", "https://example.org"),
+                state.urls.map { it.url },
+            )
+            assertNull(state.errorMessage)
+        }
+
+    @Test
+    fun editingADescriptorWithOtherNetTestsShowsAnError() =
+        runTest(dispatcher) {
+            val installed = descriptor(
+                id = "1234",
+                netTests = emptyList(),
+            )
+            val viewModel = buildViewModel(
+                editingDescriptorId = Descriptor.Id("1234"),
+                getDescriptor = { installed },
+            )
+
+            val state = viewModel.state.first()
+            assertIs<CreateDescriptorViewModel.State.LoggedIn>(state)
+            assertTrue(state.isEditing)
+            assertEquals(CreateDescriptorViewModel.ErrorMessage.NotEditable, state.errorMessage)
+        }
+
+    @Test
+    fun editingAMissingDescriptorShowsAnError() =
+        runTest(dispatcher) {
+            val viewModel = buildViewModel(
+                editingDescriptorId = Descriptor.Id("9999"),
+                getDescriptor = { null },
+            )
+
+            val state = viewModel.state.first()
+            assertIs<CreateDescriptorViewModel.State.LoggedIn>(state)
+            assertEquals(CreateDescriptorViewModel.ErrorMessage.NotEditable, state.errorMessage)
+        }
+
+    @Test
+    fun submittingWhileEditingUpdatesAndGoesBack() =
+        runTest(dispatcher) {
+            var created = false
+            var updatedWith: Pair<Descriptor.Id, OONIRunLinkCreateRequest>? = null
+            var installed: List<Descriptor>? = null
+            var createdId: Descriptor.Id? = null
+            var backCalled = false
+            val dateInstalled = LocalDateTime(2025, 6, 1, 12, 0, 0)
+            val viewModel = buildViewModel(
+                editingDescriptorId = Descriptor.Id("1234"),
+                onBack = { backCalled = true },
+                onDescriptorCreated = { createdId = it },
+                getDescriptor = {
+                    descriptor(
+                        id = "1234",
+                        netTests = listOf(
+                            NetTest(
+                                test = TestType.WebConnectivity,
+                                inputs = listOf("https://ooni.org"),
+                                options = null,
+                            ),
+                        ),
+                    ).copy(dateInstalled = dateInstalled)
+                },
+                createDescriptor = {
+                    created = true
+                    error("should not be called")
+                },
+                updateDescriptor = { id, request ->
+                    updatedWith = id to request
+                    Success(descriptor("1234", revision = 2))
+                },
+                saveTestDescriptors = { models, _ -> installed = models },
+            )
+
+            viewModel.onEvent(CreateDescriptorViewModel.Event.NameChanged("My link"))
+            viewModel.onEvent(CreateDescriptorViewModel.Event.ShortDescriptionChanged("Short"))
+            viewModel.onEvent(CreateDescriptorViewModel.Event.DescriptionChanged("Long description"))
+            viewModel.onEvent(CreateDescriptorViewModel.Event.SubmitClicked)
+
+            assertTrue(!created)
+            assertEquals(Descriptor.Id("1234"), updatedWith?.first)
+            assertEquals("My link", updatedWith?.second?.name)
+            assertEquals(
+                listOf("https://ooni.org"),
+                updatedWith
+                    ?.second
+                    ?.nettests
+                    ?.single()
+                    ?.inputs,
+            )
+            // INSERT OR REPLACE would wipe date_installed - the edit must carry it over.
+            assertEquals(dateInstalled, installed?.single()?.dateInstalled)
+            assertTrue(backCalled)
+            assertNull(createdId)
+        }
+
     private fun fillInForm(viewModel: CreateDescriptorViewModel) {
         viewModel.onEvent(CreateDescriptorViewModel.Event.NameChanged("My link"))
         viewModel.onEvent(CreateDescriptorViewModel.Event.ShortDescriptionChanged("Short"))
@@ -339,15 +482,19 @@ class CreateDescriptorViewModelTest {
         viewModel.onEvent(CreateDescriptorViewModel.Event.UrlChanged(0, "https://ooni.org"))
     }
 
-    private fun descriptor(id: String) =
+    private fun descriptor(
+        id: String,
+        revision: Long = 1,
+        netTests: List<NetTest> = emptyList(),
+    ): Descriptor =
         Descriptor(
             id = Descriptor.Id(id),
-            revision = 1,
+            revision = revision,
             name = "My link",
             shortDescription = "Short",
             description = "Long description",
             author = "a@example.org",
-            netTests = emptyList(),
+            netTests = netTests,
             nameIntl = null,
             shortDescriptionIntl = null,
             descriptionIntl = null,
@@ -363,6 +510,7 @@ class CreateDescriptorViewModelTest {
 
     private fun buildViewModel(
         loginToken: String? = null,
+        editingDescriptorId: Descriptor.Id? = null,
         onBack: () -> Unit = {},
         onDescriptorCreated: (Descriptor.Id) -> Unit = {},
         saveTestDescriptors: suspend (List<Descriptor>, SaveTestDescriptors.Mode) -> Unit = { _, _ -> },
@@ -374,18 +522,25 @@ class CreateDescriptorViewModelTest {
             Failure(AuthException.NotLoggedIn())
         },
         clearSession: suspend () -> Unit = {},
+        getDescriptor: suspend (Descriptor.Id) -> Descriptor? = { null },
         createDescriptor: suspend (OONIRunLinkCreateRequest) -> Result<Descriptor, OonirunApiError> = {
+            Failure(OonirunApiError.NotFound)
+        },
+        updateDescriptor: suspend (Descriptor.Id, OONIRunLinkCreateRequest) -> Result<Descriptor, OonirunApiError> = { _, _ ->
             Failure(OonirunApiError.NotFound)
         },
     ) = CreateDescriptorViewModel(
         loginToken = loginToken,
+        editingDescriptorId = editingDescriptorId,
         onBack = onBack,
         onDescriptorCreated = onDescriptorCreated,
         getStoredSession = storedSession,
         requestLogin = requestLogin,
         exchangeLoginToken = exchangeLoginToken,
         clearSession = clearSession,
+        getDescriptor = getDescriptor,
         createDescriptor = createDescriptor,
+        updateDescriptor = updateDescriptor,
         saveTestDescriptors = saveTestDescriptors,
     )
 }
