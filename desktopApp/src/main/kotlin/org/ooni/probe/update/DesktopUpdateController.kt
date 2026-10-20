@@ -177,9 +177,6 @@ class DesktopUpdateController(
         }
     }
 
-    fun retryLastOperation() {
-        updateManager.retryLastOperation()
-    }
 
     /**
      * Silent update check for automatic triggers (app launch, window foregrounded).
