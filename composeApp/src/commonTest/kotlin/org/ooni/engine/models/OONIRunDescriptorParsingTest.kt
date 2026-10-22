@@ -24,6 +24,7 @@ class OONIRunDescriptorParsingTest {
           "date_updated": "2026-01-02T00:00:00Z",
           "is_expired": false,
           "revision": 1,
+          "publish_email": false,
           "nettests": [
             {
               "test_name": "web_connectivity",
@@ -42,6 +43,8 @@ class OONIRunDescriptorParsingTest {
         val parsed = json.decodeFromString<OONIRunDescriptor>(descriptorJson)
 
         assertEquals("link123", parsed.oonirunLinkId)
+        assertEquals(false, parsed.publishEmail)
+        assertEquals(false, parsed.toModel().publishEmail)
         assertEquals(1, parsed.netTests.size)
         val netTest = parsed.netTests[0]
         assertEquals("web_connectivity", netTest.name)
@@ -79,6 +82,8 @@ class OONIRunDescriptorParsingTest {
         assertEquals(null, parsed.shortDescription)
         assertEquals(null, parsed.description)
         assertEquals(null, parsed.author)
+        assertEquals(null, parsed.publishEmail)
+        assertEquals(null, parsed.toModel().publishEmail)
 
         val netTest = parsed.netTests[0]
         assertEquals(null, netTest.inputs)
