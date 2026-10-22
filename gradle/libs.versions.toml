@@ -12,7 +12,7 @@ app-versionCode = "370" # Always increment by 10. See fdroid ABI offsets in andr
 
 compose-plugin = "1.12.2"
 kotlin = "2.4.21"
-passport = "0.1.7"
+passport = "0.1.8"
 sqldelight = "2.4.1"
 dataStoreVersion = "1.2.1"
 mokoPermissions = "0.20.1"
