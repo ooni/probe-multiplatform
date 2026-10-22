@@ -70,6 +70,21 @@ class CreateDescriptorViewModel(
 
         events
             .filterIsInstance<Event.BackClicked>()
+            .onEach {
+                if (_state.value.hasChanges) {
+                    setShowBackConfirmation(true)
+                } else {
+                    onBack()
+                }
+            }.launchIn(viewModelScope)
+
+        events
+            .filterIsInstance<Event.BackCancelled>()
+            .onEach { setShowBackConfirmation(false) }
+            .launchIn(viewModelScope)
+
+        events
+            .filterIsInstance<Event.BackConfirmed>()
             .onEach { onBack() }
             .launchIn(viewModelScope)
 
@@ -104,45 +119,40 @@ class CreateDescriptorViewModel(
 
         events
             .filterIsInstance<Event.NameChanged>()
-            .onEach { event -> updateLoggedIn { it.copy(name = event.value, errorMessage = null) } }
+            .onEach { event -> updateForm { it.copy(name = event.value) } }
             .launchIn(viewModelScope)
 
         events
             .filterIsInstance<Event.ShortDescriptionChanged>()
-            .onEach { event ->
-                updateLoggedIn { it.copy(shortDescription = event.value, errorMessage = null) }
-            }.launchIn(viewModelScope)
+            .onEach { event -> updateForm { it.copy(shortDescription = event.value) } }
+            .launchIn(viewModelScope)
 
         events
             .filterIsInstance<Event.DescriptionChanged>()
-            .onEach { event ->
-                updateLoggedIn { it.copy(description = event.value, errorMessage = null) }
-            }.launchIn(viewModelScope)
+            .onEach { event -> updateForm { it.copy(description = event.value) } }
+            .launchIn(viewModelScope)
 
         events
             .filterIsInstance<Event.IconChanged>()
-            .onEach { event -> updateLoggedIn { it.copy(icon = event.value, errorMessage = null) } }
+            .onEach { event -> updateForm { it.copy(icon = event.value) } }
             .launchIn(viewModelScope)
 
         events
             .filterIsInstance<Event.ExpirationDateChanged>()
-            .onEach { event ->
-                updateLoggedIn { it.copy(expirationDate = event.value, errorMessage = null) }
-            }.launchIn(viewModelScope)
+            .onEach { event -> updateForm { it.copy(expirationDate = event.value) } }
+            .launchIn(viewModelScope)
 
         events
             .filterIsInstance<Event.PublishEmailChanged>()
-            .onEach { event ->
-                updateLoggedIn { it.copy(publishEmail = event.value, errorMessage = null) }
-            }.launchIn(viewModelScope)
+            .onEach { event -> updateForm { it.copy(publishEmail = event.value) } }
+            .launchIn(viewModelScope)
 
         events
             .filterIsInstance<Event.UrlChanged>()
             .onEach { event ->
-                updateLoggedIn { state ->
-                    state.copy(
-                        errorMessage = null,
-                        urls = state.urls.mapIndexed { index, item ->
+                updateForm { form ->
+                    form.copy(
+                        urls = form.urls.mapIndexed { index, item ->
                             if (index == event.index) item.copy(url = event.url, hasError = false) else item
                         },
                     )
@@ -154,7 +164,7 @@ class CreateDescriptorViewModel(
             .onEach {
                 updateLoggedIn { state ->
                     if (!state.canAddUrls) return@updateLoggedIn state
-                    state.copy(urls = state.urls + UrlItem(), errorMessage = null)
+                    state.copy(form = state.form.copy(urls = state.urls + UrlItem()), errorMessage = null)
                 }
             }.launchIn(viewModelScope)
 
@@ -165,7 +175,9 @@ class CreateDescriptorViewModel(
                     if (!state.canRemoveUrls) return@updateLoggedIn state
                     state.copy(
                         errorMessage = null,
-                        urls = state.urls.filterIndexed { index, _ -> index != event.index },
+                        form = state.form.copy(
+                            urls = state.urls.filterIndexed { index, _ -> index != event.index },
+                        ),
                     )
                 }
             }.launchIn(viewModelScope)
@@ -225,7 +237,8 @@ class CreateDescriptorViewModel(
 
         val urls = current.urls.map { it.copy(hasError = !it.url.isValidUrl()) }
         if (urls.any { it.hasError }) {
-            updateLoggedIn { it.copy(urls = urls, errorMessage = ErrorMessage.InvalidUrls) }
+            updateForm { it.copy(urls = urls) }
+            updateLoggedIn { it.copy(errorMessage = ErrorMessage.InvalidUrls) }
             return
         }
 
@@ -294,10 +307,7 @@ class CreateDescriptorViewModel(
             ?.firstOrNull()
             ?.inputs
 
-        return State.LoggedIn(
-            session = session,
-            editingDescriptorId = editingId,
-            existingDateInstalled = descriptor?.dateInstalled,
+        val form = FormData(
             name = descriptor?.name.orEmpty(),
             shortDescription = descriptor?.shortDescription.orEmpty(),
             description = descriptor?.description.orEmpty(),
@@ -308,12 +318,35 @@ class CreateDescriptorViewModel(
                 ?.takeIf { it.isNotEmpty() }
                 ?: listOf(UrlItem()),
             expirationDate = descriptor?.expirationDate?.date ?: defaultExpirationDate(),
+        )
+
+        return State.LoggedIn(
+            session = session,
+            editingDescriptorId = editingId,
+            existingDateInstalled = descriptor?.dateInstalled,
+            form = form,
+            initialForm = form,
             errorMessage = if (!isEditable) {
                 ErrorMessage.NotEditable
             } else {
                 null
             },
         )
+    }
+
+    private fun setShowBackConfirmation(show: Boolean) {
+        _state.update { state ->
+            when (state) {
+                is State.LoggedIn -> state.copy(showBackConfirmation = show)
+                is State.LoggedOut -> state.copy(showBackConfirmation = show)
+                is State.AwaitingToken -> state.copy(showBackConfirmation = show)
+                State.Loading -> state
+            }
+        }
+    }
+
+    private fun updateForm(transform: (FormData) -> FormData) {
+        updateLoggedIn { it.copy(form = transform(it.form), errorMessage = null) }
     }
 
     private fun updateLoggedOut(transform: (State.LoggedOut) -> State.LoggedOut) {
@@ -378,39 +411,64 @@ class CreateDescriptorViewModel(
         val hasError: Boolean = false,
     )
 
+    data class FormData(
+        val name: String = "",
+        val shortDescription: String = "",
+        val description: String = "",
+        val icon: String? = null,
+        val publishEmail: Boolean = true,
+        val urls: List<UrlItem> = listOf(UrlItem()),
+        val expirationDate: LocalDate = defaultExpirationDate(),
+    )
+
     sealed interface State {
+        val showBackConfirmation: Boolean get() = false
+        val hasChanges: Boolean get() = false
+
         data object Loading : State
 
         data class LoggedOut(
             val emailAddress: String = "",
             val isBusy: Boolean = false,
             val errorMessage: ErrorMessage? = null,
-        ) : State
+            override val showBackConfirmation: Boolean = false,
+        ) : State {
+            override val hasChanges get() = emailAddress.isNotBlank()
+        }
 
         data class AwaitingToken(
             val emailAddress: String,
             val tokenInput: String = "",
             val isBusy: Boolean = false,
             val errorMessage: ErrorMessage? = null,
-        ) : State
+            override val showBackConfirmation: Boolean = false,
+        ) : State {
+            override val hasChanges get() = tokenInput.isNotBlank()
+        }
 
         data class LoggedIn(
             val session: AuthSession,
+            val form: FormData = FormData(),
+            val initialForm: FormData = form,
             val editingDescriptorId: Descriptor.Id? = null,
             val existingDateInstalled: LocalDateTime? = null,
-            val name: String = "",
-            val shortDescription: String = "",
-            val description: String = "",
-            val icon: String? = null,
-            val publishEmail: Boolean = true,
-            val urls: List<UrlItem> = listOf(UrlItem()),
-            val expirationDate: LocalDate = defaultExpirationDate(),
             val isSubmitting: Boolean = false,
             val errorMessage: ErrorMessage? = null,
+            override val showBackConfirmation: Boolean = false,
         ) : State {
+            val name get() = form.name
+            val shortDescription get() = form.shortDescription
+            val description get() = form.description
+            val icon get() = form.icon
+            val publishEmail get() = form.publishEmail
+            val urls get() = form.urls
+            val expirationDate get() = form.expirationDate
+
             val canAddUrls get() = urls.size < MAX_URLS
             val canRemoveUrls get() = urls.size > 1
             val isEditing get() = editingDescriptorId != null
+
+            override val hasChanges get() = form != initialForm
         }
     }
 
@@ -431,6 +489,10 @@ class CreateDescriptorViewModel(
 
     sealed interface Event {
         data object BackClicked : Event
+
+        data object BackConfirmed : Event
+
+        data object BackCancelled : Event
 
         data class EmailChanged(
             val value: String,
