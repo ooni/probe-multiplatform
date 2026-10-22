@@ -3,7 +3,6 @@ package org.ooni.probe.domain.descriptors
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import org.ooni.engine.models.TestType
-import org.ooni.probe.data.models.AuthSession
 import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.SessionState
 
