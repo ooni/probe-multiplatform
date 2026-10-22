@@ -26,6 +26,7 @@ import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertFalse
 import kotlin.test.assertIs
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
@@ -497,6 +498,61 @@ class CreateDescriptorViewModelTest {
             assertEquals(dateInstalled, installed?.single()?.dateInstalled)
             assertTrue(backCalled)
             assertNull(createdId)
+        }
+
+    @Test
+    fun backClickWithoutChangesCallsOnBack() =
+        runTest(dispatcher) {
+            var backCalled = false
+            val viewModel = buildViewModel(onBack = { backCalled = true })
+
+            viewModel.onEvent(CreateDescriptorViewModel.Event.BackClicked)
+
+            assertTrue(backCalled)
+            val state = viewModel.state.first()
+            assertFalse(state.showBackConfirmation)
+        }
+
+    @Test
+    fun backClickWithChangesShowsConfirmationDialog() =
+        runTest(dispatcher) {
+            var backCalled = false
+            val viewModel = buildViewModel(onBack = { backCalled = true })
+
+            viewModel.onEvent(CreateDescriptorViewModel.Event.NameChanged("New Name"))
+            viewModel.onEvent(CreateDescriptorViewModel.Event.BackClicked)
+
+            assertFalse(backCalled)
+            val state = viewModel.state.first()
+            assertTrue(state.showBackConfirmation)
+        }
+
+    @Test
+    fun cancellingBackConfirmationHidesDialog() =
+        runTest(dispatcher) {
+            var backCalled = false
+            val viewModel = buildViewModel(onBack = { backCalled = true })
+
+            viewModel.onEvent(CreateDescriptorViewModel.Event.NameChanged("New Name"))
+            viewModel.onEvent(CreateDescriptorViewModel.Event.BackClicked)
+            viewModel.onEvent(CreateDescriptorViewModel.Event.BackCancelled)
+
+            assertFalse(backCalled)
+            val state = viewModel.state.first()
+            assertFalse(state.showBackConfirmation)
+        }
+
+    @Test
+    fun confirmingBackCallsOnBack() =
+        runTest(dispatcher) {
+            var backCalled = false
+            val viewModel = buildViewModel(onBack = { backCalled = true })
+
+            viewModel.onEvent(CreateDescriptorViewModel.Event.NameChanged("New Name"))
+            viewModel.onEvent(CreateDescriptorViewModel.Event.BackClicked)
+            viewModel.onEvent(CreateDescriptorViewModel.Event.BackConfirmed)
+
+            assertTrue(backCalled)
         }
 
     private fun fillInForm(viewModel: CreateDescriptorViewModel) {
