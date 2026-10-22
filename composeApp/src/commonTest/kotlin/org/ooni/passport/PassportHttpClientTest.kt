@@ -12,6 +12,7 @@ import org.ooni.passport.models.PassportException
 import org.ooni.passport.models.PassportHttpResponse
 import org.ooni.passport.models.SubmitCredentialConfig
 import org.ooni.probe.data.models.ProxyOption
+import org.ooni.probe.shared.Platform
 import kotlin.coroutines.CoroutineContext
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -165,21 +166,26 @@ class PassportHttpClientTest {
         }
 
     @Test
-    fun protocolVersionHeaderIsAddedWhenAvailable() =
+    fun protocolVersionIsAddedToUserAgentWhenAvailable() =
         runTest {
             val bridge = RecordingBridge()
             val subject = subject(bridge, isOnline = true, protocolVersion = "1.2.3")
 
             subject.get("https://example.org")
 
+            assertEquals(emptyList(), bridge.lastHeaders)
             assertEquals(
-                listOf(PassportBridge.KeyValue("X-Protocol-Version", "1.2.3")),
-                bridge.lastHeaders,
+                buildUserAgent(
+                    softwareName = "ooniprobe",
+                    platform = Platform.Android,
+                    protocolVersion = "1.2.3",
+                ),
+                bridge.lastUserAgent,
             )
         }
 
     @Test
-    fun protocolVersionHeaderIsMissingWhenNotAvailable() =
+    fun protocolVersionIsOmittedFromUserAgentWhenNotAvailable() =
         runTest {
             val bridge = RecordingBridge()
             val subject = subject(bridge, isOnline = true, protocolVersion = "")
@@ -187,6 +193,14 @@ class PassportHttpClientTest {
             subject.get("https://example.org")
 
             assertEquals(emptyList(), bridge.lastHeaders)
+            assertEquals(
+                buildUserAgent(
+                    softwareName = "ooniprobe",
+                    platform = Platform.Android,
+                    protocolVersion = "",
+                ),
+                bridge.lastUserAgent,
+            )
         }
 
     private fun subject(
@@ -194,6 +208,8 @@ class PassportHttpClientTest {
         isOnline: Boolean,
         proxy: ProxyOption = ProxyOption.None,
         protocolVersion: String = "",
+        softwareName: String = "ooniprobe",
+        platform: Platform = Platform.Android,
         backgroundContext: CoroutineContext = RecordingDispatcher(),
     ) = PassportHttpClient(
         passportGet = bridge,
@@ -204,6 +220,8 @@ class PassportHttpClientTest {
         getProtocolVersion = { protocolVersion },
         backgroundContext = backgroundContext,
         isOnline = { isOnline },
+        softwareName = softwareName,
+        platform = platform,
     )
 
     /** Runs blocks inline but still reports every dispatch, so offloading is observable. */
@@ -233,16 +251,20 @@ class PassportHttpClientTest {
             private set
         var lastHeaders: List<PassportBridge.KeyValue>? = null
             private set
+        var lastUserAgent: String? = null
+            private set
 
         private fun record(
             headers: List<PassportBridge.KeyValue>,
             proxy: String?,
             timeout: Float?,
+            userAgent: String?,
         ) {
             callCount++
             lastHeaders = headers
             lastProxy = proxy
             lastTimeout = timeout
+            lastUserAgent = userAgent
         }
 
         override fun get(
@@ -251,9 +273,9 @@ class PassportHttpClientTest {
             query: List<PassportBridge.KeyValue>,
             proxy: String?,
             timeout: Float?,
+            userAgent: String?,
         ): Result<PassportHttpResponse, PassportException> {
-            record(headers, proxy, timeout)
-            lastHeaders = headers
+            record(headers, proxy, timeout, userAgent)
             return Success(response())
         }
 
@@ -263,9 +285,9 @@ class PassportHttpClientTest {
             payload: String,
             proxy: String?,
             timeout: Float?,
+            userAgent: String?,
         ): Result<PassportHttpResponse, PassportException> {
-            record(headers, proxy, timeout)
-            lastHeaders = headers
+            record(headers, proxy, timeout, userAgent)
             return Success(response())
         }
 
@@ -276,8 +298,9 @@ class PassportHttpClientTest {
             manifestVersion: String,
             proxy: String?,
             timeout: Float?,
+            userAgent: String?,
         ): Result<CredentialResponse, PassportException> {
-            record(headers, proxy, timeout)
+            record(headers, proxy, timeout, userAgent)
             return Failure(PassportException.Other("not exercised"))
         }
 
@@ -290,8 +313,9 @@ class PassportHttpClientTest {
             proxy: String?,
             timeout: Float?,
             credentialConfig: SubmitCredentialConfig?,
+            userAgent: String?,
         ): Result<CredentialResponse, PassportException> {
-            record(headers, proxy, timeout)
+            record(headers, proxy, timeout, userAgent)
             return Failure(PassportException.Other("not exercised"))
         }
 

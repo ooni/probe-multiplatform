@@ -10,7 +10,9 @@ import org.ooni.passport.models.CredentialResponse
 import org.ooni.passport.models.PassportException
 import org.ooni.passport.models.PassportHttpResponse
 import org.ooni.passport.models.SubmitCredentialConfig
+import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.data.models.ProxyOption
+import org.ooni.probe.shared.Platform
 import kotlin.collections.emptyList
 import kotlin.coroutines.CoroutineContext
 
@@ -33,12 +35,23 @@ class PassportHttpClient(
     private val getProtocolVersion: () -> String,
     private val backgroundContext: CoroutineContext,
     private val isOnline: () -> Boolean,
+    private val softwareName: String = OrganizationConfig.baseSoftwareName,
+    private val platform: Platform = Platform.Android,
 ) {
     private suspend fun resolveProxy(): String? = getProxyOption().first().value.takeIf { it.isNotEmpty() }
 
-    private suspend fun commonHeaders(): List<PassportBridge.KeyValue> {
-        val protocolVersion = getProtocolVersion().takeIf { it.isNotEmpty() } ?: return emptyList()
-        return listOf(PassportBridge.KeyValue("X-Protocol-Version", protocolVersion))
+    private fun commonHeaders(): List<PassportBridge.KeyValue> =
+        listOf(
+            PassportBridge.KeyValue("X-OO-User-Agent", buildUserAgentString()),
+        )
+
+    private fun buildUserAgentString(): String {
+        val protocolVersion = getProtocolVersion().takeIf { it.isNotEmpty() }
+        return buildUserAgent(
+            softwareName = softwareName,
+            platform = platform,
+            protocolVersion = protocolVersion,
+        )
     }
 
     suspend fun get(
@@ -53,6 +66,7 @@ class PassportHttpClient(
                 query = emptyList(),
                 proxy = proxy,
                 timeout = timeout,
+                userAgent = buildUserAgentString(),
             )
         }
 
@@ -68,6 +82,7 @@ class PassportHttpClient(
                 payload = payload,
                 proxy = proxy,
                 timeout = timeout,
+                userAgent = buildUserAgentString(),
             )
         }
 
@@ -85,6 +100,7 @@ class PassportHttpClient(
                 manifestVersion = manifestVersion,
                 proxy = proxy,
                 timeout = timeout,
+                userAgent = buildUserAgentString(),
             )
         }
 
@@ -106,6 +122,7 @@ class PassportHttpClient(
                 proxy = proxy,
                 timeout = timeout,
                 credentialConfig = credentialConfig,
+                userAgent = buildUserAgentString(),
             )
         }
 

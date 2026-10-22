@@ -3,9 +3,9 @@ package org.ooni.passport
 import org.ooni.engine.models.Result
 import org.ooni.passport.PassportBridge.KeyValue
 import org.ooni.passport.models.CredentialResponse
-import org.ooni.passport.models.SubmitCredentialConfig
 import org.ooni.passport.models.PassportException
 import org.ooni.passport.models.PassportHttpResponse
+import org.ooni.passport.models.SubmitCredentialConfig
 
 interface PassportBridge :
     PassportGet,
@@ -20,6 +20,7 @@ interface PassportBridge :
         query: List<KeyValue>,
         proxy: String?,
         timeout: Float?,
+        userAgent: String?,
     ): Result<PassportHttpResponse, PassportException>
 
     override fun post(
@@ -28,6 +29,7 @@ interface PassportBridge :
         payload: String,
         proxy: String?,
         timeout: Float?,
+        userAgent: String?,
     ): Result<PassportHttpResponse, PassportException>
 
     override fun userAuthRegister(
@@ -37,6 +39,7 @@ interface PassportBridge :
         manifestVersion: String,
         proxy: String?,
         timeout: Float?,
+        userAgent: String?,
     ): Result<CredentialResponse, PassportException>
 
     override fun userAuthSubmit(
@@ -48,6 +51,7 @@ interface PassportBridge :
         proxy: String?,
         timeout: Float?,
         credentialConfig: SubmitCredentialConfig?,
+        userAgent: String?,
     ): Result<CredentialResponse, PassportException>
 
     override fun getProbeId(
@@ -71,6 +75,7 @@ fun interface PassportGet {
         query: List<KeyValue>,
         proxy: String?,
         timeout: Float?,
+        userAgent: String?,
     ): Result<PassportHttpResponse, PassportException>
 }
 
@@ -81,6 +86,7 @@ fun interface PassportPost {
         payload: String,
         proxy: String?,
         timeout: Float?,
+        userAgent: String?,
     ): Result<PassportHttpResponse, PassportException>
 }
 
@@ -92,6 +98,7 @@ fun interface PassportAuthRegister {
         manifestVersion: String,
         proxy: String?,
         timeout: Float?,
+        userAgent: String?,
     ): Result<CredentialResponse, PassportException>
 }
 
@@ -105,6 +112,7 @@ fun interface PassportAuthSubmit {
         proxy: String?,
         timeout: Float?,
         credentialConfig: SubmitCredentialConfig?,
+        userAgent: String?,
     ): Result<CredentialResponse, PassportException>
 }
 
