@@ -46,6 +46,7 @@ class CreateDescriptorViewModel(
     private val createDescriptor: suspend (OONIRunLinkCreateRequest) -> Result<Descriptor, OonirunApiError>,
     private val updateDescriptor: suspend (Descriptor.Id, OONIRunLinkCreateRequest) -> Result<Descriptor, OonirunApiError>,
     private val saveTestDescriptors: suspend (List<Descriptor>, SaveTestDescriptors.Mode) -> Unit,
+    private val isDescriptorEditable: suspend (Descriptor?) -> Boolean,
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
 
@@ -286,10 +287,11 @@ class CreateDescriptorViewModel(
     private suspend fun buildLoggedInState(session: AuthSession): State.LoggedIn {
         val editingId = editingDescriptorId ?: return State.LoggedIn(session = session)
         val descriptor = getDescriptor(editingId)
+        val isEditable = isDescriptorEditable(descriptor)
         val webInputs = descriptor
-            ?.takeIf { it.netTests.size == 1 && it.netTests.first().test == TestType.WebConnectivity }
+            ?.takeIf { isEditable }
             ?.netTests
-            ?.first()
+            ?.firstOrNull()
             ?.inputs
 
         return State.LoggedIn(
@@ -306,7 +308,7 @@ class CreateDescriptorViewModel(
                 ?.takeIf { it.isNotEmpty() }
                 ?: listOf(UrlItem()),
             expirationDate = descriptor?.expirationDate?.date ?: defaultExpirationDate(),
-            errorMessage = if (descriptor == null || webInputs == null) {
+            errorMessage = if (!isEditable) {
                 ErrorMessage.NotEditable
             } else {
                 null
