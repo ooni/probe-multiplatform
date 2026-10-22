@@ -130,6 +130,7 @@ import org.ooni.probe.domain.descriptors.FetchDescriptorsUpdates
 import org.ooni.probe.domain.descriptors.GetBootstrapTestDescriptors
 import org.ooni.probe.domain.descriptors.GetTestDescriptors
 import org.ooni.probe.domain.descriptors.GetTestDescriptorsBySpec
+import org.ooni.probe.domain.descriptors.IsDescriptorEditable
 import org.ooni.probe.domain.descriptors.ParseOonirunApiError
 import org.ooni.probe.domain.descriptors.RejectDescriptorUpdate
 import org.ooni.probe.domain.descriptors.SaveTestDescriptors
@@ -1113,6 +1114,12 @@ class Dependencies(
         getStoredSession = getStoredSession::invoke,
     )
 
+    val isDescriptorEditable by lazy {
+        IsDescriptorEditable(
+            getStoredSession = getStoredSession,
+        )
+    }
+
     fun descriptorViewModel(
         descriptorId: Descriptor.Id,
         onBack: () -> Unit,
@@ -1142,7 +1149,7 @@ class Dependencies(
         undoRejectedDescriptorUpdate = undoRejectedDescriptorUpdate::invoke,
         startBackgroundRun = startSingleRunInner,
         canPullToRefresh = platformInfo.canPullToRefresh,
-        getStoredSession = getStoredSession::invoke,
+        isDescriptorEditable = isDescriptorEditable::invoke,
     )
 
     fun descriptorWebsitesViewModel(

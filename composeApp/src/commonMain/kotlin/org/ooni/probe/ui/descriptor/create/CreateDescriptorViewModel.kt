@@ -300,10 +300,10 @@ class CreateDescriptorViewModel(
             shortDescription = descriptor?.shortDescription.orEmpty(),
             description = descriptor?.description.orEmpty(),
             icon = descriptor?.icon,
-            publishEmail = true, // Not persisted locally; the API default is true.
+            publishEmail = descriptor?.publishEmail == true,
             urls = webInputs
                 ?.map { UrlItem(url = it) }
-                ?.ifEmpty { listOf(UrlItem()) }
+                ?.takeIf { it.isNotEmpty() }
                 ?: listOf(UrlItem()),
             expirationDate = descriptor?.expirationDate?.date ?: defaultExpirationDate(),
             errorMessage = if (descriptor == null || webInputs == null) {

@@ -51,12 +51,10 @@ import ooniprobe.composeapp.generated.resources.Dashboard_Overview_ChooseWebsite
 import ooniprobe.composeapp.generated.resources.Dashboard_Overview_Estimated
 import ooniprobe.composeapp.generated.resources.Dashboard_Runv2_Overview_ReviewUpdates
 import ooniprobe.composeapp.generated.resources.Dashboard_Runv2_Websites_SeeAll
-import ooniprobe.composeapp.generated.resources.Descriptor_Edit
 import ooniprobe.composeapp.generated.resources.Descriptor_LastTestResult
 import ooniprobe.composeapp.generated.resources.DescriptorUpdate_CheckUpdates
 import ooniprobe.composeapp.generated.resources.OONIRun_Run
 import ooniprobe.composeapp.generated.resources.Res
-import ooniprobe.composeapp.generated.resources.fa_pen_nib
 import ooniprobe.composeapp.generated.resources.ic_refresh
 import ooniprobe.composeapp.generated.resources.ic_share
 import ooniprobe.composeapp.generated.resources.ic_timer
@@ -64,9 +62,11 @@ import ooniprobe.composeapp.generated.resources.ooni_empty_state
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.pluralStringResource
 import org.jetbrains.compose.resources.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import org.ooni.engine.models.TestType
 import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.config.TestDisplayMode
+import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.DescriptorItem
 import org.ooni.probe.data.models.NetTest
 import org.ooni.probe.data.models.OoniTest
@@ -84,7 +84,9 @@ import org.ooni.probe.ui.shared.UpdateProgressStatus
 import org.ooni.probe.ui.shared.VpnWarningDialog
 import org.ooni.probe.ui.shared.format
 import org.ooni.probe.ui.shared.isHeightCompact
+import org.ooni.probe.ui.theme.AppTheme
 import org.ooni.probe.ui.theme.LocalCustomColors
+import kotlin.time.Duration.Companion.seconds
 
 @Composable
 fun DescriptorScreen(
@@ -138,17 +140,6 @@ fun DescriptorScreen(
                             Icon(
                                 painterResource(Res.drawable.ic_share),
                                 contentDescription = stringResource(Res.string.Common_Share),
-                            )
-                        }
-                    }
-                    if (state.canEdit) {
-                        IconButton(
-                            onClick = { onEvent(DescriptorViewModel.Event.EditClicked) },
-                            modifier = Modifier.testTag("Descriptor-Edit"),
-                        ) {
-                            Icon(
-                                painterResource(Res.drawable.fa_pen_nib),
-                                contentDescription = stringResource(Res.string.Descriptor_Edit),
                             )
                         }
                     }
@@ -302,6 +293,7 @@ fun DescriptorScreen(
                     descriptor = descriptor.descriptor,
                     onEvent = onEvent,
                     modifier = Modifier.padding(horizontal = 16.dp),
+                    canEdit = state.canEdit,
                 )
             }
         }
@@ -540,3 +532,127 @@ private fun WebsiteItems(
 }
 
 private const val MAX_WEBSITES_TO_SHOW = 10
+
+@Preview
+@Composable
+fun DescriptorScreenPreview() {
+    AppTheme {
+        DescriptorScreen(
+            state = DescriptorViewModel.State(
+                descriptor = DescriptorItem(
+                    descriptor = Descriptor(
+                        id = Descriptor.Id("preview_descriptor"),
+                        revision = 1,
+                        name = "Websites Test",
+                        shortDescription = "Test news websites for blocking and censorship",
+                        description = "This test measures the accessibility of major news websites in your region.",
+                        author = "OONI Team",
+                        netTests = listOf(
+                            NetTest(
+                                test = TestType.WebConnectivity,
+                                inputs = listOf(
+                                    "https://www.bbc.com",
+                                    "https://www.dw.com",
+                                    "https://www.theguardian.com",
+                                ),
+                            ),
+                            NetTest(test = TestType.Signal),
+                        ),
+                        longRunningTests = emptyList(),
+                        nameIntl = null,
+                        shortDescriptionIntl = null,
+                        descriptionIntl = null,
+                        icon = "OoniWebsites",
+                        color = "#0588CB",
+                        animation = null,
+                        expirationDate = null,
+                        dateCreated = null,
+                        dateUpdated = null,
+                        dateInstalled = null,
+                        autoUpdate = true,
+                    ),
+                    updateStatus = UpdateStatus.NoNewUpdate,
+                    enabled = true,
+                ),
+                estimatedTime = 120.seconds,
+                tests = listOf(
+                    SelectableItem(
+                        item = NetTest(
+                            test = TestType.WebConnectivity,
+                            inputs = listOf(
+                                "https://www.bbc.com",
+                                "https://www.dw.com",
+                                "https://www.theguardian.com",
+                            ),
+                        ),
+                        isSelected = true,
+                    ),
+                    SelectableItem(
+                        item = NetTest(test = TestType.Signal),
+                        isSelected = true,
+                    ),
+                ),
+            ),
+            onEvent = {},
+        )
+    }
+}
+
+@Preview
+@Composable
+fun DescriptorScreenEditablePreview() {
+    AppTheme {
+        DescriptorScreen(
+            state = DescriptorViewModel.State(
+                descriptor = DescriptorItem(
+                    descriptor = Descriptor(
+                        id = Descriptor.Id("custom_descriptor_123"),
+                        revision = 2,
+                        name = "My Custom Test List",
+                        shortDescription = "Custom test list for local websites",
+                        description = "A custom testing list created by the user containing regional news and services.",
+                        author = "User",
+                        netTests = listOf(
+                            NetTest(
+                                test = TestType.WebConnectivity,
+                                inputs = listOf(
+                                    "https://example.org",
+                                    "https://news.example.com",
+                                ),
+                            ),
+                        ),
+                        longRunningTests = emptyList(),
+                        nameIntl = null,
+                        shortDescriptionIntl = null,
+                        descriptionIntl = null,
+                        icon = "OoniWebsites",
+                        color = "#4A90E2",
+                        animation = null,
+                        expirationDate = null,
+                        dateCreated = null,
+                        dateUpdated = null,
+                        dateInstalled = null,
+                        autoUpdate = true,
+                    ),
+                    updateStatus = UpdateStatus.NoNewUpdate,
+                    enabled = true,
+                ),
+                estimatedTime = 60.seconds,
+                tests = listOf(
+                    SelectableItem(
+                        item = NetTest(
+                            test = TestType.WebConnectivity,
+                            inputs = listOf(
+                                "https://example.org",
+                                "https://news.example.com",
+                            ),
+                        ),
+                        isSelected = true,
+                    ),
+                ),
+                canEdit = true,
+            ),
+            onEvent = {},
+        )
+    }
+}
