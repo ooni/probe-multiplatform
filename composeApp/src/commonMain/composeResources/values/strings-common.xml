@@ -460,6 +460,8 @@
     <string name="CreateDescriptor_Error_NotEditable">This link can only be edited by its author.</string>
     <string name="CreateDescriptor_Error_Rejected">The server rejected this link</string>
     <string name="CreateDescriptor_Error_Unexpected">Something went wrong</string>
+    <string name="CreateDescriptor_Discard_Title">Discard changes?</string>
+    <string name="CreateDescriptor_Discard_Message">Your changes will not be saved if you leave this screen. Are you sure you want to discard them?</string>
 
     <string name="Snackbar_ResultsNotUploaded_Text">Not uploaded</string>
     <string name="Snackbar_ResultsSomeNotUploaded_Text">Some not uploaded</string>
