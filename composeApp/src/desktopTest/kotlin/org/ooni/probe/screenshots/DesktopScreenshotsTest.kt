@@ -454,12 +454,14 @@ class DesktopScreenshotsTest {
                             role = "user",
                             loginTime = Instant.parse("2025-01-01T00:00:00Z"),
                         ),
-                        name = "Custom censorship watchlist",
-                        shortDescription = "Websites I want to keep an eye on",
-                        description = "A short list of websites relevant to my local context.",
-                        urls = listOf(
-                            CreateDescriptorViewModel.UrlItem(url = "https://ooni.org"),
-                            CreateDescriptorViewModel.UrlItem(url = "https://example.com"),
+                        form = CreateDescriptorViewModel.FormData(
+                            name = "Custom censorship watchlist",
+                            shortDescription = "Websites I want to keep an eye on",
+                            description = "A short list of websites relevant to my local context.",
+                            urls = listOf(
+                                CreateDescriptorViewModel.UrlItem(url = "https://ooni.org"),
+                                CreateDescriptorViewModel.UrlItem(url = "https://example.com"),
+                            ),
                         ),
                     ),
                     onEvent = {},
