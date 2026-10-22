@@ -20,7 +20,7 @@ ktor = "3.6.0"
 compose-ui = "1.12.1" # Checkout https://developer.android.com/jetpack/androidx/releases/compose-ui
 coil = "3.6.3"
 jna = "5.19.1"
-oonimkall = "3.30.0"
+oonimkall = "3.31.0"
 
 [plugins]
 
