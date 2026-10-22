@@ -1010,6 +1010,7 @@ class Dependencies(
         createDescriptor = createDescriptor::invoke,
         updateDescriptor = updateDescriptor::invoke,
         saveTestDescriptors = saveTestDescriptors::invoke,
+        isDescriptorEditable = isDescriptorEditable::invoke,
     )
 
     fun articleViewModel(
