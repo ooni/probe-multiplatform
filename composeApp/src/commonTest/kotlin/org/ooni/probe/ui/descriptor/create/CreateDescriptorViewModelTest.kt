@@ -366,7 +366,7 @@ class CreateDescriptorViewModelTest {
                         options = null,
                     ),
                 ),
-            )
+            ).copy(publishEmail = false)
             val viewModel = buildViewModel(
                 editingDescriptorId = Descriptor.Id("1234"),
                 getDescriptor = { installed },
@@ -379,6 +379,7 @@ class CreateDescriptorViewModelTest {
             assertEquals("My link", state.name)
             assertEquals("Short", state.shortDescription)
             assertEquals("Long description", state.description)
+            assertEquals(false, state.publishEmail)
             assertEquals(
                 listOf("https://ooni.org", "https://example.org"),
                 state.urls.map { it.url },
