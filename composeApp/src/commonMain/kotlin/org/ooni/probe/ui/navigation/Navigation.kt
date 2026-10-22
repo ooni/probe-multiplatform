@@ -331,10 +331,11 @@ fun Navigation(
         }
 
         composable<Screen.CreateDescriptor> { entry ->
-            val loginToken = entry.toRoute<Screen.CreateDescriptor>().loginToken
+            val route = entry.toRoute<Screen.CreateDescriptor>()
             val viewModel = viewModel {
                 dependencies.createDescriptorViewModel(
-                    loginToken = loginToken,
+                    loginToken = route.loginToken,
+                    editingDescriptorId = route.descriptorId?.let { Descriptor.Id(it) },
                     onBack = { navController.goBack() },
                     onDescriptorCreated = {
                         navController.goBackAndNavigate(Screen.Descriptor(it.value))
@@ -394,6 +395,9 @@ fun Navigation(
                     goToResult = { navController.safeNavigate(Screen.Result(it.value)) },
                     goToDescriptorWebsites = {
                         navController.safeNavigate(Screen.DescriptorWebsites(it.value))
+                    },
+                    goToEditDescriptor = {
+                        navController.safeNavigate(Screen.CreateDescriptor(descriptorId = it.value))
                     },
                 )
             }

@@ -31,6 +31,7 @@ data class OONIRunDescriptor(
     @SerialName("date_updated") val dateUpdated: Instant,
     @SerialName("is_expired") val isExpired: Boolean,
     @SerialName("revision") val revision: Long,
+    @SerialName("publish_email") val publishEmail: Boolean? = null,
 )
 
 fun OONIRunDescriptor.toModel() =
@@ -53,4 +54,5 @@ fun OONIRunDescriptor.toModel() =
         dateUpdated = dateUpdated.toLocalDateTime(),
         dateInstalled = null, // Needs to be set on installation, or copied during update
         autoUpdate = true,
+        publishEmail = publishEmail,
     )

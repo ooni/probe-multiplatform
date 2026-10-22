@@ -43,6 +43,7 @@ class DescriptorViewModel(
     goToChooseWebsites: () -> Unit,
     goToResult: (ResultModel.Id) -> Unit,
     goToDescriptorWebsites: (Descriptor.Id) -> Unit,
+    goToEditDescriptor: (Descriptor.Id) -> Unit,
     getTestDescriptor: (Descriptor.Id) -> Flow<DescriptorItem?>,
     getLastResultOfDescriptor: (String) -> Flow<ResultListItem?>,
     private val preferenceRepository: PreferenceRepository,
@@ -56,6 +57,7 @@ class DescriptorViewModel(
     undoRejectedDescriptorUpdate: suspend (Descriptor.Id) -> Unit,
     private val startBackgroundRun: (RunSpecification) -> Unit,
     canPullToRefresh: Boolean,
+    private val isDescriptorEditable: suspend (Descriptor?) -> Boolean,
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
 
@@ -95,6 +97,7 @@ class DescriptorViewModel(
                                     isSelected = preferences[descriptor to test] == true,
                                 )
                             },
+                            canEdit = isDescriptorEditable(descriptor.descriptor),
                         )
                     }
                 }
@@ -284,6 +287,14 @@ class DescriptorViewModel(
             }.launchIn(viewModelScope)
 
         events
+            .filterIsInstance<Event.EditClicked>()
+            .onEach {
+                state.value.descriptor
+                    ?.descriptor
+                    ?.let { goToEditDescriptor(it.id) }
+            }.launchIn(viewModelScope)
+
+        events
             .filterIsInstance<Event.ShareClicked>()
             .onEach {
                 val descriptor = state.value.descriptor ?: return@onEach
@@ -338,6 +349,7 @@ class DescriptorViewModel(
         val showVpnWarning: Boolean = false,
         val showDisableVpnInstructions: Boolean = false,
         val copyMessageToClipboard: String? = null,
+        val canEdit: Boolean = false,
     ) {
         val isRefreshing: Boolean
             get() = updateOperationState == DescriptorUpdateOperationState.FetchingUpdates
@@ -401,6 +413,8 @@ class DescriptorViewModel(
         ) : Event
 
         data object SeeMoreWebsitesClicked : Event
+
+        data object EditClicked : Event
 
         data object ShareClicked : Event
 
