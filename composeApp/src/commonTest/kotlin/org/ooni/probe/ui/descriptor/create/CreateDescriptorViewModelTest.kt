@@ -419,6 +419,29 @@ class CreateDescriptorViewModelTest {
         }
 
     @Test
+    fun editingADescriptorFromAnotherAuthorShowsAnError() =
+        runTest(dispatcher) {
+            val installed = descriptor(
+                id = "1234",
+                netTests = listOf(
+                    NetTest(
+                        test = TestType.WebConnectivity,
+                        inputs = listOf("https://ooni.org"),
+                        options = null,
+                    ),
+                ),
+            ).copy(author = "other@example.org")
+            val viewModel = buildViewModel(
+                editingDescriptorId = Descriptor.Id("1234"),
+                getDescriptor = { installed },
+            )
+
+            val state = viewModel.state.first()
+            assertIs<CreateDescriptorViewModel.State.LoggedIn>(state)
+            assertEquals(CreateDescriptorViewModel.ErrorMessage.NotEditable, state.errorMessage)
+        }
+
+    @Test
     fun submittingWhileEditingUpdatesAndGoesBack() =
         runTest(dispatcher) {
             var created = false
@@ -530,6 +553,12 @@ class CreateDescriptorViewModelTest {
         updateDescriptor: suspend (Descriptor.Id, OONIRunLinkCreateRequest) -> Result<Descriptor, OonirunApiError> = { _, _ ->
             Failure(OonirunApiError.NotFound)
         },
+        isDescriptorEditable: suspend (Descriptor?) -> Boolean = { descriptor ->
+            descriptor != null &&
+                descriptor.author == storedSession()?.emailAddress &&
+                descriptor.netTests.size == 1 &&
+                descriptor.netTests.first().test == TestType.WebConnectivity
+        },
     ) = CreateDescriptorViewModel(
         loginToken = loginToken,
         editingDescriptorId = editingDescriptorId,
@@ -543,5 +572,6 @@ class CreateDescriptorViewModelTest {
         createDescriptor = createDescriptor,
         updateDescriptor = updateDescriptor,
         saveTestDescriptors = saveTestDescriptors,
+        isDescriptorEditable = isDescriptorEditable,
     )
 }
