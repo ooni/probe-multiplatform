@@ -27,6 +27,7 @@ fun passportUserAgent(
  *
  * @param softwareName The application's base software name (e.g. `ooniprobe`).
  * @param platform The target platform ([Platform]).
+ * @see <a href="https://github.com/ooni/probe-cli/blob/v3.31.0/internal/engine/experiment.go#L141">probe-cli engine name</a>
  */
 fun buildPassportUserAgent(
     softwareName: String,
@@ -34,8 +35,8 @@ fun buildPassportUserAgent(
 ): String {
     val platformName = platform.toPlatformName()
     return "$softwareName,${SharedBuildConfig.VERSION_NAME},$platformName," +
-        "$softwareName-engine,${SharedBuildConfig.ENGINE_VERSION}," +
-        "$softwareName-engine_${SharedBuildConfig.ENGINE_VERSION}"
+        "ooniprobe-engine,${SharedBuildConfig.ENGINE_VERSION}," +
+        "ooniprobe-engine_${SharedBuildConfig.ENGINE_VERSION}"
 }
 
 private fun Platform.toPlatformName(): String =
