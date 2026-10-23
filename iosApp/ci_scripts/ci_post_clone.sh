@@ -3,20 +3,20 @@
 # Fail this script if any subcommand fails.
 set -e
 
-HOMEBREW_NO_AUTO_UPDATE=1 # disable homebrew's automatic updates.
-
-# Install CocoaPods using Homebrew.
-brew install cocoapods
+# Disable Homebrew auto-updates and automatic upgrades
+export HOMEBREW_NO_AUTO_UPDATE=1
+export HOMEBREW_NO_INSTALL_UPGRADE=1
 
 brew install ruby@3.3
 
-brew install getsentry/tools/sentry-cli
+# Install sentry-cli directly using Sentry's official installer to avoid Homebrew source builds
+if ! command -v sentry-cli >/dev/null 2>&1; then
+    curl -sL https://sentry.io/get-cli/ | bash
+fi
 
-echo 'export PATH="/usr/local/opt/ruby@3.3/bin:$PATH"' >> ~/.zshrc
-
-source ~/.zshrc
-
-export PATH="/usr/local/opt/ruby@3.3/bin:$PATH"
+RUBY_PREFIX=$(brew --prefix ruby@3.3 2>/dev/null || echo "/usr/local/opt/ruby@3.3")
+echo "export PATH=\"$RUBY_PREFIX/bin:\$PATH\"" >> ~/.zshrc
+export PATH="$RUBY_PREFIX/bin:$PATH"
 
 ### Start fastlane setup
 cd $CI_PRIMARY_REPOSITORY_PATH # change working directory to the root of your cloned repo.
