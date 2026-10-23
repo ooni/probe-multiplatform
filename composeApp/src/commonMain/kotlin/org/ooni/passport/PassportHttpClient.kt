@@ -10,7 +10,9 @@ import org.ooni.passport.models.CredentialResponse
 import org.ooni.passport.models.PassportException
 import org.ooni.passport.models.PassportHttpResponse
 import org.ooni.passport.models.SubmitCredentialConfig
+import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.data.models.ProxyOption
+import org.ooni.probe.shared.Platform
 import kotlin.collections.emptyList
 import kotlin.coroutines.CoroutineContext
 
@@ -33,12 +35,21 @@ class PassportHttpClient(
     private val getProtocolVersion: () -> String,
     private val backgroundContext: CoroutineContext,
     private val isOnline: () -> Boolean,
+    private val softwareName: String = OrganizationConfig.baseSoftwareName,
+    private val platform: Platform = Platform.Android,
 ) {
     private suspend fun resolveProxy(): String? = getProxyOption().first().value.takeIf { it.isNotEmpty() }
 
-    private suspend fun commonHeaders(): List<PassportBridge.KeyValue> {
+    private fun commonHeaders(): List<PassportBridge.KeyValue> {
         val protocolVersion = getProtocolVersion().takeIf { it.isNotEmpty() } ?: return emptyList()
-        return listOf(PassportBridge.KeyValue("X-Protocol-Version", protocolVersion))
+        val userAgent = buildPassportUserAgent(
+            softwareName = softwareName,
+            platform = platform,
+        )
+        return listOf(
+            PassportBridge.KeyValue("X-Protocol-Version", protocolVersion),
+            PassportBridge.KeyValue("User-Agent", userAgent),
+        )
     }
 
     suspend fun get(

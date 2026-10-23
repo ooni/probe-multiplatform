@@ -12,6 +12,7 @@ import org.ooni.passport.models.PassportException
 import org.ooni.passport.models.PassportHttpResponse
 import org.ooni.passport.models.SubmitCredentialConfig
 import org.ooni.probe.data.models.ProxyOption
+import org.ooni.probe.shared.Platform
 import kotlin.coroutines.CoroutineContext
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -173,7 +174,16 @@ class PassportHttpClientTest {
             subject.get("https://example.org")
 
             assertEquals(
-                listOf(PassportBridge.KeyValue("X-Protocol-Version", "1.2.3")),
+                listOf(
+                    PassportBridge.KeyValue("X-Protocol-Version", "1.2.3"),
+                    PassportBridge.KeyValue(
+                        "User-Agent",
+                        buildPassportUserAgent(
+                            softwareName = "ooniprobe",
+                            platform = Platform.Android,
+                        ),
+                    ),
+                ),
                 bridge.lastHeaders,
             )
         }
@@ -194,6 +204,8 @@ class PassportHttpClientTest {
         isOnline: Boolean,
         proxy: ProxyOption = ProxyOption.None,
         protocolVersion: String = "",
+        softwareName: String = "ooniprobe",
+        platform: Platform = Platform.Android,
         backgroundContext: CoroutineContext = RecordingDispatcher(),
     ) = PassportHttpClient(
         passportGet = bridge,
@@ -204,6 +216,8 @@ class PassportHttpClientTest {
         getProtocolVersion = { protocolVersion },
         backgroundContext = backgroundContext,
         isOnline = { isOnline },
+        softwareName = softwareName,
+        platform = platform,
     )
 
     /** Runs blocks inline but still reports every dispatch, so offloading is observable. */
