@@ -1,4 +1,4 @@
-* Measurement engine (`org.ooni:oonimkall*`) v3.30.0
-* `org.ooni:passport*` 0.1.7
-* Add support for `resolver_type`.
+* Measurement engine (`org.ooni:oonimkall*`) v3.31.0
+* Passport (`org.ooni:passport*`) 0.1.8
+* Support credentials for proxy
 * Bug fixes and improvements
