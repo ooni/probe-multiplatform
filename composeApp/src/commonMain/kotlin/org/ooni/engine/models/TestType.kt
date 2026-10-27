@@ -189,7 +189,7 @@ sealed class TestType {
 
     companion object {
         // Lazy due to https://youtrack.jetbrains.com/issue/KT-8970/Object-is-uninitialized-null-when-accessed-from-static-context-ex.-companion-object-with-initialization-loop
-        private val ALL_NAMED by lazy {
+        val ALL_NAMED by lazy {
             listOf(
                 Dash,
                 FacebookMessenger,

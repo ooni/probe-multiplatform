@@ -9,9 +9,11 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
+import org.ooni.probe.data.models.AuthSession
 import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.DescriptorItem
 import org.ooni.probe.data.models.DescriptorType
@@ -24,6 +26,7 @@ class DescriptorsViewModel(
     goToDescriptor: (Descriptor.Id) -> Unit,
     goToReviewDescriptorUpdates: (List<Descriptor.Id>?) -> Unit,
     goToAddDescriptorUrl: () -> Unit,
+    goToCreateDescriptor: () -> Unit,
     getTestDescriptors: () -> Flow<List<DescriptorItem>>,
     observeDescriptorUpdateState: () -> Flow<DescriptorsUpdateState>,
     startDescriptorsUpdates: suspend (List<Descriptor>?) -> Unit,
@@ -31,6 +34,7 @@ class DescriptorsViewModel(
     canPullToRefresh: Boolean,
     private val getPreference: (SettingsKey) -> Flow<Any?>,
     private val setPreference: suspend (SettingsKey, Any?) -> Unit,
+    private val getStoredSession: suspend () -> AuthSession?,
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
 
@@ -51,9 +55,10 @@ class DescriptorsViewModel(
         combine(
             getTestDescriptors(),
             getPreference(SettingsKey.DESCRIPTOR_SECTIONS_COLLAPSED),
-        ) { tests, collapsedSectionsPreference ->
+            flow { emit(getStoredSession()) },
+        ) { tests, collapsedSectionsPreference, session ->
             val collapsedSections = collapsedSectionsPreference.toCollapsedSections()
-            _state.update { it.copy(sections = tests.groupByType(collapsedSections)) }
+            _state.update { it.copy(sections = tests.groupByType(collapsedSections, session)) }
         }.launchIn(viewModelScope)
 
         events
@@ -96,6 +101,11 @@ class DescriptorsViewModel(
             .launchIn(viewModelScope)
 
         events
+            .filterIsInstance<Event.CreateClicked>()
+            .onEach { goToCreateDescriptor() }
+            .launchIn(viewModelScope)
+
+        events
             .filterIsInstance<Event.FilterClicked>()
             .onEach { _state.update { it.copy(filterText = "") } }
             .launchIn(viewModelScope)
@@ -130,23 +140,40 @@ class DescriptorsViewModel(
         )
     }
 
-    private fun List<DescriptorItem>.groupByType(collapsedSections: List<DescriptorType>) =
-        listOf(
+    private fun List<DescriptorItem>.groupByType(
+        collapsedSections: Set<DescriptorType>,
+        session: AuthSession?,
+    ): List<DescriptorSection> {
+        val (defaultDescriptors, nonDefaultDescriptors) = partition { it.isDefault() }
+
+        val (userDescriptors, installedDescriptors) = if (session != null) {
+            nonDefaultDescriptors.partition { it.descriptor.author == session.emailAddress }
+        } else {
+            emptyList<DescriptorItem>() to nonDefaultDescriptors
+        }
+
+        return listOfNotNull(
+            DescriptorSection(
+                type = DescriptorType.CreatedByUser,
+                descriptors = userDescriptors,
+                isCollapsed = DescriptorType.CreatedByUser in collapsedSections,
+            ).takeIf { userDescriptors.isNotEmpty() },
             DescriptorSection(
                 type = DescriptorType.Installed,
-                descriptors = filter { !it.isDefault() },
-                isCollapsed = collapsedSections.contains(DescriptorType.Installed),
-            ),
+                descriptors = installedDescriptors,
+                isCollapsed = DescriptorType.Installed in collapsedSections,
+            ).takeIf { installedDescriptors.isNotEmpty() },
             DescriptorSection(
                 type = DescriptorType.Default,
-                descriptors = filter { it.isDefault() },
-                isCollapsed = collapsedSections.contains(DescriptorType.Default),
-            ),
+                descriptors = defaultDescriptors,
+                isCollapsed = DescriptorType.Default in collapsedSections,
+            ).takeIf { defaultDescriptors.isNotEmpty() },
         )
+    }
 
-    private fun Any?.toCollapsedSections() =
+    private fun Any?.toCollapsedSections(): Set<DescriptorType> =
         @Suppress("UNCHECKED_CAST")
-        (this as? Set<String>)?.mapNotNull { DescriptorType.fromKey(it) }.orEmpty()
+        (this as? Set<String>)?.mapNotNull { DescriptorType.fromKey(it) }?.toSet().orEmpty()
 
     data class State(
         val sections: List<DescriptorSection> = emptyList(),
@@ -181,6 +208,8 @@ class DescriptorsViewModel(
         data object CancelUpdatesClicked : Event
 
         data object AddClicked : Event
+
+        data object CreateClicked : Event
 
         data object FilterClicked : Event
 
