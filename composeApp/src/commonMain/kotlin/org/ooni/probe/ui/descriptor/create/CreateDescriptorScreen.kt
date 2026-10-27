@@ -11,15 +11,23 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigationevent.NavigationEventInfo
+import androidx.navigationevent.compose.NavigationBackHandler
+import androidx.navigationevent.compose.rememberNavigationEventState
+import kotlin.time.Clock
+import ooniprobe.composeapp.generated.resources.CreateDescriptor_Discard_Message
+import ooniprobe.composeapp.generated.resources.CreateDescriptor_Discard_Title
 import ooniprobe.composeapp.generated.resources.CreateDescriptor_Error_EmailInvalid
 import ooniprobe.composeapp.generated.resources.CreateDescriptor_Error_FieldsRequired
 import ooniprobe.composeapp.generated.resources.CreateDescriptor_Error_InvalidTests
@@ -34,11 +42,16 @@ import ooniprobe.composeapp.generated.resources.CreateDescriptor_Error_TokenEmpt
 import ooniprobe.composeapp.generated.resources.CreateDescriptor_Error_Unexpected
 import ooniprobe.composeapp.generated.resources.CreateDescriptor_Title
 import ooniprobe.composeapp.generated.resources.CreateDescriptor_Title_Edit
+import ooniprobe.composeapp.generated.resources.Modal_Cancel
+import ooniprobe.composeapp.generated.resources.Modal_OK
 import ooniprobe.composeapp.generated.resources.Res
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
+import org.ooni.probe.data.models.AuthSession
+import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.ui.descriptor.create.CreateDescriptorViewModel.ErrorMessage
 import org.ooni.probe.ui.descriptor.create.CreateDescriptorViewModel.Event
+import org.ooni.probe.ui.descriptor.create.CreateDescriptorViewModel.FormData
 import org.ooni.probe.ui.descriptor.create.CreateDescriptorViewModel.State
 import org.ooni.probe.ui.shared.NavigationBackButton
 import org.ooni.probe.ui.shared.TopBar
@@ -107,6 +120,41 @@ fun CreateDescriptorScreen(
             )
         }
     }
+
+    if (state.showBackConfirmation) {
+        DiscardConfirmDialog(
+            onConfirm = { onEvent(Event.BackConfirmed) },
+            onDismiss = { onEvent(Event.BackCancelled) },
+        )
+    }
+
+    NavigationBackHandler(
+        state = rememberNavigationEventState(NavigationEventInfo.None),
+        isBackEnabled = state.hasChanges || state.showBackConfirmation,
+        onBackCompleted = { onEvent(Event.BackClicked) },
+    )
+}
+
+@Composable
+private fun DiscardConfirmDialog(
+    onConfirm: () -> Unit,
+    onDismiss: () -> Unit,
+) {
+    AlertDialog(
+        onDismissRequest = { onDismiss() },
+        title = { Text(stringResource(Res.string.CreateDescriptor_Discard_Title)) },
+        text = { Text(stringResource(Res.string.CreateDescriptor_Discard_Message)) },
+        confirmButton = {
+            TextButton(onClick = { onConfirm() }) {
+                Text(stringResource(Res.string.Modal_OK))
+            }
+        },
+        dismissButton = {
+            TextButton(onClick = { onDismiss() }) {
+                Text(stringResource(Res.string.Modal_Cancel))
+            }
+        },
+    )
 }
 
 @Composable
@@ -144,6 +192,87 @@ fun CreateDescriptorScreenLoggedOutPreview() {
     AppTheme {
         CreateDescriptorScreen(
             state = State.LoggedOut(),
+            onEvent = {},
+        )
+    }
+}
+
+@Preview
+@Composable
+fun CreateDescriptorScreenAwaitingTokenPreview() {
+    AppTheme {
+        CreateDescriptorScreen(
+            state = State.AwaitingToken(
+                emailAddress = "user@example.org",
+                tokenInput = "123456",
+            ),
+            onEvent = {},
+        )
+    }
+}
+
+@Preview
+@Composable
+fun CreateDescriptorScreenLoggedInPreview() {
+    AppTheme {
+        CreateDescriptorScreen(
+            state = State.LoggedIn(
+                session = AuthSession(
+                    sessionToken = "",
+                    emailAddress = "user@example.org",
+                    role = "",
+                    loginTime = Clock.System.now(),
+                ),
+            ),
+            onEvent = {},
+        )
+    }
+}
+
+@Preview
+@Composable
+fun CreateDescriptorScreenEditingPreview() {
+    AppTheme {
+        CreateDescriptorScreen(
+            state = State.LoggedIn(
+                session = AuthSession(
+                    sessionToken = "",
+                    emailAddress = "user@example.org",
+                    role = "",
+                    loginTime = Clock.System.now(),
+                ),
+                form = FormData(
+                    name = "Existing Test List",
+                    shortDescription = "Short description for existing descriptor",
+                    description = "Detailed description of the descriptor being edited.",
+                ),
+                editingDescriptorId = Descriptor.Id("123"),
+            ),
+            onEvent = {},
+        )
+    }
+}
+
+@Preview
+@Composable
+fun CreateDescriptorScreenEditingDiscardModalPreview() {
+    AppTheme {
+        CreateDescriptorScreen(
+            state = State.LoggedIn(
+                session = AuthSession(
+                    sessionToken = "",
+                    emailAddress = "user@example.org",
+                    role = "",
+                    loginTime = Clock.System.now(),
+                ),
+                form = FormData(
+                    name = "Existing Test List",
+                    shortDescription = "Short description for existing descriptor",
+                    description = "Detailed description of the descriptor being edited.",
+                ),
+                editingDescriptorId = Descriptor.Id("123"),
+                showBackConfirmation = true,
+            ),
             onEvent = {},
         )
     }
