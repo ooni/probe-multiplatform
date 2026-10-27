@@ -9,6 +9,7 @@ import androidx.datastore.preferences.core.Preferences
 import app.cash.sqldelight.db.SqlDriver
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
+import kotlinx.coroutines.flow.first
 import kotlinx.serialization.json.Json
 import okio.FileSystem
 import okio.Path.Companion.toPath
@@ -128,10 +129,12 @@ import org.ooni.probe.domain.descriptors.FetchDescriptorsUpdates
 import org.ooni.probe.domain.descriptors.GetBootstrapTestDescriptors
 import org.ooni.probe.domain.descriptors.GetTestDescriptors
 import org.ooni.probe.domain.descriptors.GetTestDescriptorsBySpec
+import org.ooni.probe.domain.descriptors.IsDescriptorEditable
 import org.ooni.probe.domain.descriptors.ParseOonirunApiError
 import org.ooni.probe.domain.descriptors.RejectDescriptorUpdate
 import org.ooni.probe.domain.descriptors.SaveTestDescriptors
 import org.ooni.probe.domain.descriptors.UndoRejectedDescriptorUpdate
+import org.ooni.probe.domain.descriptors.UpdateDescriptor
 import org.ooni.probe.domain.proxy.ProxyManager
 import org.ooni.probe.domain.proxy.TestProxy
 import org.ooni.probe.domain.results.DeleteOldResults
@@ -452,6 +455,17 @@ class Dependencies(
             responseJson = json,
         )
     }
+    val updateDescriptor by lazy {
+        UpdateDescriptor(
+            passportPutWithAuth = { url, payload, extraHeaders ->
+                passportHttpClient.put(url, payload, timeout = PassportTimeouts.DEFAULT_SECONDS, extraHeaders = extraHeaders)
+            },
+            getStoredSession = getStoredSession::invoke,
+            parseOonirunApiError = parseOonirunApiError,
+            requestJson = oonirunRequestJson,
+            responseJson = json,
+        )
+    }
     val finishInProgressData by lazy { FinishInProgressData(resultRepository::markAllAsDone) }
     val fetchDescriptorsUpdates by lazy {
         FetchDescriptorsUpdates(
@@ -700,6 +714,7 @@ class Dependencies(
         PassportHttpClient(
             passportGet = passportBridge::get,
             passportPost = passportBridge::post,
+            passportPut = passportBridge::put,
             passportAuthRegister = passportBridge::userAuthRegister,
             passportAuthSubmit = passportBridge::userAuthSubmit,
             getProxyOption = proxyManager::selected,
@@ -979,18 +994,23 @@ class Dependencies(
 
     fun createDescriptorViewModel(
         loginToken: String?,
+        editingDescriptorId: Descriptor.Id?,
         onBack: () -> Unit,
         onDescriptorCreated: (Descriptor.Id) -> Unit,
     ) = CreateDescriptorViewModel(
         loginToken = loginToken,
+        editingDescriptorId = editingDescriptorId,
         onBack = onBack,
         onDescriptorCreated = onDescriptorCreated,
         getStoredSession = getStoredSession::invoke,
         requestLogin = requestLogin::invoke,
         exchangeLoginToken = exchangeLoginToken::invoke,
         clearSession = clearSession::invoke,
+        getDescriptor = { id -> getTestDescriptors.single(id).first()?.descriptor },
         createDescriptor = createDescriptor::invoke,
+        updateDescriptor = updateDescriptor::invoke,
         saveTestDescriptors = saveTestDescriptors::invoke,
+        isDescriptorEditable = isDescriptorEditable::invoke,
     )
 
     fun articleViewModel(
@@ -1079,6 +1099,12 @@ class Dependencies(
         getStoredSession = getStoredSession::invoke,
     )
 
+    val isDescriptorEditable by lazy {
+        IsDescriptorEditable(
+            getStoredSession = getStoredSession,
+        )
+    }
+
     fun descriptorViewModel(
         descriptorId: Descriptor.Id,
         onBack: () -> Unit,
@@ -1086,6 +1112,7 @@ class Dependencies(
         goToChooseWebsites: () -> Unit,
         goToResult: (ResultModel.Id) -> Unit,
         goToDescriptorWebsites: (Descriptor.Id) -> Unit,
+        goToEditDescriptor: (Descriptor.Id) -> Unit,
     ) = DescriptorViewModel(
         descriptorId = descriptorId,
         onBack = onBack,
@@ -1093,6 +1120,7 @@ class Dependencies(
         goToChooseWebsites = goToChooseWebsites,
         goToResult = goToResult,
         goToDescriptorWebsites = goToDescriptorWebsites,
+        goToEditDescriptor = goToEditDescriptor,
         getTestDescriptor = getTestDescriptors::single,
         getLastResultOfDescriptor = getLastResultOfDescriptor::invoke,
         preferenceRepository = preferenceRepository,
@@ -1106,6 +1134,7 @@ class Dependencies(
         undoRejectedDescriptorUpdate = undoRejectedDescriptorUpdate::invoke,
         startBackgroundRun = startSingleRunInner,
         canPullToRefresh = platformInfo.canPullToRefresh,
+        isDescriptorEditable = isDescriptorEditable::invoke,
     )
 
     fun descriptorWebsitesViewModel(

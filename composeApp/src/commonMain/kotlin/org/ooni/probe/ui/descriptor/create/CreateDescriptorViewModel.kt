@@ -35,14 +35,18 @@ import org.ooni.probe.ui.shared.isValidUrl
 
 class CreateDescriptorViewModel(
     loginToken: String?,
-    onBack: () -> Unit,
+    private val editingDescriptorId: Descriptor.Id?,
+    private val onBack: () -> Unit,
     private val onDescriptorCreated: (Descriptor.Id) -> Unit,
     private val getStoredSession: suspend () -> AuthSession?,
     private val requestLogin: suspend (String) -> Result<OoniAuthLoginResponse, AuthException>,
     private val exchangeLoginToken: suspend (String) -> Result<AuthSession, AuthException>,
     private val clearSession: suspend () -> Unit,
+    private val getDescriptor: suspend (Descriptor.Id) -> Descriptor?,
     private val createDescriptor: suspend (OONIRunLinkCreateRequest) -> Result<Descriptor, OonirunApiError>,
+    private val updateDescriptor: suspend (Descriptor.Id, OONIRunLinkCreateRequest) -> Result<Descriptor, OonirunApiError>,
     private val saveTestDescriptors: suspend (List<Descriptor>, SaveTestDescriptors.Mode) -> Unit,
+    private val isDescriptorEditable: suspend (Descriptor?) -> Boolean,
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
 
@@ -53,7 +57,7 @@ class CreateDescriptorViewModel(
         viewModelScope.launch {
             val session = getStoredSession()
             when {
-                session != null -> _state.value = State.LoggedIn(session = session)
+                session != null -> _state.value = buildLoggedInState(session)
 
                 loginToken != null -> {
                     _state.value = State.AwaitingToken(emailAddress = "", tokenInput = loginToken)
@@ -203,7 +207,7 @@ class CreateDescriptorViewModel(
 
         updateAwaitingToken { it.copy(isBusy = true, errorMessage = null) }
         when (val result = exchangeLoginToken(token)) {
-            is Success -> _state.value = State.LoggedIn(session = result.value)
+            is Success -> _state.value = buildLoggedInState(result.value)
 
             is Failure ->
                 updateAwaitingToken { it.copy(isBusy = false, errorMessage = result.reason.toErrorMessage()) }
@@ -244,14 +248,27 @@ class CreateDescriptorViewModel(
             ),
         )
 
-        when (val result = createDescriptor(request)) {
+        val result = current.editingDescriptorId
+            ?.let { updateDescriptor(it, request) }
+            ?: createDescriptor(request)
+
+        when (result) {
             is Success -> {
                 saveTestDescriptors(
-                    listOf(result.value.copy(autoUpdate = true, dateInstalled = LocalDateTime.now())),
+                    listOf(
+                        result.value.copy(
+                            autoUpdate = true,
+                            dateInstalled = current.existingDateInstalled ?: LocalDateTime.now(),
+                        ),
+                    ),
                     SaveTestDescriptors.Mode.CreateOrUpdate,
                 )
                 updateLoggedIn { it.copy(isSubmitting = false) }
-                onDescriptorCreated(result.value.id)
+                if (current.editingDescriptorId != null) {
+                    onBack()
+                } else {
+                    onDescriptorCreated(result.value.id)
+                }
             }
 
             is Failure ->
@@ -259,6 +276,44 @@ class CreateDescriptorViewModel(
                     it.copy(isSubmitting = false, errorMessage = result.reason.toErrorMessage())
                 }
         }
+    }
+
+    /**
+     * Prefills the form when [editingDescriptorId] is set. Only links the app itself can author
+     * (a single web_connectivity nettest with explicit inputs) are prefilled; anything else
+     * shows an error and leaves the form blank so the user can see something is off before
+     * submitting.
+     */
+    private suspend fun buildLoggedInState(session: AuthSession): State.LoggedIn {
+        val editingId = editingDescriptorId ?: return State.LoggedIn(session = session)
+        val descriptor = getDescriptor(editingId)
+        val isEditable = isDescriptorEditable(descriptor)
+        val webInputs = descriptor
+            ?.takeIf { isEditable }
+            ?.netTests
+            ?.firstOrNull()
+            ?.inputs
+
+        return State.LoggedIn(
+            session = session,
+            editingDescriptorId = editingId,
+            existingDateInstalled = descriptor?.dateInstalled,
+            name = descriptor?.name.orEmpty(),
+            shortDescription = descriptor?.shortDescription.orEmpty(),
+            description = descriptor?.description.orEmpty(),
+            icon = descriptor?.icon,
+            publishEmail = descriptor?.publishEmail == true,
+            urls = webInputs
+                ?.map { UrlItem(url = it) }
+                ?.takeIf { it.isNotEmpty() }
+                ?: listOf(UrlItem()),
+            expirationDate = descriptor?.expirationDate?.date ?: defaultExpirationDate(),
+            errorMessage = if (!isEditable) {
+                ErrorMessage.NotEditable
+            } else {
+                null
+            },
+        )
     }
 
     private fun updateLoggedOut(transform: (State.LoggedOut) -> State.LoggedOut) {
@@ -341,6 +396,8 @@ class CreateDescriptorViewModel(
 
         data class LoggedIn(
             val session: AuthSession,
+            val editingDescriptorId: Descriptor.Id? = null,
+            val existingDateInstalled: LocalDateTime? = null,
             val name: String = "",
             val shortDescription: String = "",
             val description: String = "",
@@ -353,6 +410,7 @@ class CreateDescriptorViewModel(
         ) : State {
             val canAddUrls get() = urls.size < MAX_URLS
             val canRemoveUrls get() = urls.size > 1
+            val isEditing get() = editingDescriptorId != null
         }
     }
 
@@ -366,6 +424,7 @@ class CreateDescriptorViewModel(
         FieldsRequired,
         InvalidUrls,
         InvalidNetTests,
+        NotEditable,
         Rejected,
         Unexpected,
     }
