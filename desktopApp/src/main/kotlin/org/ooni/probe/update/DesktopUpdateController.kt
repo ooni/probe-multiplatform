@@ -30,6 +30,8 @@ import org.ooni.probe.shared.UpdateError
 import org.ooni.probe.shared.UpdateManager
 import org.ooni.probe.shared.UpdateState
 import org.ooni.probe.shared.WinSparkleUpdateManager
+import org.ooni.probe.shared.monitoring.Instrumentation
+import org.ooni.probe.shared.monitoring.reportTransaction
 import kotlin.time.Duration.Companion.minutes
 
 /**
@@ -89,6 +91,16 @@ class DesktopUpdateController(
                     },
                     saveIndex = { index ->
                         preferenceRepository.setValueByKey(SettingsKey.LAST_WORKING_UPDATE_FEED_INDEX, index)
+                    },
+                    onFailover = { from, to, showUI ->
+                        Instrumentation.reportTransaction(
+                            operation = if (UpdateConfig.isMirrorUrl(to)) {
+                                "UpdateFeed.FailoverToS3"
+                            } else {
+                                "UpdateFeed.Failover"
+                            },
+                            data = mapOf("from" to from, "to" to to, "showUI" to showUI),
+                        )
                     },
                 )
                 val initialUrl = failover.loadPreferredUrl()
@@ -236,10 +248,15 @@ class DesktopUpdateController(
         }
     }
 
-    private fun useFeed(url: String) {
-        if (url == activeUrl) return
+    private suspend fun useFeed(url: String) {
+        val previousUrl = activeUrl
+        if (url == previousUrl) return
         activeUrl = url
         updateManager.setAppcastUrl(url)
+        Instrumentation.reportTransaction(
+            operation = "UpdateFeed.Change",
+            data = mapOf("from" to previousUrl.orEmpty(), "to" to url),
+        )
     }
 
     fun getMenuText(): StringResource =
