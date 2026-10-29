@@ -19,6 +19,7 @@ class UpdateFeedFailover(
     private val check: suspend (url: String, showUI: Boolean) -> CheckOutcome,
     private val loadSavedIndex: suspend () -> Int?,
     private val saveIndex: suspend (Int) -> Unit,
+    private val onFailover: suspend (from: String, to: String, showUI: Boolean) -> Unit = { _, _, _ -> },
     private val retryDelays: List<Duration> = DEFAULT_RETRY_DELAYS,
     private val switchDelay: Duration = DEFAULT_SWITCH_DELAY,
 ) {
@@ -87,7 +88,11 @@ class UpdateFeedFailover(
         var outcome: CheckOutcome = CheckOutcome.FeedFailure
         feeds.forEachIndexed { position, index ->
             // A check started right after an abort is swallowed by the native updater
-            if (position > 0) delay(switchDelay)
+            if (position > 0) {
+                delay(switchDelay)
+                Logger.i("Failing over update feed from ${urls[currentIndex]} to ${urls[index]}")
+                onFailover(urls[currentIndex], urls[index], showUI)
+            }
             currentIndex = index
 
             outcome = check(urls[index], showUI)

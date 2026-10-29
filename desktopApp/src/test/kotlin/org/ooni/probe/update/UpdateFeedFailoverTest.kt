@@ -35,6 +35,7 @@ class UpdateFeedFailoverTest {
     ) {
         val checks = mutableListOf<Check>()
         val saved = mutableListOf<Int>()
+        val failovers = mutableListOf<Pair<String, String>>()
 
         val subject = UpdateFeedFailover(
             urls = urls,
@@ -44,6 +45,7 @@ class UpdateFeedFailoverTest {
             },
             loadSavedIndex = { savedIndex },
             saveIndex = { saved += it },
+            onFailover = { from, to, _ -> failovers += from to to },
             retryDelays = listOf(100.milliseconds, 200.milliseconds, 300.milliseconds),
             switchDelay = 10.milliseconds,
         )
@@ -54,6 +56,24 @@ class UpdateFeedFailoverTest {
         urls: List<String> = listOf(primary, mirror),
         savedIndex: Int? = null,
     ) = Fixture(this, urls, savedIndex, outcomes)
+
+    @Test
+    fun reportsFailoverToNextFeed() =
+        runTest {
+            val f = fixture(mapOf(primary to FeedFailure, mirror to NoUpdate))
+            f.subject.loadPreferredUrl()
+            f.subject.checkInBackground()
+            assertEquals(listOf(primary to mirror), f.failovers)
+        }
+
+    @Test
+    fun doesNotReportFailoverWhenFeedWorks() =
+        runTest {
+            val f = fixture(mapOf(primary to NoUpdate))
+            f.subject.loadPreferredUrl()
+            f.subject.checkInBackground()
+            assertEquals(emptyList(), f.failovers)
+        }
 
     @Test
     fun startsWithPrimaryWhenNothingSaved() =
