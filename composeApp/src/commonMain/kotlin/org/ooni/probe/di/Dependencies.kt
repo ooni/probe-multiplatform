@@ -629,6 +629,7 @@ class Dependencies(
             getProtocolVersion = passportBridge::getProtocolVersion,
             backgroundContext = backgroundContext,
             isOnline = connectivityMonitor::isOnline,
+            platform = platformInfo.platform,
         )
     }
 
