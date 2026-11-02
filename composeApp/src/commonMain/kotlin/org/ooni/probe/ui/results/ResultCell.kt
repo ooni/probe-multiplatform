@@ -51,7 +51,7 @@ import org.ooni.probe.data.models.ResultListItem
 import org.ooni.probe.data.models.downloadSpeed
 import org.ooni.probe.data.models.uploadSpeed
 import org.ooni.probe.data.models.videoQuality
-import org.ooni.probe.ui.dashboard.TestDescriptorLabel
+import org.ooni.probe.ui.descriptors.TestDescriptorLabel
 import org.ooni.probe.ui.theme.LocalCustomColors
 
 @Composable

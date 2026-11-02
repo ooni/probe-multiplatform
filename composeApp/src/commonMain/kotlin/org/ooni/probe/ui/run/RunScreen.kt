@@ -60,8 +60,8 @@ import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.config.TestDisplayMode
 import org.ooni.probe.data.models.DescriptorItem
 import org.ooni.probe.data.models.NetTest
-import org.ooni.probe.ui.dashboard.TestDescriptorLabel
 import org.ooni.probe.ui.dashboard.TestDescriptorTypeTitle
+import org.ooni.probe.ui.descriptors.TestDescriptorLabel
 import org.ooni.probe.ui.shared.DisableVpnInstructionsDialog
 import org.ooni.probe.ui.shared.NavigationBackButton
 import org.ooni.probe.ui.shared.ParentSelectableItem

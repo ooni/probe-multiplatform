@@ -14,6 +14,8 @@ sealed class OoniTest(
 
     object Experimental : OoniTest("00108", "experimental")
 
+    fun matchesKey(key: String) = this.key.equals(key, ignoreCase = true)
+
     companion object {
         fun fromId(id: String): OoniTest? =
             when (id) {

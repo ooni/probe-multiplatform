@@ -92,8 +92,10 @@ data class DescriptorItem(
     val longRunningTests: List<NetTest>
         get() = descriptor.longRunningTests
 
+    val ooniTest get() = descriptor.ooniTest
+
     val summaryType: SummaryType
-        get() = when (OoniTest.fromId(descriptor.id.value)) {
+        get() = when (ooniTest) {
             OoniTest.Performance -> SummaryType.Performance
             OoniTest.Experimental -> SummaryType.Simple
             OoniTest.Circumvention,
@@ -113,7 +115,7 @@ data class DescriptorItem(
         get() {
             val descriptorId = descriptor.id.value
             return if (isDefault()) {
-                OoniTest.fromId(descriptorId)?.key ?: descriptorId
+                ooniTest?.key ?: descriptorId
             } else {
                 descriptorId
             }
@@ -158,7 +160,7 @@ fun Descriptor.toDescriptorItem(updateStatus: UpdateStatus = UpdateStatus.Unknow
     )
 
 fun Descriptor.getDataUsage(): StringResource =
-    when (OoniTest.fromId(this.id.value)) {
+    when (ooniTest) {
         OoniTest.Websites -> Res.string.websites_datausage
         OoniTest.InstantMessaging -> Res.string.small_datausage
         OoniTest.Circumvention -> Res.string.small_datausage

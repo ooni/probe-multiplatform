@@ -56,6 +56,7 @@ import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.data.models.ProxyOption
 import org.ooni.probe.domain.proxy.TestProxy
+import org.ooni.probe.ui.shared.DISABLED_ALPHA
 import org.ooni.probe.ui.shared.NavigationBackButton
 import org.ooni.probe.ui.shared.TopBar
 import org.ooni.probe.ui.shared.VerticalScrollbar
@@ -171,9 +172,12 @@ fun ProxyScreen(
 @Composable
 private fun TestProxyStateText(state: TestProxy.State) {
     val contentColor = when (state) {
-        TestProxy.State.Testing -> MaterialTheme.colorScheme.onBackground.copy(alpha = 0.66f)
-        TestProxy.State.Unavailable -> MaterialTheme.colorScheme.error
-        TestProxy.State.Available -> LocalCustomColors.current.success
+        TestProxy.State.Testing ->
+            MaterialTheme.colorScheme.onBackground.copy(alpha = DISABLED_ALPHA)
+        TestProxy.State.Unavailable ->
+            MaterialTheme.colorScheme.error
+        TestProxy.State.Available ->
+            LocalCustomColors.current.success
     }
     CompositionLocalProvider(
         LocalContentColor provides contentColor,

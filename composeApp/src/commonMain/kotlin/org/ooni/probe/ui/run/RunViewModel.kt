@@ -110,7 +110,7 @@ class RunViewModel(
         events
             .filterIsInstance<Event.SelectAllClicked>()
             .onEach {
-                selectedTests.value = allNetTests.value
+                selectedTests.value = allNetTests.value.filter { it.first.enabled }
             }.launchIn(viewModelScope)
 
         events

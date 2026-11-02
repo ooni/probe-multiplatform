@@ -45,7 +45,7 @@ class GetTestDescriptors(
                 .orEmpty()
                 .map { TestType.fromName(it) }
             return@combine updatedDescriptors
-                .map { it.copy(enabled = it.name != OoniTest.Websites.key || isWebsitesEnabled) }
+                .map { it.copy(enabled = !OoniTest.Websites.matchesKey(it.name) || isWebsitesEnabled) }
                 .filterDisabledTests(disabledTests)
                 .sortedWith(DescriptorItem.SORT_COMPARATOR)
         }

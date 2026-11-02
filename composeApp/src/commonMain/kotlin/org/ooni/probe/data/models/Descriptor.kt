@@ -42,6 +42,8 @@ data class Descriptor(
         val revision: Long,
     )
 
+    val ooniTest get() = OoniTest.fromId(id.value)
+
     val isOoniDescriptor get() = OoniTest.isValidId(id.value)
 
     val key get() = Key(id, revision)
