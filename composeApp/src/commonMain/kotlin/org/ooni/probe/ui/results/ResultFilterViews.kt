@@ -503,7 +503,7 @@ private fun NetworkModel.name(): String {
     val name = name?.ellipsize(20)
         ?: asn
         ?: stringResource(Res.string.TestResults_UnknownASN)
-    return name + countryCode?.let { " ($it)" }
+    return name + countryCode?.let { " ($it)" }.orEmpty()
 }
 
 @Composable
