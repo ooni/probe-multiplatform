@@ -22,6 +22,10 @@ class ScaledValueTest {
             assertEquals("123.5", scaledValue)
             assertEquals(ScaledValue.Unit.MB, unit)
         }
+        with(ScaledValue(2_300_000.0)) {
+            assertEquals("2.30", scaledValue)
+            assertEquals(ScaledValue.Unit.GB, unit)
+        }
         with(ScaledValue(123_456_789.0)) {
             assertEquals("123.5", scaledValue)
             assertEquals(ScaledValue.Unit.GB, unit)

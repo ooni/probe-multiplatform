@@ -15,7 +15,7 @@ data class ScaledValue(
         get() = (
             if (value < 1000) {
                 value
-            } else if (value < 1_000_1000) {
+            } else if (value < 1_000_000) {
                 value / 1000
             } else {
                 value / 1_000_000
