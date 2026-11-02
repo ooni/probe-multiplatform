@@ -2,6 +2,8 @@ package org.ooni.probe.data.models
 
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertFalse
+import kotlin.test.assertTrue
 
 class ProxyOptionTest {
     @Test
@@ -87,10 +89,86 @@ class ProxyOptionTest {
 
     @Test
     fun validateUsernameRequiresUsernameWhenPasswordIsPresent() {
-        kotlin.test.assertFalse(validateUsername(username = "", password = "password"))
-        kotlin.test.assertFalse(validateUsername(username = "   ", password = "password"))
-        kotlin.test.assertTrue(validateUsername(username = "username", password = "password"))
-        kotlin.test.assertTrue(validateUsername(username = "username", password = ""))
-        kotlin.test.assertTrue(validateUsername(username = "", password = ""))
+        assertFalse(validateUsername(username = "", password = "password"))
+        assertFalse(validateUsername(username = "   ", password = "password"))
+        assertTrue(validateUsername(username = "username", password = "password"))
+        assertTrue(validateUsername(username = "username", password = ""))
+        assertTrue(validateUsername(username = "", password = ""))
+    }
+
+    @Test
+    fun validateHostAcceptsIpAddresses() {
+        assertHostsValid(
+            "127.0.0.1",
+            "1.2.3.4",
+            "192.168.1.100",
+            "255.255.255.255",
+        )
+    }
+
+    @Test
+    fun validateHostAcceptsIpV6Addresses() {
+        assertHostsValid(
+            "::1",
+            "2001:db8:85a3:8d3:1319:8a2e:370:7348",
+            "2001:db8::1",
+        )
+    }
+
+    @Test
+    fun validateHostAcceptsDomainNames() {
+        assertHostsValid(
+            "example.org",
+            "proxy.example.org",
+            "my-proxy.example.co.uk",
+            "EXAMPLE.ORG",
+            "proxy.example.museum",
+            "proxy.example.network",
+            "proxy.example.solutions",
+            "proxy.example.technology",
+            "localhost",
+        )
+    }
+
+    @Test
+    fun validateHostRejectsMalformedHosts() {
+        assertHostsInvalid(
+            "",
+            " ",
+            "example.org ",
+            " example.org",
+            "exa mple.org",
+            "example..org",
+            ".example.org",
+            "example.org.",
+            "-example.org",
+            "example-.org",
+            "-localhost",
+            "localhost-",
+        )
+    }
+
+    @Test
+    fun validateHostRejectsHostsWithOtherUrlParts() {
+        assertHostsInvalid(
+            "http://example.org",
+            "example.org:8080",
+            "example.org/path",
+            "user@example.org",
+            "[::1]",
+        )
+    }
+
+    @Test
+    fun validateHostRejectsNumericHostsThatAreNotIpAddresses() {
+        assertHostsInvalid("256.256.256.256", "1.2.3", "1234", "example.123")
+    }
+
+    private fun assertHostsValid(vararg hosts: String) {
+        assertEquals(emptyList(), hosts.filterNot(::validateHost), "Should be valid")
+    }
+
+    private fun assertHostsInvalid(vararg hosts: String) {
+        assertEquals(emptyList(), hosts.filter(::validateHost), "Should be invalid")
     }
 }

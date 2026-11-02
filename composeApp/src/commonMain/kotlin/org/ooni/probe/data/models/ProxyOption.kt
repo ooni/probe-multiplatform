@@ -64,7 +64,8 @@ fun validatePort(port: String): Boolean {
 fun validateHost(host: String): Boolean =
     host.matches(IP_ADDRESS_REGEX.toRegex()) ||
         host.matches(IPV6_ADDRESS_REGEX.toRegex()) ||
-        host.matches(DOMAIN_NAME_REGEX.toRegex())
+        host.matches(DOMAIN_NAME_REGEX.toRegex()) ||
+        host == "localhost"
 
 private const val IP_ADDRESS_REGEX =
     "((25[0-5]|2[0-4][0-9]|[0-1][0-9]{2}|[1-9][0-9]|[1-9])\\.(25[0-5]|2[0-4]" +
@@ -87,7 +88,7 @@ private const val IPV6_ADDRESS_REGEX =
         "{3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}" +
         "[0-9]){0,1}[0-9])\\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))"
 
-private const val DOMAIN_NAME_REGEX = "((?!-)[A-Za-z0-9-]{1,63}(?<!-)\\.)+[A-Za-z]{2,6}"
+private const val DOMAIN_NAME_REGEX = "((?!-)[A-Za-z0-9-]{1,63}(?<!-)\\.)+[A-Za-z]{2,63}"
 
 fun validateUsername(
     username: String,
