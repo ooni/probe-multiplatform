@@ -38,7 +38,7 @@ class CreateDescriptorViewModel(
     private val editingDescriptorId: Descriptor.Id?,
     private val onBack: () -> Unit,
     private val onDescriptorCreated: (Descriptor.Id) -> Unit,
-    private val getStoredSession: suspend () -> AuthSession?,
+    private val getSession: suspend () -> AuthSession?,
     private val requestLogin: suspend (String) -> Result<OoniAuthLoginResponse, AuthException>,
     private val exchangeLoginToken: suspend (String) -> Result<AuthSession, AuthException>,
     private val clearSession: suspend () -> Unit,
@@ -55,7 +55,7 @@ class CreateDescriptorViewModel(
 
     init {
         viewModelScope.launch {
-            val session = getStoredSession()
+            val session = getSession()
             when {
                 session != null -> _state.value = buildLoggedInState(session)
 

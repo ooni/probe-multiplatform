@@ -9,6 +9,7 @@ import org.ooni.engine.models.Success
 import org.ooni.passport.models.PassportHttpResponse
 import org.ooni.probe.data.models.AuthSession
 import org.ooni.probe.di.Dependencies
+import org.ooni.probe.domain.auth.AuthException
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
@@ -59,7 +60,7 @@ class CreateDescriptorTest {
                     called = true
                     error("should not be called")
                 },
-                getStoredSession = { null },
+                requireSession = { Failure(AuthException.NotLoggedIn()) },
                 parseOonirunApiError = ParseOonirunApiError(json),
                 requestJson = requestJson,
                 responseJson = json,
@@ -88,7 +89,7 @@ class CreateDescriptorTest {
                         ),
                     )
                 },
-                getStoredSession = { session },
+                requireSession = { Success(session) },
                 parseOonirunApiError = ParseOonirunApiError(json),
                 requestJson = requestJson,
                 responseJson = json,
@@ -117,7 +118,7 @@ class CreateDescriptorTest {
                         ),
                     )
                 },
-                getStoredSession = { session },
+                requireSession = { Success(session) },
                 parseOonirunApiError = ParseOonirunApiError(json),
                 requestJson = requestJson,
                 responseJson = json,
@@ -147,7 +148,7 @@ class CreateDescriptorTest {
                         ),
                     )
                 },
-                getStoredSession = { session },
+                requireSession = { Success(session) },
                 parseOonirunApiError = ParseOonirunApiError(json),
                 requestJson = requestJson,
                 responseJson = json,
@@ -180,7 +181,7 @@ class CreateDescriptorTest {
                         ),
                     )
                 },
-                getStoredSession = { session },
+                requireSession = { Success(session) },
                 parseOonirunApiError = ParseOonirunApiError(json),
                 requestJson = requestJson,
                 responseJson = json,

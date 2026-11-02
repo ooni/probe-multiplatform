@@ -9,7 +9,6 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
@@ -19,6 +18,7 @@ import org.ooni.probe.data.models.DescriptorItem
 import org.ooni.probe.data.models.DescriptorType
 import org.ooni.probe.data.models.DescriptorUpdateOperationState
 import org.ooni.probe.data.models.DescriptorsUpdateState
+import org.ooni.probe.data.models.SessionState
 import org.ooni.probe.data.models.SettingsKey
 import org.ooni.probe.data.models.toDescriptorItem
 
@@ -34,7 +34,7 @@ class DescriptorsViewModel(
     canPullToRefresh: Boolean,
     private val getPreference: (SettingsKey) -> Flow<Any?>,
     private val setPreference: suspend (SettingsKey, Any?) -> Unit,
-    private val getStoredSession: suspend () -> AuthSession?,
+    observeSessionState: () -> Flow<SessionState>,
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
 
@@ -55,8 +55,9 @@ class DescriptorsViewModel(
         combine(
             getTestDescriptors(),
             getPreference(SettingsKey.DESCRIPTOR_SECTIONS_COLLAPSED),
-            flow { emit(getStoredSession()) },
-        ) { tests, collapsedSectionsPreference, session ->
+            observeSessionState(),
+        ) { tests, collapsedSectionsPreference, sessionState ->
+            val session = (sessionState as? SessionState.LoggedIn)?.session
             val collapsedSections = collapsedSectionsPreference.toCollapsedSections()
             _state.update { it.copy(sections = tests.groupByType(collapsedSections, session)) }
         }.launchIn(viewModelScope)
