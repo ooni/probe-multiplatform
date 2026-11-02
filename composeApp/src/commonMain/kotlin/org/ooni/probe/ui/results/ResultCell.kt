@@ -81,12 +81,10 @@ fun ResultCell(
                 .fillMaxWidth()
                 .combinedClickable(
                     onClick = {
-                        if (!hasError) {
-                            if (isSelected) {
-                                onSelectChange?.invoke(false)
-                            } else {
-                                onResultClick()
-                            }
+                        if (isSelected) {
+                            onSelectChange?.invoke(false)
+                        } else if (!hasError) {
+                            onResultClick()
                         }
                     },
                     onLongClick = onLongClick,
