@@ -14,6 +14,7 @@ import org.ooni.passport.models.PassportHttpResponse
 import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.data.models.AuthSession
 import org.ooni.probe.data.models.Descriptor
+import org.ooni.probe.domain.auth.AuthException
 import org.ooni.probe.domain.auth.bearerAuthHeader
 
 /**
@@ -26,7 +27,7 @@ class UpdateDescriptor(
         payload: String,
         extraHeaders: List<PassportBridge.KeyValue>,
     ) -> Result<PassportHttpResponse, PassportException>,
-    private val getStoredSession: suspend () -> AuthSession?,
+    private val requireSession: suspend () -> Result<AuthSession, AuthException>,
     private val parseOonirunApiError: ParseOonirunApiError,
     /**
      * Configured with `explicitNulls = false`: fields left unset (name_intl, icon,
@@ -40,7 +41,10 @@ class UpdateDescriptor(
         descriptorId: Descriptor.Id,
         request: OONIRunLinkCreateRequest,
     ): Result<Descriptor, OonirunApiError> {
-        val session = getStoredSession() ?: return Failure(OonirunApiError.Unauthorized("Not logged in"))
+        val session = when (val sessionResult = requireSession()) {
+            is Success -> sessionResult.value
+            is Failure -> return Failure(OonirunApiError.Unauthorized("Not logged in"))
+        }
 
         val body = requestJson.encodeToString(
             OONIRunLinkCreateRequest.serializer(),

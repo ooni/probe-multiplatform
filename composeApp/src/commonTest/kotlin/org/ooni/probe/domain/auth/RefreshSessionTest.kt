@@ -30,7 +30,7 @@ class RefreshSessionTest {
                     called = true
                     error("should not be called")
                 },
-                getStoredSession = { null },
+                requireSession = { Failure(AuthException.NotLoggedIn()) },
                 storeSession = { true },
                 clearSession = { },
                 decodeAuthResponse = ::decodeAuthResponse,
@@ -65,7 +65,7 @@ class RefreshSessionTest {
                         ),
                     )
                 },
-                getStoredSession = { existing },
+                requireSession = { Success(existing) },
                 storeSession = {
                     stored = it
                     true
@@ -95,7 +95,7 @@ class RefreshSessionTest {
                         ),
                     )
                 },
-                getStoredSession = { existing },
+                requireSession = { Success(existing) },
                 storeSession = { error("should not store on failure") },
                 clearSession = { cleared = true },
                 decodeAuthResponse = ::decodeAuthResponse,
