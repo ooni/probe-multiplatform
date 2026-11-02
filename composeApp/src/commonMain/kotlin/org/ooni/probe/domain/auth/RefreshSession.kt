@@ -1,8 +1,8 @@
 package org.ooni.probe.domain.auth
 
 import kotlinx.serialization.DeserializationStrategy
-import org.ooni.engine.models.OoniAuthUserSession
 import org.ooni.engine.models.Failure
+import org.ooni.engine.models.OoniAuthUserSession
 import org.ooni.engine.models.Result
 import org.ooni.engine.models.Success
 import org.ooni.passport.PassportBridge
@@ -17,7 +17,7 @@ class RefreshSession(
         payload: String,
         extraHeaders: List<PassportBridge.KeyValue>,
     ) -> Result<PassportHttpResponse, PassportException>,
-    private val getStoredSession: suspend () -> AuthSession?,
+    private val requireSession: suspend () -> Result<AuthSession, AuthException>,
     private val storeSession: suspend (AuthSession) -> Boolean,
     private val clearSession: suspend () -> Unit,
     private val decodeAuthResponse: (
@@ -26,7 +26,10 @@ class RefreshSession(
     ) -> Result<OoniAuthUserSession, AuthException>,
 ) {
     suspend operator fun invoke(): Result<AuthSession, AuthException> {
-        val current = getStoredSession() ?: return Failure(AuthException.NotLoggedIn())
+        val current = when (val sessionResult = requireSession()) {
+            is Success -> sessionResult.value
+            is Failure -> return Failure(sessionResult.reason)
+        }
 
         val result = passportPostWithAuth(
             "${OrganizationConfig.ooniApiBaseUrl}/api/v2/ooniauth/user-session",

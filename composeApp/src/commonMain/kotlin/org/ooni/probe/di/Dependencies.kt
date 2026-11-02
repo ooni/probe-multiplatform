@@ -58,6 +58,7 @@ import org.ooni.probe.data.repositories.MeasurementRepository
 import org.ooni.probe.data.repositories.NetworkRepository
 import org.ooni.probe.data.repositories.PreferenceRepository
 import org.ooni.probe.data.repositories.ResultRepository
+import org.ooni.probe.data.repositories.SessionRepository
 import org.ooni.probe.data.repositories.TestDescriptorRepository
 import org.ooni.probe.data.repositories.UrlRepository
 import org.ooni.probe.domain.BootstrapPreferences
@@ -99,13 +100,10 @@ import org.ooni.probe.domain.articles.ArticlesRefreshStateManager
 import org.ooni.probe.domain.articles.GetFindings
 import org.ooni.probe.domain.articles.GetRSSFeed
 import org.ooni.probe.domain.articles.RefreshArticles
-import org.ooni.probe.domain.auth.ClearSession
 import org.ooni.probe.domain.auth.DecodeAuthResponse
 import org.ooni.probe.domain.auth.ExchangeLoginToken
-import org.ooni.probe.domain.auth.GetStoredSession
 import org.ooni.probe.domain.auth.RefreshSession
 import org.ooni.probe.domain.auth.RequestLogin
-import org.ooni.probe.domain.auth.StoreSession
 import org.ooni.probe.domain.credentials.ClearCredential
 import org.ooni.probe.domain.credentials.GetAnonymousCredentialsHealth
 import org.ooni.probe.domain.credentials.GetCredential
@@ -449,7 +447,7 @@ class Dependencies(
             passportPostWithAuth = { url, payload, extraHeaders ->
                 passportHttpClient.post(url, payload, timeout = PassportTimeouts.DEFAULT_SECONDS, extraHeaders = extraHeaders)
             },
-            getStoredSession = getStoredSession::invoke,
+            requireSession = sessionRepository::requireSession,
             parseOonirunApiError = parseOonirunApiError,
             requestJson = oonirunRequestJson,
             responseJson = json,
@@ -460,7 +458,7 @@ class Dependencies(
             passportPutWithAuth = { url, payload, extraHeaders ->
                 passportHttpClient.put(url, payload, timeout = PassportTimeouts.DEFAULT_SECONDS, extraHeaders = extraHeaders)
             },
-            getStoredSession = getStoredSession::invoke,
+            requireSession = sessionRepository::requireSession,
             parseOonirunApiError = parseOonirunApiError,
             requestJson = oonirunRequestJson,
             responseJson = json,
@@ -521,20 +519,13 @@ class Dependencies(
 
     // Auth (used to author OONI Run v2 links)
 
-    val getStoredSession by lazy {
-        GetStoredSession(
+    val sessionRepository by lazy {
+        SessionRepository(
             readSecureStorage = secureStorage::read,
-            json = json,
-        )
-    }
-    private val storeSession by lazy {
-        StoreSession(
             writeSecureStorage = secureStorage::write,
+            deleteSecureStorage = secureStorage::delete,
             json = json,
         )
-    }
-    val clearSession by lazy {
-        ClearSession(deleteSecureStorage = secureStorage::delete)
     }
 
     @VisibleForTesting
@@ -553,7 +544,7 @@ class Dependencies(
             passportPost = { url, payload ->
                 passportHttpClient.post(url, payload, timeout = PassportTimeouts.DEFAULT_SECONDS)
             },
-            storeSession = storeSession::invoke,
+            storeSession = sessionRepository::store,
             decodeAuthResponse = decodeAuthResponse::invoke,
             json = json,
         )
@@ -563,9 +554,9 @@ class Dependencies(
             passportPostWithAuth = { url, payload, extraHeaders ->
                 passportHttpClient.post(url, payload, timeout = PassportTimeouts.DEFAULT_SECONDS, extraHeaders = extraHeaders)
             },
-            getStoredSession = getStoredSession::invoke,
-            storeSession = storeSession::invoke,
-            clearSession = clearSession::invoke,
+            requireSession = sessionRepository::requireSession,
+            storeSession = sessionRepository::store,
+            clearSession = sessionRepository::clear,
             decodeAuthResponse = decodeAuthResponse::invoke,
         )
     }
@@ -1002,10 +993,10 @@ class Dependencies(
         editingDescriptorId = editingDescriptorId,
         onBack = onBack,
         onDescriptorCreated = onDescriptorCreated,
-        getStoredSession = getStoredSession::invoke,
+        getSession = sessionRepository::getSession,
         requestLogin = requestLogin::invoke,
         exchangeLoginToken = exchangeLoginToken::invoke,
-        clearSession = clearSession::invoke,
+        clearSession = sessionRepository::clear,
         getDescriptor = { id -> getTestDescriptors.single(id).first()?.descriptor },
         createDescriptor = createDescriptor::invoke,
         updateDescriptor = updateDescriptor::invoke,
@@ -1096,12 +1087,12 @@ class Dependencies(
         canPullToRefresh = platformInfo.canPullToRefresh,
         getPreference = preferenceRepository::getValueByKey,
         setPreference = preferenceRepository::setValueByKey,
-        getStoredSession = getStoredSession::invoke,
+        observeSessionState = { sessionRepository.sessionState },
     )
 
     val isDescriptorEditable by lazy {
         IsDescriptorEditable(
-            getStoredSession = getStoredSession,
+            getSession = sessionRepository::getSession,
         )
     }
 
