@@ -13,7 +13,7 @@ class GetTestDescriptorsBySpec(
     suspend operator fun invoke(spec: RunSpecification.Full): List<DescriptorItem> =
         getTestDescriptors()
             .first()
-            .filterNot { it.isExpired }
+            .filter { !it.isExpired && it.enabled }
             .mapNotNull { descriptor ->
                 val specTest = spec.forDescriptor(descriptor) ?: return@mapNotNull null
                 val netTestsWithInputs = getNetTestsWithInputs(specTest, descriptor)

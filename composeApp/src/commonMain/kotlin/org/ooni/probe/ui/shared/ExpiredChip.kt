@@ -12,7 +12,7 @@ import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun ExpiredChip(modifier: Modifier = Modifier) {
-    val contentColor = LocalContentColor.current.copy(alpha = 0.66f)
+    val contentColor = LocalContentColor.current.copy(alpha = DISABLED_ALPHA)
     SuggestionChip(
         onClick = {},
         enabled = false,

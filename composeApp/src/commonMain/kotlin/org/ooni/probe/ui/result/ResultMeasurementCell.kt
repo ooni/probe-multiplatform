@@ -48,6 +48,7 @@ import org.ooni.passport.models.VerificationStatus
 import org.ooni.probe.data.models.MeasurementModel
 import org.ooni.probe.data.models.MeasurementWithUrl
 import org.ooni.probe.ui.result.ResultViewModel.MeasurementGroupItem.Group
+import org.ooni.probe.ui.shared.DISABLED_ALPHA
 import org.ooni.probe.ui.shared.applyIf
 import org.ooni.probe.ui.theme.LocalCustomColors
 
@@ -65,7 +66,7 @@ fun ResultMeasurementCell(
             .fillMaxWidth()
             .applyIf(measurement.isDone && !measurement.isMissingUpload) {
                 clickable { onClick(item) }
-            }.alpha(if (measurement.isDone && !measurement.isMissingUpload) 1f else 0.66f)
+            }.alpha(if (measurement.isDone && !measurement.isMissingUpload) 1f else DISABLED_ALPHA)
             .padding(16.dp),
     ) {
         TestName(test, item, modifier = Modifier.weight(1f))

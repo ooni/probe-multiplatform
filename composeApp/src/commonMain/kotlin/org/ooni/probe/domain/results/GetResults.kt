@@ -3,7 +3,6 @@ package org.ooni.probe.domain.results
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import org.ooni.probe.data.models.DescriptorItem
-import org.ooni.probe.data.models.OoniTest
 import org.ooni.probe.data.models.ResultFilter
 import org.ooni.probe.data.models.ResultListItem
 import org.ooni.probe.data.models.ResultModel
@@ -35,11 +34,13 @@ class GetResults(
         }
 }
 
-fun List<DescriptorItem>.forResult(result: ResultModel?): DescriptorItem? =
-    result
-        ?.descriptorKey
-        ?.let { descriptorKey -> firstOrNull { descriptorKey == it.descriptor.key } }
-        ?: firstOrNull { OoniTest.fromId(it.descriptor.id.value)?.key == result?.descriptorName }
+fun List<DescriptorItem>.forResult(result: ResultModel?): DescriptorItem? {
+    val result = result ?: return null
+    return firstOrNull { result.descriptorKey == it.descriptor.key }
+        ?: result.descriptorName?.let { descriptorName ->
+            firstOrNull { it.ooniTest?.matchesKey(descriptorName) == true }
+        }
+}
 
 fun List<TestKeysWithResultId>.forResult(result: ResultModel): List<TestKeysWithResultId>? =
     result.id

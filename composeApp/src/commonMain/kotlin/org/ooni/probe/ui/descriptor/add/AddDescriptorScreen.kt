@@ -43,8 +43,8 @@ import ooniprobe.composeapp.generated.resources.ic_timer
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.data.models.toDescriptorItem
-import org.ooni.probe.ui.dashboard.TestDescriptorLabel
 import org.ooni.probe.ui.descriptor.isSingleWebConnectivityTest
+import org.ooni.probe.ui.descriptors.TestDescriptorLabel
 import org.ooni.probe.ui.run.TestItem
 import org.ooni.probe.ui.shared.NavigationCloseButton
 import org.ooni.probe.ui.shared.TopBar

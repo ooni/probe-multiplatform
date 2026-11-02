@@ -13,6 +13,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
@@ -21,6 +22,7 @@ import ooniprobe.composeapp.generated.resources.ic_chevron_right
 import org.jetbrains.compose.resources.painterResource
 import org.ooni.probe.data.models.DescriptorItem
 import org.ooni.probe.data.models.UpdateStatus
+import org.ooni.probe.ui.shared.DISABLED_ALPHA
 import org.ooni.probe.ui.shared.ExpiredChip
 import org.ooni.probe.ui.shared.UpdatesChip
 
@@ -47,7 +49,10 @@ fun TestDescriptorItem(
         Column(
             modifier = Modifier.weight(1f),
         ) {
-            TestDescriptorLabel(item)
+            TestDescriptorLabel(
+                descriptor = item,
+                modifier = Modifier.alpha(if (item.enabled) 1f else DISABLED_ALPHA),
+            )
 
             item.shortDescription()?.let { shortDescription ->
                 Text(
