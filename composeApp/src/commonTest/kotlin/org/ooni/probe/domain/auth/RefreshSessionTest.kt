@@ -1,12 +1,10 @@
 package org.ooni.probe.domain.auth
 
-import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
 import kotlin.time.Instant
 import org.ooni.engine.models.Failure
 import org.ooni.engine.models.Success
 import org.ooni.probe.data.models.AuthSession
-import org.ooni.probe.data.models.SessionState
 import org.ooni.probe.di.Dependencies
 import org.ooni.testing.factories.PassportHttpResponseFactory
 import kotlin.test.Test
@@ -32,7 +30,7 @@ class RefreshSessionTest {
                     called = true
                     error("should not be called")
                 },
-                observeSessionState = { flowOf(SessionState.LoggedOut) },
+                requireSession = { Failure(AuthException.NotLoggedIn()) },
                 storeSession = { true },
                 clearSession = { },
                 decodeAuthResponse = ::decodeAuthResponse,
@@ -67,7 +65,7 @@ class RefreshSessionTest {
                         ),
                     )
                 },
-                observeSessionState = { flowOf(SessionState.LoggedIn(existing)) },
+                requireSession = { Success(existing) },
                 storeSession = {
                     stored = it
                     true
@@ -97,7 +95,7 @@ class RefreshSessionTest {
                         ),
                     )
                 },
-                observeSessionState = { flowOf(SessionState.LoggedIn(existing)) },
+                requireSession = { Success(existing) },
                 storeSession = { error("should not store on failure") },
                 clearSession = { cleared = true },
                 decodeAuthResponse = ::decodeAuthResponse,
@@ -126,7 +124,7 @@ class RefreshSessionTest {
                         ),
                     )
                 },
-                observeSessionState = { flowOf(SessionState.LoggedIn(existing)) },
+                requireSession = { Success(existing) },
                 storeSession = { error("should not store on failure") },
                 clearSession = { cleared = true },
                 decodeAuthResponse = ::decodeAuthResponse,

@@ -68,7 +68,10 @@ class CreateDescriptorViewModel(
                         }
                     }
 
-                    is SessionState.LoggedOut -> {
+                    is SessionState.LoggedOut,
+                    SessionState.Unknown,
+                    is SessionState.Error,
+                    -> {
                         val current = _state.value
                         when {
                             current is State.Loading && loginToken != null -> {
