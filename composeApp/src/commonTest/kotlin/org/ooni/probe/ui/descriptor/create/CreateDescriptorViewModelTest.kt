@@ -564,7 +564,7 @@ class CreateDescriptorViewModelTest {
         editingDescriptorId = editingDescriptorId,
         onBack = onBack,
         onDescriptorCreated = onDescriptorCreated,
-        getStoredSession = storedSession,
+        getSession = storedSession,
         requestLogin = requestLogin,
         exchangeLoginToken = exchangeLoginToken,
         clearSession = clearSession,
