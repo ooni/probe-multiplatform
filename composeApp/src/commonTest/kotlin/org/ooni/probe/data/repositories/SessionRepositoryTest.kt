@@ -7,16 +7,11 @@ import kotlinx.coroutines.test.runTest
 import kotlin.time.Instant
 import org.ooni.engine.DeleteResult
 import org.ooni.engine.WriteResult
-import org.ooni.engine.models.Failure
-import org.ooni.engine.models.Success
 import org.ooni.probe.data.models.AuthSession
 import org.ooni.probe.data.models.SessionState
 import org.ooni.probe.di.Dependencies
-import org.ooni.probe.domain.auth.AuthException
 import kotlin.test.Test
 import kotlin.test.assertEquals
-import kotlin.test.assertNull
-import kotlin.test.assertTrue
 
 class SessionRepositoryTest {
     private val json = Dependencies.buildJson()
@@ -76,44 +71,10 @@ class SessionRepositoryTest {
         }
 
     @Test
-    fun sessionStateEmitsErrorWhenReadFails() =
+    fun sessionStateEmitsLoggedOutWhenReadFails() =
         runTest {
             shouldFailRead = true
             val state = repository.sessionState.first()
-            assertTrue(state is SessionState.Error)
-        }
-
-    @Test
-    fun getSessionReturnsNullWhenLoggedOut() =
-        runTest {
-            assertNull(repository.getSession())
-        }
-
-    @Test
-    fun getSessionReturnsNullWhenReadFails() =
-        runTest {
-            shouldFailRead = true
-            assertNull(repository.getSession())
-        }
-
-    @Test
-    fun getSessionReturnsStoredSession() =
-        runTest {
-            repository.store(session)
-            assertEquals(session, repository.getSession())
-        }
-
-    @Test
-    fun requireSessionFailsWhenLoggedOut() =
-        runTest {
-            val result = repository.requireSession()
-            assertTrue((result as Failure).reason is AuthException.NotLoggedIn)
-        }
-
-    @Test
-    fun requireSessionSucceedsWhenLoggedIn() =
-        runTest {
-            repository.store(session)
-            assertEquals(session, (repository.requireSession() as Success).value)
+            assertEquals(SessionState.LoggedOut, state)
         }
 }
