@@ -3,14 +3,15 @@ package org.ooni.probe.ui.descriptor.create
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.filterIsInstance
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
 import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
@@ -26,6 +27,7 @@ import org.ooni.engine.models.TestType
 import org.ooni.probe.data.models.AuthSession
 import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.NetTest
+import org.ooni.probe.data.models.SessionState
 import org.ooni.probe.domain.auth.AuthException
 import org.ooni.probe.domain.descriptors.OonirunApiError
 import org.ooni.probe.domain.descriptors.SaveTestDescriptors
@@ -38,7 +40,7 @@ class CreateDescriptorViewModel(
     private val editingDescriptorId: Descriptor.Id?,
     private val onBack: () -> Unit,
     private val onDescriptorCreated: (Descriptor.Id) -> Unit,
-    private val getSession: suspend () -> AuthSession?,
+    observeSessionState: () -> Flow<SessionState>,
     private val requestLogin: suspend (String) -> Result<OoniAuthLoginResponse, AuthException>,
     private val exchangeLoginToken: suspend (String) -> Result<AuthSession, AuthException>,
     private val clearSession: suspend () -> Unit,
@@ -46,7 +48,7 @@ class CreateDescriptorViewModel(
     private val createDescriptor: suspend (OONIRunLinkCreateRequest) -> Result<Descriptor, OonirunApiError>,
     private val updateDescriptor: suspend (Descriptor.Id, OONIRunLinkCreateRequest) -> Result<Descriptor, OonirunApiError>,
     private val saveTestDescriptors: suspend (List<Descriptor>, SaveTestDescriptors.Mode) -> Unit,
-    private val isDescriptorEditable: suspend (Descriptor?) -> Boolean,
+    private val isDescriptorEditable: (Descriptor?) -> Flow<Boolean>,
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
 
@@ -54,19 +56,33 @@ class CreateDescriptorViewModel(
     val state = _state.asStateFlow()
 
     init {
-        viewModelScope.launch {
-            val session = getSession()
-            when {
-                session != null -> _state.value = buildLoggedInState(session)
+        observeSessionState()
+            .onEach { sessionState ->
+                when (sessionState) {
+                    is SessionState.LoggedIn -> {
+                        val current = _state.value
+                        if (current is State.LoggedIn && current.session.emailAddress == sessionState.session.emailAddress) {
+                            _state.value = current.copy(session = sessionState.session)
+                        } else {
+                            _state.value = buildLoggedInState(sessionState.session)
+                        }
+                    }
 
-                loginToken != null -> {
-                    _state.value = State.AwaitingToken(emailAddress = "", tokenInput = loginToken)
-                    verifyToken()
+                    is SessionState.LoggedOut -> {
+                        val current = _state.value
+                        when {
+                            current is State.Loading && loginToken != null -> {
+                                _state.value = State.AwaitingToken(emailAddress = "", tokenInput = loginToken)
+                                verifyToken()
+                            }
+
+                            current !is State.LoggedOut && current !is State.AwaitingToken -> {
+                                _state.value = State.LoggedOut()
+                            }
+                        }
+                    }
                 }
-
-                else -> _state.value = State.LoggedOut()
-            }
-        }
+            }.launchIn(viewModelScope)
 
         events
             .filterIsInstance<Event.BackClicked>()
@@ -99,7 +115,6 @@ class CreateDescriptorViewModel(
             .filterIsInstance<Event.LogOutClicked>()
             .onEach {
                 clearSession()
-                _state.value = State.LoggedOut()
             }.launchIn(viewModelScope)
 
         events
@@ -287,7 +302,7 @@ class CreateDescriptorViewModel(
     private suspend fun buildLoggedInState(session: AuthSession): State.LoggedIn {
         val editingId = editingDescriptorId ?: return State.LoggedIn(session = session)
         val descriptor = getDescriptor(editingId)
-        val isEditable = isDescriptorEditable(descriptor)
+        val isEditable = isDescriptorEditable(descriptor).first()
         val webInputs = descriptor
             ?.takeIf { isEditable }
             ?.netTests

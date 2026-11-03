@@ -4,19 +4,14 @@ import co.touchlab.kermit.Logger
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onStart
 import kotlinx.serialization.json.Json
 import org.ooni.engine.DeleteResult
 import org.ooni.engine.WriteResult
-import org.ooni.engine.models.Failure
-import org.ooni.engine.models.Result
-import org.ooni.engine.models.Success
 import org.ooni.probe.data.models.AuthSession
 import org.ooni.probe.data.models.SessionState
 import org.ooni.probe.domain.auth.AuthConstants
-import org.ooni.probe.domain.auth.AuthException
 
 class SessionRepository(
     private val readSecureStorage: suspend (String) -> String?,
@@ -40,14 +35,9 @@ class SessionRepository(
                     }
                 } catch (e: Exception) {
                     Logger.w("Failed to read auth session from secure storage", e)
-                    SessionState.Error(e)
+                    SessionState.LoggedOut
                 }
             }.distinctUntilChanged()
-
-    suspend fun getSession(): AuthSession? = (sessionState.first() as? SessionState.LoggedIn)?.session
-
-    suspend fun requireSession(): Result<AuthSession, AuthException> =
-        getSession()?.let { Success(it) } ?: Failure(AuthException.NotLoggedIn())
 
     suspend fun store(session: AuthSession): Boolean =
         try {
