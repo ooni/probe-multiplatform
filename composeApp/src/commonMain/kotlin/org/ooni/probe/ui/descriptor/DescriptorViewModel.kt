@@ -57,7 +57,7 @@ class DescriptorViewModel(
     undoRejectedDescriptorUpdate: suspend (Descriptor.Id) -> Unit,
     private val startBackgroundRun: (RunSpecification) -> Unit,
     canPullToRefresh: Boolean,
-    private val isDescriptorEditable: suspend (Descriptor?) -> Boolean,
+    private val isDescriptorEditable: (Descriptor?) -> Flow<Boolean>,
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
 
@@ -84,7 +84,8 @@ class DescriptorViewModel(
                         isAutoRun = true,
                     ),
                     getMaxRuntime(),
-                ) { preferences, maxRuntime ->
+                    isDescriptorEditable(descriptor.descriptor),
+                ) { preferences, maxRuntime, canEdit ->
                     _state.update {
                         it.copy(
                             descriptor = descriptor,
@@ -97,7 +98,7 @@ class DescriptorViewModel(
                                     isSelected = preferences[descriptor to test] == true,
                                 )
                             },
-                            canEdit = isDescriptorEditable(descriptor.descriptor),
+                            canEdit = canEdit,
                         )
                     }
                 }
