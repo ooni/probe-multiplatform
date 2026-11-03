@@ -1,7 +1,9 @@
 package org.ooni.probe.ui.descriptor.create
 
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.TestCoroutineScheduler
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.resetMain
@@ -15,6 +17,7 @@ import org.ooni.engine.models.Success
 import org.ooni.probe.data.models.AuthSession
 import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.NetTest
+import org.ooni.probe.data.models.SessionState
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
@@ -67,7 +70,7 @@ class CreateDescriptorViewModelTest {
         runTest(dispatcher) {
             var requestedEmail: String? = null
             val viewModel = buildViewModel(
-                storedSession = { null },
+                sessionState = SessionState.LoggedOut,
                 requestLogin = { email ->
                     requestedEmail = email
                     Success(
@@ -93,7 +96,7 @@ class CreateDescriptorViewModelTest {
         runTest(dispatcher) {
             var exchangedToken: String? = null
             val viewModel = buildViewModel(
-                storedSession = { null },
+                sessionState = SessionState.LoggedOut,
                 requestLogin = {
                     Success(
                         OoniAuthLoginResponse(
@@ -200,7 +203,7 @@ class CreateDescriptorViewModelTest {
             var exchangedToken: String? = null
             val viewModel = buildViewModel(
                 loginToken = "deep-link-token",
-                storedSession = { null },
+                sessionState = SessionState.LoggedOut,
                 exchangeLoginToken = { token ->
                     exchangedToken = token
                     Success(session)
@@ -218,7 +221,7 @@ class CreateDescriptorViewModelTest {
         runTest(dispatcher) {
             var created = false
             val viewModel = buildViewModel(
-                storedSession = { null },
+                sessionState = SessionState.LoggedOut,
                 createDescriptor = {
                     created = true
                     error("should not be called")
@@ -538,7 +541,7 @@ class CreateDescriptorViewModelTest {
         onBack: () -> Unit = {},
         onDescriptorCreated: (Descriptor.Id) -> Unit = {},
         saveTestDescriptors: suspend (List<Descriptor>, SaveTestDescriptors.Mode) -> Unit = { _, _ -> },
-        storedSession: suspend () -> AuthSession? = { session },
+        sessionState: SessionState = SessionState.LoggedIn(session),
         requestLogin: suspend (String) -> Result<OoniAuthLoginResponse, AuthException> = {
             Failure(AuthException.NotLoggedIn())
         },
@@ -553,18 +556,20 @@ class CreateDescriptorViewModelTest {
         updateDescriptor: suspend (Descriptor.Id, OONIRunLinkCreateRequest) -> Result<Descriptor, OonirunApiError> = { _, _ ->
             Failure(OonirunApiError.NotFound)
         },
-        isDescriptorEditable: suspend (Descriptor?) -> Boolean = { descriptor ->
-            descriptor != null &&
-                descriptor.author == storedSession()?.emailAddress &&
-                descriptor.netTests.size == 1 &&
-                descriptor.netTests.first().test == TestType.WebConnectivity
+        isDescriptorEditable: (Descriptor?) -> Flow<Boolean> = { descriptor ->
+            flowOf(
+                descriptor != null &&
+                    descriptor.author == session.emailAddress &&
+                    descriptor.netTests.size == 1 &&
+                    descriptor.netTests.first().test == TestType.WebConnectivity,
+            )
         },
     ) = CreateDescriptorViewModel(
         loginToken = loginToken,
         editingDescriptorId = editingDescriptorId,
         onBack = onBack,
         onDescriptorCreated = onDescriptorCreated,
-        getSession = storedSession,
+        observeSessionState = { flowOf(sessionState) },
         requestLogin = requestLogin,
         exchangeLoginToken = exchangeLoginToken,
         clearSession = clearSession,
