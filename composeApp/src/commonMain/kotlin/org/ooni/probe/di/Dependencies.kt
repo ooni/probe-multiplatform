@@ -449,7 +449,7 @@ class Dependencies(
             passportPostWithAuth = { url, payload, extraHeaders ->
                 passportHttpClient.post(url, payload, timeout = PassportTimeouts.DEFAULT_SECONDS, extraHeaders = extraHeaders)
             },
-            requireSession = sessionRepository::requireSession,
+            observeSessionState = sessionRepository::sessionState,
             parseOonirunApiError = parseOonirunApiError,
             requestJson = oonirunRequestJson,
             responseJson = json,
@@ -460,7 +460,7 @@ class Dependencies(
             passportPutWithAuth = { url, payload, extraHeaders ->
                 passportHttpClient.put(url, payload, timeout = PassportTimeouts.DEFAULT_SECONDS, extraHeaders = extraHeaders)
             },
-            requireSession = sessionRepository::requireSession,
+            observeSessionState = sessionRepository::sessionState,
             parseOonirunApiError = parseOonirunApiError,
             requestJson = oonirunRequestJson,
             responseJson = json,
@@ -556,7 +556,7 @@ class Dependencies(
             passportPostWithAuth = { url, payload, extraHeaders ->
                 passportHttpClient.post(url, payload, timeout = PassportTimeouts.DEFAULT_SECONDS, extraHeaders = extraHeaders)
             },
-            requireSession = sessionRepository::requireSession,
+            observeSessionState = sessionRepository::sessionState,
             storeSession = sessionRepository::store,
             clearSession = sessionRepository::clear,
             decodeAuthResponse = decodeAuthResponse::invoke,
@@ -1009,7 +1009,7 @@ class Dependencies(
         editingDescriptorId = editingDescriptorId,
         onBack = onBack,
         onDescriptorCreated = onDescriptorCreated,
-        getSession = sessionRepository::getSession,
+        observeSessionState = sessionRepository::sessionState,
         requestLogin = requestLogin::invoke,
         exchangeLoginToken = exchangeLoginToken::invoke,
         clearSession = sessionRepository::clear,
@@ -1103,12 +1103,12 @@ class Dependencies(
         canPullToRefresh = platformInfo.canPullToRefresh,
         getPreference = preferenceRepository::getValueByKey,
         setPreference = preferenceRepository::setValueByKey,
-        observeSessionState = { sessionRepository.sessionState },
+        observeSessionState = sessionRepository::sessionState,
     )
 
     val isDescriptorEditable by lazy {
         IsDescriptorEditable(
-            getSession = sessionRepository::getSession,
+            observeSessionState = sessionRepository::sessionState,
         )
     }
 

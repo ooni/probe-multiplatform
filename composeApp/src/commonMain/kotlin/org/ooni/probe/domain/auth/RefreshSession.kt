@@ -1,5 +1,7 @@
 package org.ooni.probe.domain.auth
 
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import kotlinx.serialization.DeserializationStrategy
 import org.ooni.engine.models.Failure
 import org.ooni.engine.models.OoniAuthUserSession
@@ -10,6 +12,7 @@ import org.ooni.passport.models.PassportException
 import org.ooni.passport.models.PassportHttpResponse
 import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.data.models.AuthSession
+import org.ooni.probe.data.models.SessionState
 
 class RefreshSession(
     private val passportPostWithAuth: suspend (
@@ -17,7 +20,7 @@ class RefreshSession(
         payload: String,
         extraHeaders: List<PassportBridge.KeyValue>,
     ) -> Result<PassportHttpResponse, PassportException>,
-    private val requireSession: suspend () -> Result<AuthSession, AuthException>,
+    private val observeSessionState: () -> Flow<SessionState>,
     private val storeSession: suspend (AuthSession) -> Boolean,
     private val clearSession: suspend () -> Unit,
     private val decodeAuthResponse: (
@@ -26,10 +29,8 @@ class RefreshSession(
     ) -> Result<OoniAuthUserSession, AuthException>,
 ) {
     suspend operator fun invoke(): Result<AuthSession, AuthException> {
-        val current = when (val sessionResult = requireSession()) {
-            is Success -> sessionResult.value
-            is Failure -> return Failure(sessionResult.reason)
-        }
+        val current = (observeSessionState().first() as? SessionState.LoggedIn)?.session
+            ?: return Failure(AuthException.NotLoggedIn())
 
         val result = passportPostWithAuth(
             "${OrganizationConfig.ooniApiBaseUrl}/api/v2/ooniauth/user-session",

@@ -1,5 +1,7 @@
 package org.ooni.probe.domain.descriptors
 
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
 import org.ooni.engine.models.Failure
@@ -12,9 +14,8 @@ import org.ooni.passport.PassportBridge
 import org.ooni.passport.models.PassportException
 import org.ooni.passport.models.PassportHttpResponse
 import org.ooni.probe.config.OrganizationConfig
-import org.ooni.probe.data.models.AuthSession
 import org.ooni.probe.data.models.Descriptor
-import org.ooni.probe.domain.auth.AuthException
+import org.ooni.probe.data.models.SessionState
 import org.ooni.probe.domain.auth.bearerAuthHeader
 
 /**
@@ -26,7 +27,7 @@ class CreateDescriptor(
         payload: String,
         extraHeaders: List<PassportBridge.KeyValue>,
     ) -> Result<PassportHttpResponse, PassportException>,
-    private val requireSession: suspend () -> Result<AuthSession, AuthException>,
+    private val observeSessionState: () -> Flow<SessionState>,
     private val parseOonirunApiError: ParseOonirunApiError,
     /**
      * Configured with `explicitNulls = false`: fields left unset (name_intl, icon,
@@ -38,10 +39,8 @@ class CreateDescriptor(
     private val responseJson: Json,
 ) {
     suspend operator fun invoke(request: OONIRunLinkCreateRequest): Result<Descriptor, OonirunApiError> {
-        val session = when (val sessionResult = requireSession()) {
-            is Success -> sessionResult.value
-            is Failure -> return Failure(OonirunApiError.Unauthorized("Not logged in"))
-        }
+        val session = (observeSessionState().first() as? SessionState.LoggedIn)?.session
+            ?: return Failure(OonirunApiError.Unauthorized("Not logged in"))
 
         val body = requestJson.encodeToString(
             OONIRunLinkCreateRequest.serializer(),
