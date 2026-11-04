@@ -143,7 +143,11 @@ fun Project.registerBuildConfigTasks(supportedLanguages: List<String>) {
     val isDebug = isDebugTaskRequested()
     val dist = distribution()
     val buildDirPath = layout.buildDirectory.get().asFile.absolutePath
-    val languageTags = supportedLanguages.map { it.replace(Regex("-r([A-Z]{2})"), "-$1") }
+    val languageTags = supportedLanguages.map {
+        it.removePrefix("b+")
+            .replace("+", "-")
+            .replace(Regex("-r([A-Z]{2})"), "-$1")
+    }
 
     // Shared across all platforms -> commonMain.
     tasks.register("generateSharedBuildConfig") {
