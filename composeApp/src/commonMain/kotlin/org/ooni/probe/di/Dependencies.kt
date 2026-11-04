@@ -9,6 +9,7 @@ import androidx.datastore.preferences.core.Preferences
 import app.cash.sqldelight.db.SqlDriver
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
+import kotlinx.coroutines.flow.first
 import kotlinx.serialization.json.Json
 import okio.FileSystem
 import okio.Path.Companion.toPath
@@ -23,6 +24,7 @@ import org.ooni.engine.TaskEventMapper
 import org.ooni.passport.PassportBridge
 import org.ooni.passport.PassportGet
 import org.ooni.passport.PassportHttpClient
+import org.ooni.passport.PassportPost
 import org.ooni.passport.PassportTimeouts
 import org.ooni.probe.Database
 import org.ooni.probe.SharedBuildConfig
@@ -56,6 +58,7 @@ import org.ooni.probe.data.repositories.MeasurementRepository
 import org.ooni.probe.data.repositories.NetworkRepository
 import org.ooni.probe.data.repositories.PreferenceRepository
 import org.ooni.probe.data.repositories.ResultRepository
+import org.ooni.probe.data.repositories.SessionRepository
 import org.ooni.probe.data.repositories.TestDescriptorRepository
 import org.ooni.probe.data.repositories.UrlRepository
 import org.ooni.probe.domain.BootstrapPreferences
@@ -97,6 +100,10 @@ import org.ooni.probe.domain.articles.ArticlesRefreshStateManager
 import org.ooni.probe.domain.articles.GetFindings
 import org.ooni.probe.domain.articles.GetRSSFeed
 import org.ooni.probe.domain.articles.RefreshArticles
+import org.ooni.probe.domain.auth.DecodeAuthResponse
+import org.ooni.probe.domain.auth.ExchangeLoginToken
+import org.ooni.probe.domain.auth.RefreshSession
+import org.ooni.probe.domain.auth.RequestLogin
 import org.ooni.probe.domain.credentials.ClearCredential
 import org.ooni.probe.domain.credentials.GetAnonymousCredentialsHealth
 import org.ooni.probe.domain.credentials.GetCredential
@@ -111,6 +118,7 @@ import org.ooni.probe.domain.credentials.StampMeasurement
 import org.ooni.probe.domain.credentials.SubmitMeasurementWithUser
 import org.ooni.probe.domain.descriptors.AcceptDescriptorUpdate
 import org.ooni.probe.domain.descriptors.BootstrapTestDescriptors
+import org.ooni.probe.domain.descriptors.CreateDescriptor
 import org.ooni.probe.domain.descriptors.DeleteTestDescriptor
 import org.ooni.probe.domain.descriptors.DescriptorUpdateStateManager
 import org.ooni.probe.domain.descriptors.DismissDescriptorReviewNotice
@@ -119,9 +127,12 @@ import org.ooni.probe.domain.descriptors.FetchDescriptorsUpdates
 import org.ooni.probe.domain.descriptors.GetBootstrapTestDescriptors
 import org.ooni.probe.domain.descriptors.GetTestDescriptors
 import org.ooni.probe.domain.descriptors.GetTestDescriptorsBySpec
+import org.ooni.probe.domain.descriptors.IsDescriptorEditable
+import org.ooni.probe.domain.descriptors.ParseOonirunApiError
 import org.ooni.probe.domain.descriptors.RejectDescriptorUpdate
 import org.ooni.probe.domain.descriptors.SaveTestDescriptors
 import org.ooni.probe.domain.descriptors.UndoRejectedDescriptorUpdate
+import org.ooni.probe.domain.descriptors.UpdateDescriptor
 import org.ooni.probe.domain.proxy.ProxyManager
 import org.ooni.probe.domain.proxy.TestProxy
 import org.ooni.probe.domain.results.DeleteOldResults
@@ -142,6 +153,7 @@ import org.ooni.probe.ui.dashboard.DashboardViewModel
 import org.ooni.probe.ui.descriptor.DescriptorViewModel
 import org.ooni.probe.ui.descriptor.add.AddDescriptorUrlViewModel
 import org.ooni.probe.ui.descriptor.add.AddDescriptorViewModel
+import org.ooni.probe.ui.descriptor.create.CreateDescriptorViewModel
 import org.ooni.probe.ui.descriptor.review.ReviewUpdatesViewModel
 import org.ooni.probe.ui.descriptor.websites.DescriptorWebsitesViewModel
 import org.ooni.probe.ui.descriptors.DescriptorsViewModel
@@ -209,6 +221,9 @@ class Dependencies(
     // Data
 
     val json by lazy { buildJson() }
+
+    private val oonirunRequestJson by lazy { buildOonirunRequestJson() }
+
     private val database by lazy { buildDatabase(databaseDriverFactory) }
 
     private val appReviewRepository by lazy { AppReviewRepository(dataStore) }
@@ -426,6 +441,29 @@ class Dependencies(
             json = json,
         )
     }
+    private val parseOonirunApiError by lazy { ParseOonirunApiError(json) }
+    val createDescriptor by lazy {
+        CreateDescriptor(
+            passportPostWithAuth = { url, payload, extraHeaders ->
+                passportHttpClient.post(url, payload, timeout = PassportTimeouts.DEFAULT_SECONDS, extraHeaders = extraHeaders)
+            },
+            observeSessionState = sessionRepository::sessionState,
+            parseOonirunApiError = parseOonirunApiError,
+            requestJson = oonirunRequestJson,
+            responseJson = json,
+        )
+    }
+    val updateDescriptor by lazy {
+        UpdateDescriptor(
+            passportPutWithAuth = { url, payload, extraHeaders ->
+                passportHttpClient.put(url, payload, timeout = PassportTimeouts.DEFAULT_SECONDS, extraHeaders = extraHeaders)
+            },
+            observeSessionState = sessionRepository::sessionState,
+            parseOonirunApiError = parseOonirunApiError,
+            requestJson = oonirunRequestJson,
+            responseJson = json,
+        )
+    }
     val finishInProgressData by lazy { FinishInProgressData(resultRepository::markAllAsDone) }
     val fetchDescriptorsUpdates by lazy {
         FetchDescriptorsUpdates(
@@ -476,6 +514,50 @@ class Dependencies(
         GetCredential(
             readSecureStorage = secureStorage::read,
             json = json,
+        )
+    }
+
+    // Auth (used to author OONI Run v2 links)
+
+    val sessionRepository by lazy {
+        SessionRepository(
+            readSecureStorage = secureStorage::read,
+            writeSecureStorage = secureStorage::write,
+            deleteSecureStorage = secureStorage::delete,
+            json = json,
+        )
+    }
+
+    @VisibleForTesting
+    val decodeAuthResponse by lazy { DecodeAuthResponse(json) }
+    val requestLogin by lazy {
+        RequestLogin(
+            passportPost = { url, payload ->
+                passportHttpClient.post(url, payload, timeout = PassportTimeouts.DEFAULT_SECONDS)
+            },
+            decodeAuthResponse = decodeAuthResponse::invoke,
+            json = json,
+        )
+    }
+    val exchangeLoginToken by lazy {
+        ExchangeLoginToken(
+            passportPost = { url, payload ->
+                passportHttpClient.post(url, payload, timeout = PassportTimeouts.DEFAULT_SECONDS)
+            },
+            storeSession = sessionRepository::store,
+            decodeAuthResponse = decodeAuthResponse::invoke,
+            json = json,
+        )
+    }
+    val refreshSession by lazy {
+        RefreshSession(
+            passportPostWithAuth = { url, payload, extraHeaders ->
+                passportHttpClient.post(url, payload, timeout = PassportTimeouts.DEFAULT_SECONDS, extraHeaders = extraHeaders)
+            },
+            observeSessionState = sessionRepository::sessionState,
+            storeSession = sessionRepository::store,
+            clearSession = sessionRepository::clear,
+            decodeAuthResponse = decodeAuthResponse::invoke,
         )
     }
     private val registerUser by lazy {
@@ -623,6 +705,7 @@ class Dependencies(
         PassportHttpClient(
             passportGet = passportBridge::get,
             passportPost = passportBridge::post,
+            passportPut = passportBridge::put,
             passportAuthRegister = passportBridge::userAuthRegister,
             passportAuthSubmit = passportBridge::userAuthSubmit,
             getProxyOption = proxyManager::selected,
@@ -637,6 +720,13 @@ class Dependencies(
         get() = passportHttpClient.passportGet
         set(value) {
             passportHttpClient.passportGet = value
+        }
+
+    @VisibleForTesting
+    var passportPost: PassportPost
+        get() = passportHttpClient.passportPost
+        set(value) {
+            passportHttpClient.passportPost = value
         }
 
     private val rejectDescriptorUpdate by lazy {
@@ -893,6 +983,27 @@ class Dependencies(
         goToAddDescriptor = goToAddDescriptor,
     )
 
+    fun createDescriptorViewModel(
+        loginToken: String?,
+        editingDescriptorId: Descriptor.Id?,
+        onBack: () -> Unit,
+        onDescriptorCreated: (Descriptor.Id) -> Unit,
+    ) = CreateDescriptorViewModel(
+        loginToken = loginToken,
+        editingDescriptorId = editingDescriptorId,
+        onBack = onBack,
+        onDescriptorCreated = onDescriptorCreated,
+        observeSessionState = sessionRepository::sessionState,
+        requestLogin = requestLogin::invoke,
+        exchangeLoginToken = exchangeLoginToken::invoke,
+        clearSession = sessionRepository::clear,
+        getDescriptor = { id -> getTestDescriptors.single(id).first()?.descriptor },
+        createDescriptor = createDescriptor::invoke,
+        updateDescriptor = updateDescriptor::invoke,
+        saveTestDescriptors = saveTestDescriptors::invoke,
+        isDescriptorEditable = isDescriptorEditable::invoke,
+    )
+
     fun articleViewModel(
         url: ArticleModel.Url,
         onBack: () -> Unit,
@@ -963,10 +1074,12 @@ class Dependencies(
         goToDescriptor: (Descriptor.Id) -> Unit,
         goToReviewDescriptorUpdates: (List<Descriptor.Id>?) -> Unit,
         goToAddDescriptorUrl: () -> Unit,
+        goToCreateDescriptor: () -> Unit,
     ) = DescriptorsViewModel(
         goToDescriptor = goToDescriptor,
         goToReviewDescriptorUpdates = goToReviewDescriptorUpdates,
         goToAddDescriptorUrl = goToAddDescriptorUrl,
+        goToCreateDescriptor = goToCreateDescriptor,
         getTestDescriptors = getTestDescriptors::latest,
         startDescriptorsUpdates = startDescriptorsUpdate,
         dismissDescriptorsUpdateNotice = dismissDescriptorReviewNotice::invoke,
@@ -974,7 +1087,14 @@ class Dependencies(
         canPullToRefresh = platformInfo.canPullToRefresh,
         getPreference = preferenceRepository::getValueByKey,
         setPreference = preferenceRepository::setValueByKey,
+        observeSessionState = sessionRepository::sessionState,
     )
+
+    val isDescriptorEditable by lazy {
+        IsDescriptorEditable(
+            observeSessionState = sessionRepository::sessionState,
+        )
+    }
 
     fun descriptorViewModel(
         descriptorId: Descriptor.Id,
@@ -983,6 +1103,7 @@ class Dependencies(
         goToChooseWebsites: () -> Unit,
         goToResult: (ResultModel.Id) -> Unit,
         goToDescriptorWebsites: (Descriptor.Id) -> Unit,
+        goToEditDescriptor: (Descriptor.Id) -> Unit,
     ) = DescriptorViewModel(
         descriptorId = descriptorId,
         onBack = onBack,
@@ -990,6 +1111,7 @@ class Dependencies(
         goToChooseWebsites = goToChooseWebsites,
         goToResult = goToResult,
         goToDescriptorWebsites = goToDescriptorWebsites,
+        goToEditDescriptor = goToEditDescriptor,
         getTestDescriptor = getTestDescriptors::single,
         getLastResultOfDescriptor = getLastResultOfDescriptor::invoke,
         preferenceRepository = preferenceRepository,
@@ -1003,6 +1125,7 @@ class Dependencies(
         undoRejectedDescriptorUpdate = undoRejectedDescriptorUpdate::invoke,
         startBackgroundRun = startSingleRunInner,
         canPullToRefresh = platformInfo.canPullToRefresh,
+        isDescriptorEditable = isDescriptorEditable::invoke,
     )
 
     fun descriptorWebsitesViewModel(
@@ -1214,6 +1337,11 @@ class Dependencies(
                 encodeDefaults = true
                 ignoreUnknownKeys = true
                 isLenient = true
+            }
+
+        fun buildOonirunRequestJson() =
+            Json(buildJson()) {
+                explicitNulls = false
             }
 
         @VisibleForTesting
