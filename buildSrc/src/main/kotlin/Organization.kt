@@ -38,14 +38,16 @@ sealed class Organization(val key: String, val config: AppConfig) {
                 "ru",
                 "sk",
                 "sq",
+                "sr",
+                "b+sr+Cyrl",
                 "sw",
                 "th",
                 "tr",
                 "vi",
                 "zh-rCN",
-                "zh-rTW"
+                "zh-rTW",
             ),
-        )
+        ),
     )
 
     object Dw : Organization(
