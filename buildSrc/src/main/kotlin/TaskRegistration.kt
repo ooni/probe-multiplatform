@@ -140,6 +140,7 @@ fun Project.registerBuildConfigTasks(supportedLanguages: List<String>) {
     val versionName = libs.findVersion("app-versionName").get().requiredVersion
     val versionCode = libs.findVersion("app-versionCode").get().requiredVersion.toInt()
     val passportVersion = libs.findVersion("passport").get().requiredVersion
+    val engineVersion = libs.findVersion("oonimkall").get().requiredVersion
     val isDebug = isDebugTaskRequested()
     val dist = distribution()
     val buildDirPath = layout.buildDirectory.get().asFile.absolutePath
@@ -151,6 +152,7 @@ fun Project.registerBuildConfigTasks(supportedLanguages: List<String>) {
         inputs.property("versionName", versionName)
         inputs.property("versionCode", versionCode)
         inputs.property("passportVersion", passportVersion)
+        inputs.property("engineVersion", engineVersion)
         inputs.property("supportedLanguages", languageTags)
         outputs.dir(outputDir)
         doLast {
@@ -165,6 +167,7 @@ fun Project.registerBuildConfigTasks(supportedLanguages: List<String>) {
                 |    const val VERSION_NAME = "$versionName"
                 |    const val VERSION_CODE = $versionCode
                 |    const val PASSPORT_VERSION = "$passportVersion"
+                |    const val ENGINE_VERSION = "$engineVersion"
                 |    val SUPPORTED_LANGUAGES = listOf($supportedLanguagesLiteral)
                 |}
                 """.trimMargin(),
