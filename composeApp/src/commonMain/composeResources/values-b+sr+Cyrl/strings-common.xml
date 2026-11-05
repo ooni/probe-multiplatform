@@ -70,8 +70,8 @@
     <string name="Dashboard_Progress_ReviewLink_Label">Ажурирања линкова су спремна</string>
     <string name="Dashboard_Progress_ReviewLink_Action">Прегледајте</string>
     <string name="Dashboard_ReviewDescriptor_Label">Ажурирање линка (%1$s од %2$s)</string>
-    <string name="Dashboard_ReviewDescriptor_Button_Last">АЖУРИРАЈТЕ И ЗАВРШИТЕ (%1$s од %2$s)</string>
-    <string name="Dashboard_ReviewDescriptor_Button_Default">АЖУРИРАЈТЕ (%1$s од %2$s)</string>
+    <string name="Dashboard_ReviewDescriptor_Button_Last">АЖУРИРАЈ И ЗАВРШИ (%1$s од %2$s)</string>
+    <string name="Dashboard_ReviewDescriptor_Button_Default">АЖУРИРАЈ (%1$s од %2$s)</string>
     <string name="Dashboard_ReviewDescriptor_Reject">Одбијте ажурирање</string>
     <string name="Dashboard_Update_Ready">Ажурирање апликације је преузето</string>
     <string name="Dashboard_Update_Restart">Покрените поново</string>
@@ -277,7 +277,7 @@
     <string name="Settings_Support_IncludeLogs">Укључите логове апликације</string>
     <string name="Settings_Support_Action">Пошаљите email</string>
     <string name="Settings_ShareApp">Поделите апликацију</string>
-    <string name="Settings_ShareApp_Description">Поделите апликацију „%1$s“ са другима</string>
+    <string name="Settings_ShareApp_Description">Поделите апликацију %1$s са другима</string>
     <string name="Settings_ShareApp_ShareMessage">Инсталирај %1$s на %2$s</string>
     <string name="Settings_Storage_Label">Искоришћеност складишта</string>
     <string name="Settings_Storage_Delete">Обриши</string>
@@ -340,7 +340,7 @@
     <string name="CategoryCode_HUMR_Description">Питања људских права</string>
     <string name="CategoryCode_ENV_Description">Дискусије о еколошким питањима</string>
     <string name="CategoryCode_MILX_Description">Тероризам, насилни милитантни или сепаратистички покрети</string>
-    <string name="CategoryCode_HATE_Description">Омаложавање одређених група на основу расе, пола, сексуалности или других карактеристика</string>
+    <string name="CategoryCode_HATE_Description">Омаловажавање одређених група на основу расе, пола, сексуалности или других карактеристика</string>
     <string name="CategoryCode_NEWS_Description">Водећи информативни сајтови, регионални медији и независни медији</string>
     <string name="CategoryCode_XED_Description">Питања сексуалног здравља, укључујући контрацепцију, полно преносиве болести (ППБ), превенцију силовања и абортус</string>
     <string name="CategoryCode_PUBH_Description">Питања јавног здравља, као што су COVID-19, HIV/AIDS, Ебола</string>
@@ -365,7 +365,7 @@
     <string name="CategoryCode_MISC_Description">Некатегорисане веб-странице</string>
     <string name="Onboarding_QuizAnswer_Correct">Тачан одговор</string>
     <string name="Onboarding_QuizAnswer_Incorrect">Нетачан одговор</string>
-    <string name="Onboarding_WhatIsOONIProbe_GotIt">Уреду</string>
+    <string name="Onboarding_WhatIsOONIProbe_GotIt">У реду</string>
     <string name="Onboarding_ThingsToKnow_Title">Пажња!</string>
     <string name="Onboarding_ThingsToKnow_Button">Разумем</string>
     <string name="Onboarding_ThingsToKnow_LearnMore">Сазнајте више</string>
@@ -384,7 +384,7 @@
     <string name="Onboarding_Crash_Button_No">Не</string>
     <string name="Onboarding_Notifications_Title">Омогући обавештења</string>
     <string name="Onboarding_Notifications_Paragraph">Након што покренете тестове, можете затворити апликацију - они ће наставити да раде у позадини. Омогућите обавештења како бисте могли да пратите који тестови се извршавају, или да их зауставите, без потребе да отварате апликацију.</string>
-    <string name="Onboarding_Notifications_Ok">Уреду</string>
+    <string name="Onboarding_Notifications_Ok">У реду</string>
     <string name="Onboarding_Notifications_Skip">Прескочи</string>
     <string name="Onboarding_DefaultSettings_Title">Фабричка подешавања</string>
     <string name="Onboarding_DefaultSettings_Header">Прикупљамо и објављујемо:</string>
@@ -397,7 +397,7 @@
     <string name="AddDescriptor_EnterURL">Унесите URL OONI Run линка</string>
     <string name="AddDescriptor_URLInvalid">Неважећи OONI Run линк</string>
     <string name="AddDescriptor_Settings">Подешавања тестирања</string>
-    <string name="AddDescriptor_Title">Енглески</string>
+    <string name="AddDescriptor_Title">Инсталирај нови линк</string>
     <string name="AddDescriptor_AutoUpdate">Аутоматски инсталирај ажурирања</string>
     <string name="AddDescriptor_AutoRun">Аутоматски покрени тестове</string>
     <string name="AddDescriptor_Toasts_Installed">Линк је инсталиран</string>
@@ -420,7 +420,7 @@
     <string name="Modal_UploadFailed_Paragraph">Нисмо успели да отпремимо %1$s/%2$s мерења. Записник о грешци је прослеђен OONI програмерима.</string>
     <string name="Modal_Retry">Покушајте поново</string>
     <string name="Modal_Cancel">Откажи</string>
-    <string name="Modal_OK">Уреду</string>
+    <string name="Modal_OK">У реду</string>
     <string name="Modal_DoYouWantToDeleteAllTests">Да ли желите да обришете све резултате тестирања?</string>
     <string name="Modal_Clear_Legacy_Directories">Да ли желите да обришете застареле фасцикле?</string>
     <plurals name="Modal_DoYouWantToDeleteSomeTests">
