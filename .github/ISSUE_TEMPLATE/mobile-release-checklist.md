@@ -43,6 +43,10 @@ We expect to finish this by: [INSERT DATE]<br/>
 
 ### Pre-release checklist
 
+- [ ] Update translations (see [Release.md § 1.3](https://github.com/ooni/probe-multiplatform/blob/main/docs/Release.md#13-update-translations)):
+    - [ ] `python3 scripts/generate_descriptors_json.py` and `--check` passes
+    - [ ] Translation changes committed to the release branch
+    - [ ] OONI Run links updated with `scripts/update_descriptors_online.py` (if descriptor text changed)
 - [ ] Run through mobile QA checklist 
 
 ## Release progress communication 

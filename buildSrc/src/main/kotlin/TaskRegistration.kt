@@ -706,6 +706,8 @@ private fun Project.registerResourceTasks(config: AppConfig) {
             copyRecursive(
                 from = File(projectDir, "src/${config.folder}/composeResources"),
                 to = File(projectDir, "src/commonMain/composeResources"),
+                // Only used to generate files/assets/descriptors.json, not by the app.
+                exclude = setOf("strings-descriptors.xml"),
             )
         }
     }

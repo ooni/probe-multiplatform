@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+  <!--This file is generated from https://github.com/ooni/translations. Please do not modify unless you know what youre doing-->
+  <string name="Test_Websites_Fullname">Tapak-tapak web</string>
+  <string name="Dashboard_Websites_Card_Description">Periksa sekatan tapak web</string>
+  <string name="Test_InstantMessaging_Fullname">Pemesejan Segera</string>
+  <string name="Dashboard_InstantMessaging_Card_Description">Periksa sekatan aplikasi pemesejan segera</string>
+  <string name="Dashboard_Circumvention_Card_Description">Periksa sekatan alat memintas penapisan</string>
+  <string name="Test_Performance_Fullname">Prestasi</string>
+  <string name="Dashboard_Performance_Card_Description">Uji kelajuan dan prestasi rangkaian anda</string>
+  <string name="Test_Experimental_Fullname">Eksperimen</string>
+  <string name="Dashboard_Experimental_Card_Description">Jalankan ujian eksperimen baru</string>
+</resources>

@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+  <!--This file is generated from https://github.com/ooni/translations. Please do not modify unless you know what youre doing-->
+  <string name="Test_Websites_Fullname">Site-uri</string>
+  <string name="Dashboard_Websites_Card_Description">Testarea blocării site-urilor web</string>
+  <string name="Test_InstantMessaging_Fullname">Mesagerie instant</string>
+  <string name="Dashboard_InstantMessaging_Card_Description">Testarea blocării aplicațiilor de mesagerie instantanee</string>
+  <string name="Test_Circumvention_Fullname">Eludarea</string>
+  <string name="Dashboard_Circumvention_Card_Description">Testarea blocării instrumentelor de eludare a cenzurii</string>
+  <string name="Test_Performance_Fullname">Performanță</string>
+  <string name="Dashboard_Performance_Card_Description">Testarea vitezei și performanței rețelei</string>
+</resources>

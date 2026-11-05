@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+  <!--This file is generated from https://github.com/ooni/translations. Please do not modify unless you know what youre doing-->
+  <string name="Test_Websites_Fullname">Webové stránky</string>
+  <string name="Test_Circumvention_Fullname">Obcházení</string>
+  <string name="Test_Performance_Fullname">Výkon</string>
+  <string name="Test_Experimental_Fullname">Pokusné</string>
+</resources>
