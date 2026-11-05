@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+  <string name="Test_Websites_Fullname">Veb-sajtovi</string>
+  <string name="Dashboard_Websites_Card_Description">Testirajte blokiranje veb-sajtova</string>
+  <string name="Dashboard_Websites_Overview_Paragraph">Proverite da li su veb-sajtovi blokirani pomoću OONI [testa veb povezanosti](https://ooni.org/nettest/web-connectivity/).\n\nSvaki put kada kliknete Pokreni, testirate različite veb-sajtove sa Citizen Lab [globalne](https://github.com/citizenlab/test-lists/blob/master/lists/global.csv) i [pojedinačne zemlje](https://github.com/citizenlab/test-lists/tree/master/lists) testne liste.\n\nDa biste testirali sajtove po svom izboru, kliknite dugme Izaberite veb-sajtove ili izaberite kategorije sajtova u podešavanjima ove kartice. \n\nOvaj test utvrđuje da li su veb-sajtovi blokirani manipulacijom DNS-a, blokiranjem TCP/IP veze ili putem transparentnog HTTP proksi servera.\n\nVaši rezultati biće objavljeni na platformama [OONI Explorer](https://explorer.ooni.org/world/) i [OONI API](https://api.ooni.io/).</string>
+  <string name="Test_InstantMessaging_Fullname">Aplikacije za razmenu poruka</string>
+  <string name="Dashboard_InstantMessaging_Card_Description">Testirajte blokiranje aplikacija za razmenu poruka</string>
+  <string name="Dashboard_InstantMessaging_Overview_Paragraph">Proverite da li su [WhatsApp](https://ooni.org/nettest/whatsapp/), [Facebook Messenger](https://ooni.org/nettest/facebook-messenger/), [Telegram](https://ooni.org/nettest/telegram/) i [Signal](https://ooni.org/nettest/signal) blokirani.\n\nVaši rezultati biće objavljeni na platformama [OONI Explorer](https://explorer.ooni.org/world/) i [OONI API](https://api.ooni.io/).</string>
+  <string name="Test_Circumvention_Fullname">Zaobilaženje cenzure</string>
+  <string name="Dashboard_Circumvention_Card_Description">Testirajte blokiranje alata za zaobilaženje cenzure</string>
+  <string name="Dashboard_Circumvention_Overview_Paragraph">Proverite da li su [Psiphon](https://ooni.org/nettest/psiphon/), [Tor](https://ooni.org/nettest/tor/) ili [RiseupVPN](https://ooni.org/nettest/riseupvpn/) blokirani.\n\nVaši rezultati biće objavljeni na platformama [OONI Explorer](https://explorer.ooni.org/) i [OONI API](https://api.ooni.io/).</string>
+  <string name="Test_Performance_Fullname">Performanse</string>
+  <string name="Dashboard_Performance_Card_Description">Testirajte brzinu i performanse svoje mreže</string>
+  <string name="Dashboard_Performance_Overview_Paragraph">Izmerite brzinu i performanse svoje mreže pomoću [NDT](https://ooni.org/nettest/ndt/) testa.\n\nIzmerite performanse strimovanja video-sadržaja pomoću [DASH](https://ooni.org/nettest/dash/) testa.\n\nOvi testovi troše određenu količinu podataka u zavisnosti od brzine vaše mreže.\n\nVaši rezultati biće objavljeni na platformama [OONI Explorer](https://explorer.ooni.org/world/) i [OONI API](https://api.ooni.io/).\n\nNapomena: Ovi testovi se oslanjaju na servere trećih strana. Zbog toga ne možemo da garantujemo da vaša IP adresa neće biti prikupljena.</string>
+  <string name="Test_Experimental_Fullname">Eksperimentalni testovi</string>
+  <string name="Dashboard_Experimental_Card_Description">Pokrenite nove eksperimentalne testove</string>
+  <string name="Dashboard_Experimental_Overview_Paragraph">Pokrenite sledeće nove eksperimentalne testove koje je razvio OONI tim:\n%1$s\n\nVaši rezultati biće objavljeni na platformama [OONI Explorer](https://explorer.ooni.org/) i [OONI API](https://api.ooni.io/).</string>
+</resources>
