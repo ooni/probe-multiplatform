@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">OONI Probe</string>
+    <string name="Onboarding_WhatIsOONIProbe_Title">Шта је OONI Probe?</string>
+    <string name="Onboarding_WhatIsOONIProbe_Paragraph">Ваша апликација за мерење интернет цензуре.\n\nДа ли су веб-сајтови и апликације друштвених мрежа блокирани? Да ли је ваша интернет веза неуобичајено спора?\n\nПокрените OONI Probe и сазнајте!</string>
+    <string name="Onboarding_ThingsToKnow_Bullet_1">Подаци OONI-ја се јавно објављују и укључују информације о вашој мрежи.</string>
+    <string name="Onboarding_ThingsToKnow_Bullet_2">Свако ко надгледа ваше активности на интернету (нпр. влада или пружалац интернет услуга) видеће да користите OONI Probe.</string>
+    <string name="Onboarding_ThingsToKnow_Bullet_3">Можете тестирати забрањене веб-сајтове (али ви бирате које ћете сајтове тестирати).</string>
+    <string name="Onboarding_PopQuiz_1_Question">Ако неко надгледа моје активности на интернету, видеће да користим OONI Probe.</string>
+    <string name="Onboarding_PopQuiz_1_Wrong_Paragraph">OONI Probe није алат за заштиту приватности. Свако ко надгледа ваше активности на интернету моћи ће да види који софтвер користите.</string>
+    <string name="Onboarding_PopQuiz_2_Question">Сваки пут када покренем OONI Probe, прикупљени подаци о мрежи аутоматски ће бити јавно објављени.</string>
+    <string name="Onboarding_PopQuiz_2_Wrong_Paragraph">Ради веће транспарентности у погледу интернет цензуре, подаци о мрежи свих корисника апликације OONI Probe аутоматски се јавно објављују (осим ако корисници не искључе ову опцију у подешавањима).</string>
+    <string name="Onboarding_AutomatedTesting_Paragraph">Да бисте свакодневно мерили интернет цензуру, омогућите аутоматско тестирање како би OONI Probe могао периодично да покреће тестове.\n\nНе брините, водићемо рачуна о потрошњи батерије.\n\nАутоматско тестирање можете у било ком тренутку да искључите у подешавањима.</string>
+    <string name="Onboarding_Crash_Paragraph">Ради унапређења апликације OONI Probe, желели бисмо да прикупљамо анонимне извештаје о грешкама када апликација не ради исправно.\n\nДа ли желите да омогућите слање извештаја о грешкама развојном тиму OONI-ја?</string>
+    <string name="Onboarding_CleanUp_Title">Очисти</string>
+    <string name="Onboarding_CleanUp_Paragraph">Открили смо заостале датотеке од претходне инсталације. Обришите ове датотеке пре него што наставите са инсталацијом.</string>
+    <string name="Settings_About_Label">О апликацији OONI</string>
+    <string name="Settings_About_Content_Paragraph">Open Observatory of Network Interference (OONI) је бесплатан софтверски пројекат у оквиру организације The Tor Project, чији је циљ да повећа транспарентност интернет цензуре широм света.\n\nОд 2012. године, глобална заједница OONI-ја мери интернет мреже у више од 200 земаља. Нека од ових мерења служе као доказ интернет цензуре.</string>
+    <string name="Settings_About_Content_LearnMore">Сазнајте више</string>
+    <string name="Settings_About_Content_Blog">Блог</string>
+    <string name="Settings_About_Content_Reports">Извештаји</string>
+    <string name="Settings_About_Content_DataPolicy">Политика о подацима OONI-ја</string>
+    <string name="Settings_Donate_Title">Донирајте</string>
+    <string name="Settings_Donate_Heading">Донирајте сада и подржите слободу интернета</string>
+    <string name="Settings_Donate_SubHeading">Као непрофитна организација, ослањамо се на донације људи попут вас како бисмо се залагали за слободан и отворен интернет за све.</string>
+    <string name="Settings_Donate_Support_Title">Донацијом OONI-ју подржавате:</string>
+    <string name="Settings_Donate_Support_Item_OpenSource">Бесплатан софтвер отвореног кода за откривање интернет цензуре</string>
+    <string name="Settings_Donate_Support_Item_Analysis">Анализу интернет цензуре широм света у реалном времену</string>
+    <string name="Settings_Donate_Support_Item_OpenData">Отворене податке о интернет цензури — подршка глобалним истраживањима и активностима заговарања слободе интернета</string>
+    <string name="Settings_Donate_Support_Item_Research">Истраживање догађаја повезаних са цензуром широм света</string>
+    <string name="Settings_Donate_Action">Донирајте</string>
+    <string name="Settings_Donate_Action_Warning_ExternalBrowser">Ово ће отворити прозор у екстерном прегледачу</string>
+    <string name="Settings_Donate_Action_Error">Грешка при отварању странице за донације. Посетите %1$s</string>
+    <string name="Dashboard_Runv2_Overview_Uninstall_Prompt">Овај линк ћете моћи поново да инсталирате само путем оригиналног линка који вам је послао његов аутор. Мерења са овог линка биће обрисана, али ће и даље бити доступна у прегледачу података.</string>
+</resources>
