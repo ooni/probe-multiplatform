@@ -46,9 +46,39 @@ Each directory contains:
 
 The base English strings are in `composeApp/src/commonMain/composeResources/values/`.
 
-> **Note:** The `composeResources` directory may contain translation directories for languages not
-> listed in `supportedLanguages`. Only languages declared in `Organization.kt` are included in
-> builds and available at runtime.
+### Bootstrap descriptor strings
+
+Each flavor also has `composeApp/src/<flavor>/composeResources/values-XX/strings-descriptors.xml`
+(`ooniMain` for OONI Probe, `dwMain` for News Media Scan). These hold the name, short description
+and description of the built-in test groups:
+
+- **OONI Probe:** Websites, Instant Messaging, Circumvention, Performance, Experimental
+- **News Media Scan:** Trusted International Media, Selected (inter)national media, Global media
+
+The app does not read them directly: `copyBrandingToCommonResources` skips them. They are the source
+for the `*_intl` text in `composeApp/src/<flavor>/composeResources/files/assets/descriptors.json`.
+The mapping from `oonirun_link_id` to translation keys is `GROUPS` in
+`scripts/generate_descriptors_json.py`.
+
+A language only gets a `strings-descriptors.xml` file with the strings it has actually translated.
+Strings identical to the English text are treated as untranslated and left out, so the app falls
+back to English.
+
+## Updating translations
+
+Run these steps before every release:
+
+| Step | Command | Updates |
+|------|---------|---------|
+| 1 | `python3 scripts/generate_descriptors_json.py` | `ooniMain` and `dwMain` `files/assets/descriptors.json` |
+| 2 | `python3 scripts/update_descriptors_online.py --token <ADMIN_JWT> [--dry-run]` | OONI Run links on the API |
+
+Run step 1 with `--check` to confirm `descriptors.json` matches the `strings-descriptors.xml` files.
+
+Step 2 updates only the text fields (`name`, `short_description`, `description` and their `*_intl`
+maps) of the live OONI Run links. It keeps nettests, icon, color and expiration date from the live
+link, so the nettest revision does not change. It defaults to `https://api.ooni.org`; use
+`--base-url https://api.dev.ooni.io` to test against dev.
 
 ## Adding a new language
 

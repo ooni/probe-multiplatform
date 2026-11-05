@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+  <!--This file is generated from https://github.com/ooni/translations. Please do not modify unless you know what youre doing-->
+  <string name="Test_Websites_Fullname">Uebsaite</string>
+  <string name="Dashboard_Websites_Card_Description">Testo faqet e bllokuara</string>
+  <string name="Test_InstantMessaging_Fullname">Mesazhe</string>
+  <string name="Dashboard_InstantMessaging_Card_Description">Testoni bllokimin e aplikacioneve të mesazheve</string>
+  <string name="Test_Circumvention_Fullname">Shmangie</string>
+  <string name="Test_Performance_Fullname">Performanca</string>
+  <string name="Dashboard_Performance_Card_Description">Testo shpejtësinë dhe performancën e rrjetit</string>
+</resources>

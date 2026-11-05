@@ -67,19 +67,42 @@ Run the Xcode Cloud workflow if not triggered automatically to ensure all iOS re
 
 Once the build passes, update the build number under [**Xcode Cloud > CI/CD > Settings**](https://developer.apple.com/documentation/xcode/setting-the-next-build-number-for-xcode-cloud-builds#Set-the-next-build-number-to-a-custom-value) to match your release versioning.
 
-#### 1.3 Release notes
+#### 1.3 Update translations
+
+Regenerate the bootstrap descriptors from the translation files, so the release ships with
+up-to-date strings. See [Localization.md](Localization.md#updating-translations) for details.
+
+1. Regenerate the bootstrap descriptors and confirm they are in sync:
+
+   ```bash
+   python3 scripts/generate_descriptors_json.py
+   python3 scripts/generate_descriptors_json.py --check
+   ```
+
+2. Review the diff (`git diff --stat composeApp/src`) and commit the translation changes to the
+   release branch.
+
+3. If the descriptor text changed, push it to the OONI Run links so installed apps get the same
+   text. Check the changes first with `--dry-run`:
+
+   ```bash
+   python3 scripts/update_descriptors_online.py --token <ADMIN_JWT> --dry-run
+   python3 scripts/update_descriptors_online.py --token <ADMIN_JWT>
+   ```
+
+#### 1.4 Release notes
 
 Update the release notes for all flavors and platforms at
 `metadata/ooni/android/en-US/changelogs/default.txt`.
 
 Ensure the release note includes the current engine version as part of the release note.
 
-#### 1.4 Create the Pull Request
+#### 1.5 Create the Pull Request
 
 Push the branch to Github and create a Pull Request for it against `main`. Make sure CI validations
 complete successfully.
 
-#### 1.5 Android alphas
+#### 1.6 Android alphas
 
 Distribute Closed Testing (alpha) builds of the OONI Probe Android and News Media Scan Android apps
 on Google Play, so the OONI team and partners can test them.
