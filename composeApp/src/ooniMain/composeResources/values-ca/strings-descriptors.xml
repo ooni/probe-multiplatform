@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+  <!--This file is generated from https://github.com/ooni/translations. Please do not modify unless you know what youre doing-->
+  <string name="Test_Websites_Fullname">Llocs web</string>
+  <string name="Dashboard_Websites_Card_Description">Prova el blocatge de llocs web</string>
+  <string name="Test_InstantMessaging_Fullname">Missatgeria instantània</string>
+  <string name="Dashboard_InstantMessaging_Card_Description">Prova el blocatge de les aplicacions de missatgeria instantània</string>
+  <string name="Test_Circumvention_Fullname">Elusió</string>
+  <string name="Dashboard_Circumvention_Card_Description">Prova el blocatge d\'eines d\'elusió de la censura</string>
+  <string name="Test_Performance_Fullname">Rendiment</string>
+  <string name="Dashboard_Performance_Card_Description">Proveu la velocitat i el rendiment de la xarxa</string>
+</resources>
