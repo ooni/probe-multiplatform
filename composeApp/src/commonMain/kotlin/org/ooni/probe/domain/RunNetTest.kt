@@ -19,6 +19,7 @@ import org.ooni.probe.data.models.NetworkModel
 import org.ooni.probe.data.models.ResultModel
 import org.ooni.probe.data.models.RunBackgroundState
 import org.ooni.probe.data.models.SettingsKey
+import org.ooni.probe.data.models.TestRunError
 import org.ooni.probe.data.models.UrlModel
 import org.ooni.probe.shared.monitoring.Instrumentation
 import org.ooni.probe.shared.monitoring.reportTransaction
@@ -36,6 +37,9 @@ class RunNetTest(
     private val json: Json,
     private val getPreferenceValueByKey: (SettingsKey) -> Flow<Any?>,
     private val submitMeasurement: suspend (MeasurementModel) -> MeasurementModel?,
+    private val noInternetWatcher: NoInternetWatcher,
+    private val cancelRun: () -> Unit,
+    private val reportTestRunError: (TestRunError) -> Unit,
     private val spec: Specification,
 ) {
     data class Specification(
@@ -53,6 +57,8 @@ class RunNetTest(
     private var lastNetwork: NetworkModel? = null
     private val measurements = mutableMapOf<Int, MeasurementModel>()
     private val progressStep = 1.0 / spec.descriptor.netTests.size
+    private var checkedInternet = false
+    private var cancelledDueToNoInternet = false
 
     suspend operator fun invoke() {
         Instrumentation.withTransaction(
@@ -86,6 +92,10 @@ class RunNetTest(
             } catch (_: Exception) {
                 // Exceptions were logged in the Engine
             }
+
+            // Tests that fail without producing measurements (e.g. startup failure when offline)
+            // still need to count towards the no-Internet threshold
+            if (!checkedInternet) cancelIfNoInternet()
         }
     }
 
@@ -272,7 +282,10 @@ class RunNetTest(
                 updateMeasurement(event.index) {
                     it.copy(isDone = true)
                 }
-                submitMeasurement(event.index)
+                cancelIfNoInternet()
+                if (!cancelledDueToNoInternet) {
+                    submitMeasurement(event.index)
+                }
             }
 
             is TaskEvent.End -> {
@@ -321,6 +334,23 @@ class RunNetTest(
             }
 
             is TaskEvent.TaskTerminated -> Unit
+        }
+    }
+
+    /**
+     * Checks for Internet after each finished measurement, using a [NoInternetWatcher] shared by
+     * the whole run. A test with many inputs (e.g. Websites) runs as a single task, so checking
+     * only between tests would let it attempt every input after the Internet is gone.
+     */
+    private suspend fun cancelIfNoInternet() {
+        checkedInternet = true
+        if (cancelledDueToNoInternet) return
+        if (noInternetWatcher.checkIfShouldCancelDueToNoInternet()) {
+            cancelledDueToNoInternet = true
+            Instrumentation.reportTransaction("RunNetTest.NoInternet")
+            Logger.i("No Internet for ${noInternetWatcher.noInternetCounter} consecutive checks, cancelling run")
+            cancelRun()
+            reportTestRunError(TestRunError.NoInternet)
         }
     }
 
