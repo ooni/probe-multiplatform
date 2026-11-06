@@ -1,4 +1,4 @@
-* Measurement engine (`org.ooni:oonimkall*`) v3.31.0
+* Measurement engine (`org.ooni:oonimkall*`) v3.31.1
 * Passport (`org.ooni:passport*`) 0.1.8
-* Support credentials for proxy
+* Add Serbian language support
 * Bug fixes and improvements
