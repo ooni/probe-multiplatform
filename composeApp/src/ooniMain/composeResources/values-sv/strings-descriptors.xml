@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+  <!--This file is generated from https://github.com/ooni/translations. Please do not modify unless you know what youre doing-->
+  <string name="Test_Websites_Fullname">Webbsidor</string>
+  <string name="Dashboard_Websites_Card_Description">Testa blockerade webbsidor</string>
+  <string name="Test_InstantMessaging_Fullname">Direkt meddelanden</string>
+  <string name="Dashboard_InstantMessaging_Card_Description">Testa om \"instant messaging\"-appar är blockerade</string>
+  <string name="Test_Circumvention_Fullname">Kringgående</string>
+  <string name="Test_Performance_Fullname">Prestanda</string>
+  <string name="Dashboard_Performance_Card_Description">Testa din nätverkshastighet och prestanda</string>
+</resources>

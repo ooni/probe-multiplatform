@@ -56,7 +56,7 @@
     {
         "name": "Selected (inter)national media",
         "short_description": "Selected national and international media outlets.",
-        "description": "Selected national and international media outlets. \n\nWARNING: This could also include biased and/or propagandistic media.",
+        "description": "Selected national and international media outlets.\n\nWARNING: This could also include biased and/or propagandistic media.",
         "author": "internet-freedom@dw.com",
         "nettests": [
             {
@@ -168,8 +168,8 @@
             "ru": "Избранные (меж)национальные СМИ."
         },
         "description_intl": {
-            "de": "Ausgewählte nationale und internationale Medien.   WARNUNG: Dies könnte auch parteiische und/oder propagandistische Medien umfassen.",
-            "ru": "Избранные национальные и международные средства массовой информации.   ВНИМАНИЕ: сюда также могут входить предвзятые и/или пропагандистские СМИ."
+            "de": "Ausgewählte nationale und internationale Medien.\n\nWARNUNG: Dies könnte auch parteiische und/oder propagandistische Medien umfassen.",
+            "ru": "Избранные национальные и международные средства массовой информации.\n\nВНИМАНИЕ: сюда также могут входить предвзятые и/или пропагандистские СМИ."
         },
         "icon": "FaBookOpenReader",
         "color": "#000000",
@@ -182,7 +182,7 @@
         "is_expired": false
     },
     {
-        "name": "Global media ",
+        "name": "Global media",
         "short_description": "A wide range of global media.",
         "description": "This is the largest collection of media worldwide.\n\nWARNING: This list will most likely contain propagandistic and influenced media outlets.",
         "author": "internet-freedom@dw.com",
@@ -428,8 +428,8 @@
             "ru": "Широкий спектр СМИ по всему миру."
         },
         "description_intl": {
-            "de": "Dies ist die größte Sammlung von Medien weltweit.  WARNUNG: Diese Liste enthält höchstwahrscheinlich propagandistische und beeinflusste Medien.",
-            "ru": "Это самая большая коллекция средств массовой информации по всему миру.  ПРЕДУПРЕЖДЕНИЕ: В этом списке, скорее всего, найдутся пропагандистские и подверженные влиянию СМИ."
+            "de": "Dies ist die größte Sammlung von Medien weltweit.\n\nWARNUNG: Diese Liste enthält höchstwahrscheinlich propagandistische und beeinflusste Medien.",
+            "ru": "Это самая большая коллекция средств массовой информации по всему миру.\n\nПРЕДУПРЕЖДЕНИЕ: В этом списке, скорее всего, найдутся пропагандистские и подверженные влиянию СМИ."
         },
         "icon": "FaEarthAmericas",
         "color": "#808080",

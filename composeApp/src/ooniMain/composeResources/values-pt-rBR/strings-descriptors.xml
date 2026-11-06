@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+  <!--This file is generated from https://github.com/ooni/translations. Please do not modify unless you know what youre doing-->
+  <string name="Dashboard_Websites_Card_Description">Teste o bloqueio de sites</string>
+  <string name="Dashboard_Websites_Overview_Paragraph">Verifique se os websites estão bloqueados usando o [Teste de Conectividade Web](https://ooni.org/nettest/web-connectivity/) da OONI.\n\nToda vez que você clica em Executar, você testa diferentes websites das listas de testes [globais](https://github.com/citizenlab/test-lists/blob/master/lists/global.csv) e [específicas de cada país](https://github.com/citizenlab/test-lists/tree/master/lists) do Citizen Lab.\n\nPara testar os sites de sua escolha, toque no botão Escolher sites ou selecione categorias de sites através das configurações deste cartão.\n\nEste teste mede se os sites são bloqueados por meio de manipulação de DNS, bloqueio TCP/IP ou por um proxy HTTP transparente.\n\nSeus resultados serão publicados em [Explorador OONI](https://explorer.ooni.org/world/) e [API OONI](https://api.ooni.io/).</string>
+  <string name="Test_InstantMessaging_Fullname">Mensagem Instantânea</string>
+  <string name="Dashboard_InstantMessaging_Card_Description">Teste o bloqueio de aplicativos de mensagens instantâneas</string>
+  <string name="Dashboard_InstantMessaging_Overview_Paragraph">Verifique se [WhatsApp](https://ooni.org/nettest/whatsapp/), [Facebook Messenger](https://ooni.org/nettest/facebook-messenger/), [Telegram](https://ooni.org/nettest/telegram/), e [Signal](https://ooni.org/nettest/signal) estão bloqueados.\n\nSeus resultados serão publicados em [OONI Explorer](https://explorer.ooni.org/world/) e na [OONI API](https://api.ooni.io/).</string>
+  <string name="Test_Circumvention_Fullname">Contornar a censura</string>
+  <string name="Dashboard_Circumvention_Card_Description">Testar o bloqueio de ferramentas de evasão à censura</string>
+  <string name="Dashboard_Circumvention_Overview_Paragraph">Verifique se [Psiphon](https://ooni.org/nettest/psiphon/), [Tor](https://ooni.org/nettest/tor/) ou [RiseupVPN](https://ooni.org/nettest/riseupvpn/) estão bloqueados.\n\nSeus resultados serão publicados em [OONI Explorer](https://explorer.ooni.org/) e na [OONI API](https://api.ooni.io/).</string>
+  <string name="Test_Performance_Fullname">Desempenho</string>
+  <string name="Dashboard_Performance_Card_Description">Teste a velocidade e o desempenho de sua rede</string>
+  <string name="Dashboard_Performance_Overview_Paragraph">Meça a velocidade e o desempenho da sua rede usando o teste [NDT](https://ooni.org/nettest/ndt/).\n\nMeça o desempenho da streaming de vídeo usando o [DASH](https://ooni.org/nettest/dash/).\n\nEsses testes consomem dados dependendo da velocidade da sua rede.\n\nSeus resultados serão publicados no [OONI Explorer](https://explorer.ooni.org/world/) e na [OONI API](https://api.ooni.io/).\n\nIsenção de responsabilidade: Esses testes dependem de servidores de terceiros. Portanto, não podemos garantir que seu endereço IP não seja coletado.</string>
+  <string name="Dashboard_Experimental_Card_Description">Executar novos testes experimentais</string>
+  <string name="Dashboard_Experimental_Overview_Paragraph">Execute os seguintes novos testes experimentais desenvolvidos pela equipe OONI:\n%1$s\n\nSeus resultados serão publicados em [OONI Explorer](https://explorer.ooni.org/) e [OONI API](https://api.ooni.io/).</string>
+</resources>
