@@ -29,7 +29,7 @@ import ooniprobe.composeapp.generated.resources.Settings_About_Label
 import ooniprobe.composeapp.generated.resources.Settings_Advanced_Label
 import ooniprobe.composeapp.generated.resources.Settings_Privacy_Label
 import ooniprobe.composeapp.generated.resources.Settings_Proxy_Label
-import ooniprobe.composeapp.generated.resources.Settings_Proxy_Psiphon
+import ooniprobe.composeapp.generated.resources.Settings_Proxy_None
 import ooniprobe.composeapp.generated.resources.Settings_Sharing_UploadResults_Description
 import ooniprobe.composeapp.generated.resources.Settings_TestOptions_Label
 import ooniprobe.composeapp.generated.resources.Settings_Title
@@ -44,7 +44,9 @@ import org.junit.Before
 import org.junit.BeforeClass
 import org.junit.Rule
 import org.junit.Test
+import org.junit.rules.TestRule
 import org.junit.runner.RunWith
+import org.junit.runners.model.Statement
 import org.ooni.probe.data.models.OoniTest
 import org.ooni.probe.data.models.SettingsKey
 import org.ooni.probe.data.models.getCurrent
@@ -69,13 +71,32 @@ import tools.fastlane.screengrab.Screengrab
 import tools.fastlane.screengrab.UiAutomatorScreenshotStrategy
 import tools.fastlane.screengrab.cleanstatusbar.CleanStatusBar
 import tools.fastlane.screengrab.locale.LocaleTestRule
+import tools.fastlane.screengrab.locale.LocaleUtil
+import java.util.Locale
 import kotlin.time.Duration.Companion.seconds
 
 @RunWith(AndroidJUnit4::class)
 class AutomateScreenshotsTest {
+    // Screengrab's default LocaleTestRule drops the script subtag (e.g. "sr-Latn" becomes "sr"),
+    // so script-specific resources like values-b+sr+Latn are never selected. Parse it as a BCP 47 tag,
+    // and keep the original tag for the screenshot directory so fastlane pulls it for that locale.
     @Rule
     @JvmField
-    val localeTestRule = LocaleTestRule()
+    val localeTestRule: TestRule =
+        LocaleUtil.getTestLocale()?.let { tag ->
+            val rule = LocaleTestRule(Locale.forLanguageTag(tag.replace('_', '-')))
+            TestRule { base, description ->
+                rule.apply(
+                    object : Statement() {
+                        override fun evaluate() {
+                            Screengrab.setLocale(tag)
+                            base.evaluate()
+                        }
+                    },
+                    description,
+                )
+            }
+        } ?: LocaleTestRule()
 
     @get:Rule
     val compose = createEmptyComposeRule()
@@ -267,7 +288,7 @@ class AutomateScreenshotsTest {
                 wait { onNodeWithText(Res.string.Settings_About_Label).isDisplayed() }
 
                 clickOnText(Res.string.Settings_Proxy_Label)
-                wait { onNodeWithText(Res.string.Settings_Proxy_Psiphon).isDisplayed() }
+                wait { onNodeWithText(Res.string.Settings_Proxy_None).isDisplayed() }
 
                 Screengrab.screenshot("14-proxy")
 
@@ -316,7 +337,7 @@ class AutomateScreenshotsTest {
 
                 clickOnText(websitesTitle)
 
-                wait(10.seconds) { onNodeWithText("https://youtube.com/").isDisplayed() }
+                wait(10.seconds) { onNodeWithText("https://www.youtube.com/").isDisplayed() }
 
                 // Screenshot was coming up empty, so we need to explicitly sleep here
                 Thread.sleep(3000)
@@ -356,7 +377,7 @@ class AutomateScreenshotsTest {
 
                 clickOnText(Res.string.Tests_Title)
                 clickOnText(websitesTitle)
-                wait { onNodeWithText(websitesTitle).isDisplayed() }
+                wait { onNodeWithText(Res.string.Dashboard_Overview_ChooseWebsites).isDisplayed() }
                 clickOnText(Res.string.Dashboard_Overview_ChooseWebsites)
                 wait { onNodeWithText(Res.string.Settings_Websites_CustomURL_Title).isDisplayed() }
                 Screengrab.screenshot("21-choose-websites")
