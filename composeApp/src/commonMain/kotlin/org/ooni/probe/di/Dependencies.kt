@@ -79,6 +79,7 @@ import org.ooni.probe.domain.GetRunAtStartupSettings
 import org.ooni.probe.domain.GetSettings
 import org.ooni.probe.domain.GetStats
 import org.ooni.probe.domain.GetStorageUsed
+import org.ooni.probe.domain.NoInternetWatcher
 import org.ooni.probe.domain.ObserveAndConfigureAutoRun
 import org.ooni.probe.domain.ObserveAndConfigureAutoUpdate
 import org.ooni.probe.domain.ObserveAndConfigureRunAtStartup
@@ -609,6 +610,10 @@ class Dependencies(
             startDescriptorsUpdate = startDescriptorsUpdate,
         )
     }
+
+    // Factory: RunDescriptors builds one watcher per run and passes it to each RunNetTest
+    private val buildNoInternetWatcher = { NoInternetWatcher(networkTypeFinder::invoke) }
+
     private val proxyManager by lazy {
         ProxyManager(
             getPreference = preferenceRepository::getValueByKey,
@@ -665,13 +670,13 @@ class Dependencies(
             markResultAsDone = resultRepository::markAsDone,
             getRunBackgroundState = runBackgroundStateManager.observeState(),
             setRunBackgroundState = runBackgroundStateManager::updateState,
-            runNetTest = { runNetTest(it)() },
-            cancelRun = runBackgroundStateManager::cancel,
+            runNetTest = { spec, noInternetWatcher -> buildRunNetTest(spec, noInternetWatcher)() },
             addRunCancelListener = runBackgroundStateManager::addCancelListener,
             reportTestRunError = runBackgroundStateManager::reportError,
             getEnginePreferences = getEnginePreferences::invoke,
             finishInProgressData = finishInProgressData::invoke,
             networkTypeFinder = networkTypeFinder::invoke,
+            buildNoInternetWatcher = buildNoInternetWatcher,
             testProxy = testProxy::invoke,
         )
     }
@@ -744,7 +749,13 @@ class Dependencies(
         )
     }
 
-    private fun runNetTest(spec: RunNetTest.Specification) =
+    // Only builds the RunNetTest; callers must invoke it (`buildRunNetTest(...)()`) to run the test.
+    // Don't pass `::buildRunNetTest` as RunDescriptors' `runNetTest`: it still compiles against
+    // `suspend (...) -> Unit` (the return value is discarded), but the test would never run.
+    private fun buildRunNetTest(
+        spec: RunNetTest.Specification,
+        noInternetWatcher: NoInternetWatcher,
+    ): RunNetTest =
         RunNetTest(
             startTest = engine::startTask,
             getResultByIdAndUpdate = resultRepository::getByIdAndUpdate,
@@ -757,6 +768,9 @@ class Dependencies(
             json = json,
             getPreferenceValueByKey = preferenceRepository::getValueByKey,
             submitMeasurement = submitMeasurement::invoke,
+            noInternetWatcher = noInternetWatcher,
+            cancelRun = runBackgroundStateManager::cancel,
+            reportTestRunError = runBackgroundStateManager::reportError,
             spec = spec,
         )
 

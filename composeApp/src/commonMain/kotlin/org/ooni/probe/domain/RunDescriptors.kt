@@ -34,13 +34,13 @@ class RunDescriptors(
     private val markResultAsDone: suspend (ResultModel.Id) -> Unit,
     private val getRunBackgroundState: Flow<RunBackgroundState>,
     private val setRunBackgroundState: ((RunBackgroundState) -> RunBackgroundState) -> Unit,
-    private val runNetTest: suspend (RunNetTest.Specification) -> Unit,
-    private val cancelRun: () -> Unit,
+    private val runNetTest: suspend (RunNetTest.Specification, NoInternetWatcher) -> Unit,
     private val addRunCancelListener: (() -> Unit) -> CancelListenerCallback,
     private val reportTestRunError: (TestRunError) -> Unit,
     private val getEnginePreferences: suspend () -> EnginePreferences,
     private val finishInProgressData: suspend () -> Unit,
     private val networkTypeFinder: () -> NetworkType,
+    private val buildNoInternetWatcher: () -> NoInternetWatcher,
     private val testProxy: () -> Flow<TestProxy.State>,
 ) {
     suspend operator fun invoke(spec: RunSpecification.Full) {
@@ -96,7 +96,8 @@ class RunDescriptors(
             setRunBackgroundState { RunBackgroundState.Stopping }
         }
 
-        val noInternetWatcher = NoInternetWatcher()
+        // Scoped to this run: shared by all its descriptors and tests, discarded afterwards
+        val noInternetWatcher = buildNoInternetWatcher()
 
         // Actually running the descriptors
         val runId = RunModel.Id.generateNew()
@@ -188,34 +189,12 @@ class RunDescriptors(
                     testIndex = testIndex,
                     testTotal = descriptorItem.allTests.size,
                 ),
+                noInternetWatcher,
             )
-
-            if (noInternetWatcher.checkIfShouldCancelDueToNoInternet()) {
-                cancelRun()
-                reportTestRunError(TestRunError.NoInternet)
-            }
         }
 
         markResultAsDone(resultId)
     }
 
     private suspend fun isRunStopped() = getRunBackgroundState.first() is RunBackgroundState.Stopping
-
-    inner class NoInternetWatcher {
-        private var noInternetCounter = 0
-
-        fun checkIfShouldCancelDueToNoInternet(): Boolean {
-            if (networkTypeFinder() == NetworkType.NoInternet) {
-                noInternetCounter += 1
-            } else {
-                noInternetCounter = 0
-            }
-            return noInternetCounter >= NO_INTERNET_CANCEL_THRESHOLD
-        }
-    }
-
-    companion object {
-        // Cancel run after this amount of tests without Internet
-        private const val NO_INTERNET_CANCEL_THRESHOLD = 3
-    }
 }
