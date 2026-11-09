@@ -24,28 +24,27 @@ sealed interface RunBackgroundState {
         private val testTotal: Int = 1,
         val log: String? = "",
     ) : RunBackgroundState {
-        val estimatedTimeLeft: Duration?
-            get() {
-                if (estimatedRuntimeOfDescriptors.isNullOrEmpty()) return null
-                val totalTime = estimatedRuntimeOfDescriptors.sumOf { it.inWholeSeconds }.seconds
-                return totalTime * (1 - progress)
-            }
+        val estimatedTimeLeft: Duration? by lazy {
+            if (estimatedRuntimeOfDescriptors.isNullOrEmpty()) return@lazy null
+            val totalTime = estimatedRuntimeOfDescriptors.sumOf { it.inWholeSeconds }.seconds
+            totalTime * (1 - progress)
+        }
 
-        val progress: Double
-            get() {
-                if (estimatedRuntimeOfDescriptors.isNullOrEmpty()) return 0.0
+        val progress by lazy {
+            if (estimatedRuntimeOfDescriptors.isNullOrEmpty()) return@lazy 0.0
 
-                val totalTime =
-                    estimatedRuntimeOfDescriptors.sumOf { it.inWholeSeconds }.toDouble()
-                val progressByDescriptor =
-                    estimatedRuntimeOfDescriptors.map { it.inWholeSeconds / totalTime }
-
-                val pastProgress = progressByDescriptor.take(descriptorIndex).sum()
-                val descriptorRelativeProgress = (testIndex + testProgress) / testTotal
-                val descriptorProgress =
-                    progressByDescriptor[descriptorIndex] * descriptorRelativeProgress
-                return pastProgress + descriptorProgress
-            }
+            val totalTime = estimatedRuntimeOfDescriptors
+                .sumOf { it.inWholeSeconds }
+                .toDouble()
+                .coerceAtLeast(1.0)
+            val progressByDescriptor =
+                estimatedRuntimeOfDescriptors.map { it.inWholeSeconds / totalTime }
+            val pastProgress = progressByDescriptor.take(descriptorIndex).sum()
+            val descriptorRelativeProgress = (testIndex + testProgress) / testTotal
+            val descriptorProgress =
+                progressByDescriptor[descriptorIndex] * descriptorRelativeProgress
+            pastProgress + descriptorProgress
+        }
     }
 
     data object Stopping : RunBackgroundState

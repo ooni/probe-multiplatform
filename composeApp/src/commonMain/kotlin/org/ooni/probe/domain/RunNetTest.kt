@@ -12,7 +12,6 @@ import org.ooni.probe.data.disk.DeleteFiles
 import org.ooni.probe.data.disk.WriteFile
 import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.DescriptorItem
-import org.ooni.probe.data.models.isAsnZero
 import org.ooni.probe.data.models.MeasurementModel
 import org.ooni.probe.data.models.NetTest
 import org.ooni.probe.data.models.NetworkModel
@@ -21,6 +20,7 @@ import org.ooni.probe.data.models.RunBackgroundState
 import org.ooni.probe.data.models.SettingsKey
 import org.ooni.probe.data.models.TestRunError
 import org.ooni.probe.data.models.UrlModel
+import org.ooni.probe.data.models.isAsnZero
 import org.ooni.probe.shared.monitoring.Instrumentation
 import org.ooni.probe.shared.monitoring.reportTransaction
 import org.ooni.probe.shared.toLocalDateTime
@@ -56,7 +56,6 @@ class RunNetTest(
     private var reportId: String? = null
     private var lastNetwork: NetworkModel? = null
     private val measurements = mutableMapOf<Int, MeasurementModel>()
-    private val progressStep = 1.0 / spec.descriptor.netTests.size
     private var checkedInternet = false
     private var cancelledDueToNoInternet = false
 
@@ -77,9 +76,9 @@ class RunNetTest(
                     descriptor = spec.descriptor,
                     descriptorIndex = spec.descriptorIndex,
                     testType = spec.netTest.test,
-                    testProgress = spec.testIndex * progressStep,
                     testIndex = spec.testIndex,
                     testTotal = spec.testTotal,
+                    testProgress = 0.0,
                 )
             }
 
@@ -169,7 +168,7 @@ class RunNetTest(
                 setCurrentTestState {
                     if (it !is RunBackgroundState.RunningTests) return@setCurrentTestState it
                     it.copy(
-                        testProgress = (spec.testIndex + event.progress) * progressStep,
+                        testProgress = event.progress,
                         log = event.message,
                     )
                 }
