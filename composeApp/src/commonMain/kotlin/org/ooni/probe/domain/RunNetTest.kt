@@ -182,13 +182,6 @@ class RunNetTest(
                     if (event.result == null) {
                         measurement = measurement.copy(isFailed = true)
                     } else {
-                        if (event.result.testStartTime != null) {
-                            updateResult {
-                                it.copy(
-                                    startTime = event.result.testStartTime.toLocalDateTime(),
-                                )
-                            }
-                        }
                         if (event.result.measurementStartTime != null) {
                             measurement = measurement.copy(
                                 startTime = event.result.measurementStartTime.toLocalDateTime(),
