@@ -26,6 +26,7 @@ import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.take
 import ooniprobe.composeapp.generated.resources.AddDescriptor_Toasts_Unsupported_Url
 import ooniprobe.composeapp.generated.resources.Res
 import org.jetbrains.compose.resources.getString
@@ -61,7 +62,7 @@ fun App(
      * Decide the start destination before composing the navigation graph so a fresh
      * installation lands directly on Onboarding instead of briefly flashing the Dashboard.
      */
-    val firstRun by remember(dependencies) { dependencies.getFirstRun() }
+    val firstRun by remember(dependencies) { dependencies.getFirstRun().take(1) }
         .collectAsState(initial = null)
     val startScreen: Screen? = when (firstRun) {
         true -> Screen.Onboarding
