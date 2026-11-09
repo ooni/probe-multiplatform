@@ -10,8 +10,7 @@ import org.ooni.engine.models.NetworkType
 class NoInternetWatcher(
     private val networkTypeFinder: () -> NetworkType,
 ) {
-    var noInternetCounter = 0
-        private set
+    private var noInternetCounter = 0
 
     fun checkIfShouldCancelDueToNoInternet(): Boolean {
         if (networkTypeFinder() == NetworkType.NoInternet) {

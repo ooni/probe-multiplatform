@@ -40,7 +40,7 @@ class RunDescriptors(
     private val getEnginePreferences: suspend () -> EnginePreferences,
     private val finishInProgressData: suspend () -> Unit,
     private val networkTypeFinder: () -> NetworkType,
-    private val buildNoInternetWatcher: () -> NoInternetWatcher,
+    private val noInternetWatcherProvider: () -> NoInternetWatcher,
     private val testProxy: () -> Flow<TestProxy.State>,
 ) {
     suspend operator fun invoke(spec: RunSpecification.Full) {
@@ -97,7 +97,7 @@ class RunDescriptors(
         }
 
         // Scoped to this run: shared by all its descriptors and tests, discarded afterwards
-        val noInternetWatcher = buildNoInternetWatcher()
+        val noInternetWatcher = noInternetWatcherProvider()
 
         // Actually running the descriptors
         val runId = RunModel.Id.generateNew()
