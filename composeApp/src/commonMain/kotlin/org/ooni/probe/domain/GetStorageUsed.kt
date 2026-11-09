@@ -1,5 +1,6 @@
 package org.ooni.probe.domain
 
+import co.touchlab.kermit.Logger
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -8,6 +9,8 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.withContext
 import okio.FileNotFoundException
 import okio.FileSystem
+import okio.IOException
+import okio.Path
 import okio.Path.Companion.toPath
 import kotlin.coroutines.CoroutineContext
 
@@ -27,7 +30,7 @@ class GetStorageUsed(
     suspend fun update(): Long {
         return withContext(backgroundContext) {
             val allFiles = listOf(baseFileDir, cacheDir)
-                .flatMap { fileSystem.listRecursively(baseFileDir.toPath()) }
+                .flatMap { listFiles(it) }
             val usedStorage = allFiles.sumOf {
                 val metadata = try {
                     fileSystem.metadata(it)
@@ -40,4 +43,12 @@ class GetStorageUsed(
             return@withContext usedStorage
         }
     }
+
+    private fun listFiles(folder: String): List<Path> =
+        try {
+            fileSystem.listRecursively(folder.toPath()).toList()
+        } catch (e: IOException) {
+            Logger.w("Could not list files from $folder", e)
+            emptyList()
+        }
 }
