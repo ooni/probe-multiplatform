@@ -1,7 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources>
-  <!--This file is generated from https://github.com/ooni/translations. Please do not modify unless you know what youre doing-->
-  <string name="Test_Websites_Fullname">Sitios web</string>
-  <string name="Test_InstantMessaging_Fullname">Mensaxería Instantánea</string>
-  <string name="Test_Performance_Fullname">Rendemento</string>
-</resources>

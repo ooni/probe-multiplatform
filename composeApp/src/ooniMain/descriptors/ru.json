@@ -1,0 +1,17 @@
+{
+    "Test_Websites_Fullname": "Сайты",
+    "Dashboard_Websites_Card_Description": "Проверить блокировки сайтов",
+    "Dashboard_Websites_Overview_Paragraph": "Проверьте блокировки сайтов используя OONI [Web Connectivity тест](https://ooni.org/nettest/web-connectivity/).\n\nКаждый раз нажимая \"Старт\", вы проверяете набор сайтов из списков тестирования Citizen Lab [глобально](https://github.com/citizenlab/test-lists/blob/master/lists/global.csv) и [по конкретным странам](https://github.com/citizenlab/test-lists/tree/master/lists).\n\nЧтобы протестировать выбранные сайты, нажмите кнопку «Выбрать» или выберите нужные категории сайтов через настройки на этой карточке.\n\nЭтот тест проверяет заблокирован ли сайт через вмешательство в DNS, блокировки TCP/IP или через прозрачный HTTP-прокси.\n\nРезультаты будут опубликованы в [OONI Explorer](https://explorer.ooni.org/world/) и [OONI API](https://api.ooni.io/).",
+    "Test_InstantMessaging_Fullname": "Мессенджеры",
+    "Dashboard_InstantMessaging_Card_Description": "Протестировать блокировку мессенджеров",
+    "Dashboard_InstantMessaging_Overview_Paragraph": "Проверить заблокированы ли [WhatsApp](https://ooni.org/nettest/whatsapp/), [Facebook Messenger](https://ooni.org/nettest/facebook-messenger/), [Telegram](https://ooni.org/nettest/telegram/), и [Signal](https://ooni.org/nettest/signal).\n\nРезультаты будут опубликованы в [OONI Explorer](https://explorer.ooni.org/world/) и [OONI API](https://api.ooni.io/).",
+    "Test_Circumvention_Fullname": "Обход блокировки",
+    "Dashboard_Circumvention_Card_Description": "Протестировать блокировку инструментов обхода цензуры",
+    "Dashboard_Circumvention_Overview_Paragraph": "Проверьте заблокирован ли [Psiphon](https://ooni.org/nettest/psiphon/), [Tor](https://ooni.org/nettest/tor/) или [RiseupVPN](https://ooni.org/nettest/riseupvpn/).\n\nРезультаты будут опубликованы в [OONI Explorer](https://explorer.ooni.org/) и [OONI API](https://api.ooni.io/).",
+    "Test_Performance_Fullname": "Производительность",
+    "Dashboard_Performance_Card_Description": "Измерить скорость и производительность сети",
+    "Dashboard_Performance_Overview_Paragraph": "Скорость и производительность сети можно измерить с помощью [NDT](https://ooni.io/nettest/ndt/).\n\nСкорость видеопотока — с помощью [DASH](https://ooni.io/nettest/dash/).\n\nЭти тесты обрабатывают данные и зависят от скорости вашей сети.\n\nРезультаты будут опубликованы в [OONI Explorer](https://explorer.ooni.io/world/) и [OONI API](https://api.ooni.io/).\n\nВнимание: в этих тестах используются серверы третьих сторон. Мы не можем гарантировать конфиденциальность вашего IP-адреса.",
+    "Test_Experimental_Fullname": "Экспериментальный режим ",
+    "Dashboard_Experimental_Card_Description": "Запустить новые экспериментальные тесты",
+    "Dashboard_Experimental_Overview_Paragraph": "Попробуйте запустить новые экспериментальные тесты созданные командой OONI:\n%1$s\n\nРезультаты будут опубликованы в [OONI Explorer](https://explorer.ooni.org/) и [OONI API](https://api.ooni.io/)."
+}

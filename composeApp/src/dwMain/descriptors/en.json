@@ -1,0 +1,11 @@
+{
+    "Test_TrustedInternationalMedia_Fullname": "Trusted International Media",
+    "Dashboard_TrustedInternationalMedia_Card_Description": "The most reliable international media outlets.",
+    "Dashboard_TrustedInternationalMedia_Overview_Paragraph": "In this list you will find the largest, most reliable international media outlets in the world.",
+    "Test_SelectedMedia_Fullname": "Selected (inter)national media",
+    "Dashboard_SelectedMedia_Card_Description": "Selected national and international media outlets.",
+    "Dashboard_SelectedMedia_Overview_Paragraph": "Selected national and international media outlets.\n\nWARNING: This could also include biased and/or propagandistic media.",
+    "Test_GlobalMedia_Fullname": "Global media",
+    "Dashboard_GlobalMedia_Card_Description": "A wide range of global media.",
+    "Dashboard_GlobalMedia_Overview_Paragraph": "This is the largest collection of media worldwide.\n\nWARNING: This list will most likely contain propagandistic and influenced media outlets."
+}

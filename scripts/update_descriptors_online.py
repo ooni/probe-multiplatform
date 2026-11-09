@@ -10,6 +10,8 @@ expiration date...) is taken from the live link, so the nettest revision does
 not change.
 
 Run `generate_descriptors_json.py` first so descriptors.json is up to date.
+Languages not in `SUPPORTED_LANGUAGES` (generate_descriptors_json.py) are
+dropped from the `*_intl` maps before sending.
 
 Usage:
     python3 scripts/update_descriptors_online.py --token <JWT> [--dry-run]
@@ -22,6 +24,9 @@ import sys
 import urllib.error
 import urllib.request
 from pathlib import Path
+
+sys.dont_write_bytecode = True  # no scripts/__pycache__ from the import below
+from generate_descriptors_json import SUPPORTED_LANGUAGES  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 FLAVORS = ("ooniMain", "dwMain")
@@ -73,7 +78,10 @@ def build_payload(live, local, publish_email):
     ]
     payload["publish_email"] = live.get("publish_email", publish_email)
     for field in TEXT_FIELDS:
-        payload[field] = local.get(field)
+        value = local.get(field)
+        if field.endswith("_intl") and value:
+            value = {lang: text for lang, text in value.items() if lang in SUPPORTED_LANGUAGES}
+        payload[field] = value
     return payload
 
 

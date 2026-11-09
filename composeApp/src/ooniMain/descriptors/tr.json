@@ -1,0 +1,17 @@
+{
+    "Test_Websites_Fullname": "Siteler",
+    "Dashboard_Websites_Card_Description": "Site engellemelerini sınayın",
+    "Dashboard_Websites_Overview_Paragraph": "OONI [site bağlantısı sınaması](https://ooni.org/nettest/web-connectivity/) özelliğini kullanarak sitelerin engellenip engellenmediğini denetleyebilirsiniz.\n\nÇalıştır üzerine her tıkladığınızda, Citizen Lab [küresel](https://github.com/citizenlab/test-lists/blob/master/lists/global.csv) ve [ülkeye özel](https://github.com/citizenlab/test-lists/tree/master/lists) sınama listelerindeki çeşitli siteler denetlenir.\n\nBelirli siteleri sınamak için siteleri seçin düğmesine tıklayın ya da bu kartın ayarlarından kategoriyi ya da siteleri seçin. \n\nBu sınama sitelerin DNS müdahalesi, TCP/IP engelleme ya da görünmez vekil sunucu ile engellenip engellenmediğini ortaya çıkarır.\n\nSonuçlarınız [OONI Explorer](https://explorer.ooni.org/world/) ve [OONI API](https://api.ooni.io/) üzerinde yayınlanır.",
+    "Test_InstantMessaging_Fullname": "Anlık ileti",
+    "Dashboard_InstantMessaging_Card_Description": "Anlık ileti uygulamalarının engellenip engellenmediğini anlayın",
+    "Dashboard_InstantMessaging_Overview_Paragraph": "[WhatsApp](https://ooni.org/nettest/whatsapp/), [Facebook Messenger](https://ooni.org/nettest/facebook-messenger/), [Telegram](https://ooni.org/nettest/telegram/) ve [Signal](https://ooni.org/nettest/signal) uygulamalarının engellenip engellenmediğini kontrol edebilirsiniz.\n\nSonuçlarınız [OONI Explorer](https://explorer.ooni.org/world/) ve [OONI API](https://api.ooni.io/) üzerinde yayınlanır.",
+    "Test_Circumvention_Fullname": "Sansürü aşma",
+    "Dashboard_Circumvention_Card_Description": "Sansürü aşma araçları engellemesini sınayın",
+    "Dashboard_Circumvention_Overview_Paragraph": "[Psiphon](https://ooni.org/nettest/psiphon/) ve [Tor](https://ooni.org/nettest/tor/) ya da [RiseupVPN](https://ooni.org/nettest/riseupvpn/) engelleniyor mu öğrenin.\n\nSonuçlarınız [OONI Explorer](https://explorer.ooni.org/) ve [OONI API](https://api.ooni.io/) sayfasında yayınlanır.",
+    "Test_Performance_Fullname": "Başarım",
+    "Dashboard_Performance_Card_Description": "Ağınızın hızını ve başarımını ölçün",
+    "Dashboard_Performance_Overview_Paragraph": "[NDT](https://ooni.org/nettest/ndt/) sınaması ile ağınızın hızını ve başarımını ölçebilirsiniz.\n\n[DASH](https://ooni.org/nettest/dash/) sınaması ile görüntü akış başarımını ölçebilirsiniz.\n\nBu sınamalar sırasında ağınızın hızına göre belirlenen miktarda çeşitli veriler aktarılır.\n\nSonuçlarınız [OONI Explorer](https://explorer.ooni.org/world/) ve [OONI API](https://api.ooni.io/) üzerinde yayınlanır.\n\nBildirim: Bu sınamalar üçüncü tarafların sunucuları üzerinden yapılır. Bu nedenle IP adresinizin kaydedilmeyeceğini garanti edemeyiz.",
+    "Test_Experimental_Fullname": "Deneysel",
+    "Dashboard_Experimental_Card_Description": "Yeni deneysel sınamaları çalıştır",
+    "Dashboard_Experimental_Overview_Paragraph": "OONI ekibi tarafından geliştirilmiş yeni deneysel sınamaları çalıştırın:\n%1$s\n\nSonuçlarınız [OONI Explorer](https://explorer.ooni.org/) ve [OONI API](https://api.ooni.io/) üzerinde yayınlanır."
+}

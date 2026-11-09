@@ -1,0 +1,17 @@
+{
+    "Test_Websites_Fullname": "المواقع",
+    "Dashboard_Websites_Card_Description": "اختبار حجب المواقع",
+    "Dashboard_Websites_Overview_Paragraph": "تأكّدوا عمّا إذا كانت المواقع محجوبة باستخدام [اختبار الاتصاليّة بالويب](https://ooni.io/nettest/web-connectivity) من OONI \n\nفي كل مرّة تنقرون فيها \"Run\" ستقومون بفحص المواقع الموجودة لدى قائمة اختبارات Citizen Lab [العالميّة](https://github.com/citizenlab/test-lists/blob/master/lists/global.csv) و تلك [الخاصّة ببلد معيّنة](https://github.com/citizenlab/test-lists/tree/master/lists)\n\nلاختبار مواقع معيّنة، انقروا زر \"Choose websites\" أو \"اختاروا من ضمن تصنيفات المواقع عبر إعدادات هذا الكرت. \n\nاختيار مواقع\" هذا الفحص يكشف عمّا إذا كانت المواقع محجوبة عن طريق التلاعب ب DNS، حجب TCP/IP أو عن طريق بروكسي HTTP غير مرئي.\n\nسيتم نشر نتائج فحصكم على كل من [مكتشف OONI](https://explorer.ooni.org) و [واجهة تطبيق OONI](https://api.ooni.io/)",
+    "Test_InstantMessaging_Fullname": "المراسلة الفورية",
+    "Dashboard_InstantMessaging_Card_Description": "اختبار حجب برامج المراسلة الفورية",
+    "Dashboard_InstantMessaging_Overview_Paragraph": "تحقّقوا من حجب  [WhatsApp](https://ooni.org/nettest/whatsapp/), [Facebook Messenger](https://ooni.org/nettest/facebook-messenger/), [Telegram](https://ooni.org/nettest/telegram/), and [Signal](https://ooni.org/nettest/signal) are blocked. \n\nستنشر نتائج اختبارك على [متصفح OONI](https://explorer.ooni.org/) و على [OONI API](https://api.ooni.io/).",
+    "Test_Circumvention_Fullname": "تجاوز الحجب",
+    "Dashboard_Circumvention_Card_Description": "اختبار حجب وسائل تجاوز الرقابة.",
+    "Dashboard_Circumvention_Overview_Paragraph": "تحققوا من حجب [Psiphon](https://ooni.io/nettest/psiphon/) و [تور](https://ooni.io/nettest/tor/).\n\nستنشر نتائج اختبارك على [متصفح OONI](https://explorer.ooni.org/) و على [OONI API](https://api.ooni.io/).",
+    "Test_Performance_Fullname": "الأداء",
+    "Dashboard_Performance_Card_Description": "اختبار سرعة و جودة شبكتك",
+    "Dashboard_Performance_Overview_Paragraph": "يمكن قياس سرعة و جودة شبكتك من خلال اختبار [NDT](https://ooni.io/nettest/ndt/).\n\nويمكن قياس أداء بث الفيديو من خلال اختبار [DASH](https://ooni.io/nettest/dash/).\n\nهذه الاختبارات تستهلك بيانات بحسب سرعة اتصالك بالشبكة.\n\nستنشر نتائج اختبارك على [متصفح OONI](https://explorer.ooni.io/world/) و على [OONI API](https://api.ooni.io/).\n\nتنبيه: هذه الاختبارات تعتمد على خوادم من أطراف ثالثة. لذلك لا نستطيع ضمان عدم تسجيل عنوان IP الخاص بك.",
+    "Test_Experimental_Fullname": "تجريبي",
+    "Dashboard_Experimental_Card_Description": "إجراء الاختبارات التجريبيّة الجديدة",
+    "Dashboard_Experimental_Overview_Paragraph": "يمكنكم إجراء بعض الاختبارات التجريبيّة الجديدة المطوّرة من قبل فريق OONI: \n%1$s\n\nسيتم نشر نتائج اختباراتكم على كل من [مكتشف OONI](https://explorer.ooni.org) و [واجهة تطبيق OONI](https://api.ooni.io/)"
+}

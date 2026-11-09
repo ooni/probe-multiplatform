@@ -1,0 +1,17 @@
+{
+    "Test_Websites_Fullname": "Siti web",
+    "Dashboard_Websites_Card_Description": "Verifica il blocco di siti web",
+    "Dashboard_Websites_Overview_Paragraph": "Controlla se i siti web sono bloccati usando il [test di Connettività Web](https://ooni.org/nettest/web-connectivity/) di OONI\n\nOgni volta che fai tap su Run, misurerai diversi siti web dalla [lista globale](https://github.com/citizenlab/test-lists/blob/master/lists/global.csv) e [specifica per il paese](https://github.com/citizenlab/test-lists/tree/master/lists) del Citizen Lab.\n\nPer misurare un sito a tua scelta, fai tap sul bottone Scegli siti o configura le categorie da testare nelle impostazioni di questa card.\n\nQuesto test misura se i siti web sono bloccati per mezzo di censura su base DNS, blocco TCP/IP o tramite un proxy HTTP trasparente.\n\nI risultati saranno pubblicati su [OONI Explorer](https://explorer.ooni.org/world/) e [OONI API](https://api.ooni.io/).",
+    "Test_InstantMessaging_Fullname": "Messaggistica istantanea",
+    "Dashboard_InstantMessaging_Card_Description": "Verifica il blocco di app di messaggistica",
+    "Dashboard_InstantMessaging_Overview_Paragraph": "Controlla se [WhatsApp](https://ooni.org/nettest/whatsapp/), [Facebook Messenger](https://ooni.org/nettest/facebook-messenger/) o [Telegram](https://ooni.org/nettest/telegram/) sono bloccati.\n\nI risultati dei tuoi test saranno pubblicati su [OONI Explorer](https://explorer.ooni.org/world/) e [OONI API](https://api.ooni.io/).",
+    "Test_Circumvention_Fullname": "Elusione",
+    "Dashboard_Circumvention_Card_Description": "Testa il blocco degli strumenti d'elusione della censura",
+    "Dashboard_Circumvention_Overview_Paragraph": "Controlla se [Psiphon](https://ooni.org/nettest/psiphon/), [Tor](https://ooni.org/nettest/tor/) o [RiseupVPN](https://ooni.org/nettest/riseupvpn/) sono bloccati.\n\nI tuoi risultati saranno pubblicati in [OONI Explorer](https://explorer.ooni.org/) e [OONI API](https://api.ooni.io/).",
+    "Test_Performance_Fullname": "Prestazioni",
+    "Dashboard_Performance_Card_Description": "Misura la velocità e le prestazioni della tua rete",
+    "Dashboard_Performance_Overview_Paragraph": "Misura la velocità e le prestazioni della tua rete con il test [NDT](https://ooni.org/nettest/ndt/).\n\nMisura le prestazioni dello streaming video con il test [DASH](https://ooni.org/nettest/dash/).\n\nQuesti test consumano traffico dati in base alla velocità della tua rete.\n\nI risultati dei tuoi test saranno pubblicati su [OONI Explorer](https://explorer.ooni.org/world/) e [OONI API](https://api.ooni.io/).\n\nAttenzione: questi test usano server di terze parti. Non possiamo quindi garantire che il vostro indirizzo IP non sarà raccolto.",
+    "Test_Experimental_Fullname": "Sperimentale",
+    "Dashboard_Experimental_Card_Description": "Esegui nuovi test sperimentali",
+    "Dashboard_Experimental_Overview_Paragraph": "Esegui i seguenti nuovi test sperimentali sviluppati dal team di OONI:\n%1$s\n\nI risultati saranno pubblicati su [OONI Explorer](https://explorer.ooni.org/) e [OONI API](https://api.ooni.io/)."
+}
