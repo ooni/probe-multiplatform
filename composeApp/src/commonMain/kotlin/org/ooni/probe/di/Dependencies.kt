@@ -133,6 +133,7 @@ import org.ooni.probe.domain.results.GetResults
 import org.ooni.probe.locale.LocaleController
 import org.ooni.probe.shared.ConnectivityMonitor
 import org.ooni.probe.shared.PlatformInfo
+import org.ooni.probe.shared.currentDateFlow
 import org.ooni.probe.shared.monitoring.AppLogger
 import org.ooni.probe.shared.monitoring.CrashMonitoring
 import org.ooni.probe.ui.articles.ArticleViewModel
@@ -558,6 +559,7 @@ class Dependencies(
     }
     private val getStats by lazy {
         GetStats(
+            currentDate = ::currentDateFlow,
             countMeasurementsFromStartTime = measurementRepository::countFromStartTime,
             countNetworkAsns = networkRepository::countAsns,
             getNetworkCountries = networkRepository::listCountries,
