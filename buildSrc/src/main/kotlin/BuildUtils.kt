@@ -237,7 +237,6 @@ fun ignoreCopiedFileIfNotIgnored(
 fun copyRecursive(
     from: File,
     to: File,
-    exclude: Set<String> = emptySet(),
 ) {
     if (!from.exists()) {
         println("Source directory does not exist: $from")
@@ -245,11 +244,11 @@ fun copyRecursive(
     }
     // Sorted so the generated .gitignore files have a stable order across filesystems.
     from.listFiles()?.sortedBy { it.name }?.forEach { file ->
-        if (file.name != ".DS_Store" && file.name !in exclude) {
+        if (file.name != ".DS_Store") {
             if (file.isDirectory) {
                 val newDir = File(to, file.name)
                 newDir.mkdir()
-                copyRecursive(file, newDir, exclude)
+                copyRecursive(file, newDir)
             } else {
                 val destinationFile = File(to, file.name)
                 if (destinationFile.exists()) {

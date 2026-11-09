@@ -1,0 +1,10 @@
+{
+    "Test_Websites_Fullname": "Site-uri",
+    "Dashboard_Websites_Card_Description": "Testarea blocării site-urilor web",
+    "Test_InstantMessaging_Fullname": "Mesagerie instant",
+    "Dashboard_InstantMessaging_Card_Description": "Testarea blocării aplicațiilor de mesagerie instantanee",
+    "Test_Circumvention_Fullname": "Eludarea",
+    "Dashboard_Circumvention_Card_Description": "Testarea blocării instrumentelor de eludare a cenzurii",
+    "Test_Performance_Fullname": "Performanță",
+    "Dashboard_Performance_Card_Description": "Testarea vitezei și performanței rețelei"
+}

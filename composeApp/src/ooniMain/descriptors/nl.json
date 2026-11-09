@@ -1,0 +1,16 @@
+{
+    "Dashboard_Websites_Card_Description": "Test het blokkeren van websites",
+    "Dashboard_Websites_Overview_Paragraph": "Controleer of websites worden geblokkeerd met behulp van OONI's [Web Connectivity-test](https://ooni.org/nettest/web-connectivity/).\n\nElke keer dat je op Uitvoeren tikt, test je verschillende websites van Citizen Lab's [global](https://github.com/citizenlab/test-lists/blob/master/lists/global.csv) en [country-specific](https://github.com/citizenlab/test-lists/tree/master/lists) testlijsten.\n\nOm de sites van uw keuze te testen, tikt u op de knop Websites kiezen of selecteert u categorieën van sites via de instellingen van deze kaart.\n\nDeze test meet of websites worden geblokkeerd door middel van DNS-manipulatie, TCP/IP-blokkering of door een transparante HTTP-proxy.\n\nUw resultaten worden gepubliceerd op [OONI Explorer](https://explorer.ooni.org/world/) en [OONI API](https://api.ooni.io/).",
+    "Test_InstantMessaging_Fullname": "Chatprogramma's",
+    "Dashboard_InstantMessaging_Card_Description": "Test het blokkeren van instant messaging-apps",
+    "Dashboard_InstantMessaging_Overview_Paragraph": "Controleer of [WhatsApp](https://ooni.org/nettest/whatsapp/), [Facebook Messenger](https://ooni.org/nettest/facebook-messenger/), [Telegram](https://ooni .org/nettest/telegram/) en [Signal](https://ooni.org/nettest/signal) worden geblokkeerd.\n\nUw resultaten worden gepubliceerd op [OONI Explorer](https://explorer.ooni.org/world/) en [OONI API](https://api.ooni.io/).",
+    "Test_Circumvention_Fullname": "Omzeiling",
+    "Dashboard_Circumvention_Card_Description": "Test de blokkering van tools voor het omzeilen van censuur",
+    "Dashboard_Circumvention_Overview_Paragraph": "Controleer of [Psiphon](https://ooni.org/nettest/psiphon/), [Tor](https://ooni.org/nettest/tor/) of [RiseupVPN](https://ooni.org/nettest/riseupvpn/) zijn geblokkeerd.\n\nUw resultaten worden gepubliceerd op [OONI Explorer](https://explorer.ooni.org/) en [OONI API](https://api.ooni.io/).",
+    "Test_Performance_Fullname": "Prestaties",
+    "Dashboard_Performance_Card_Description": "Test uw netwerksnelheid en prestaties",
+    "Dashboard_Performance_Overview_Paragraph": "Meet de snelheid en prestaties van uw netwerk met behulp van de [NDT](https://ooni.org/nettest/ndt/) test.\n\nMeet de prestaties van videostreaming met behulp van de [DASH](https://ooni.org/nettest/dash/)-test.\n\nDeze tests verbruiken gegevens, afhankelijk van uw netwerksnelheid.\n\nUw resultaten worden gepubliceerd op [OONI Explorer](https://explorer.ooni.org/world/) en [OONI API](https://api.ooni.io/).\n\nDisclaimer: deze tests zijn afhankelijk van servers van derden. We kunnen daarom niet garanderen dat uw IP-adres niet wordt verzameld.",
+    "Test_Experimental_Fullname": "Experimenteel",
+    "Dashboard_Experimental_Card_Description": "Nieuwe experimentele tests uitvoeren",
+    "Dashboard_Experimental_Overview_Paragraph": "Voer de volgende nieuwe experimentele tests uit die zijn ontwikkeld door het OONI-team:\n%1$s\n\nUw resultaten worden gepubliceerd op [OONI Explorer](https://explorer.ooni.org/) en [OONI API](https://api.ooni.io/)."
+}

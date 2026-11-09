@@ -1,0 +1,12 @@
+{
+    "Test_Websites_Fullname": "Verkkosivustot",
+    "Dashboard_Websites_Card_Description": "Testaa verkkosivujen estot",
+    "Test_InstantMessaging_Fullname": "Pikaviestintä",
+    "Dashboard_InstantMessaging_Card_Description": "Testaa pikaviestisovellusten esto",
+    "Test_Circumvention_Fullname": "Kiertäminen",
+    "Dashboard_Circumvention_Card_Description": "Testaa sensuurin kiertämistyökalujen estot",
+    "Test_Performance_Fullname": "Suorituskyky",
+    "Dashboard_Performance_Card_Description": "Testaa verkkosi nopeus ja suorituskyky",
+    "Test_Experimental_Fullname": "Kokeellinen",
+    "Dashboard_Experimental_Card_Description": "Suorita uudet koekäytössä olevat testit"
+}

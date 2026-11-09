@@ -1,0 +1,17 @@
+{
+    "Test_Websites_Fullname": "網站",
+    "Dashboard_Websites_Card_Description": "測試遭封鎖的網站",
+    "Dashboard_Websites_Overview_Paragraph": "檢查網站是否屏蔽 OONI 之使用 [Web Connectivity test](https://ooni.org/nettest/web-connectivity/).\n\n每當點擊執行時，將測試 Citizen Lab 提供的 [全球](https://github.com/citizenlab/test-lists/blob/master/lists/global.csv) 與 [特定國家](https://github.com/citizenlab/test-lists/tree/master/lists) 網站清單。\n\n欲測試所選的網站，請輕觸選取網站按鍵或是透由此卡的設置選取網站類別。\n\n測試會計量網站是否遭 DNS 纂改、 TCP/IP 封鎖或透明的 HTTP 代理等問題\n\n其結果會發佈於[OONI Explorer](https://explorer.ooni.org/world/) 與 [OONI API](https://api.ooni.io/)。",
+    "Test_InstantMessaging_Fullname": "即時通訊",
+    "Dashboard_InstantMessaging_Card_Description": "測試遭封鎖的即時通訊應用",
+    "Dashboard_InstantMessaging_Overview_Paragraph": "檢查 [WhatsApp](https://ooni.org/nettest/whatsapp/), [Facebook Messenger](https://ooni.org/nettest/facebook-messenger/), [Telegram](https://ooni.org/nettest/telegram/) 以及 [Signal](https://ooni.org/nettest/signal) 是否已被封鎖。\n\n其結果會發佈在  [OONI Explorer](https://explorer.ooni.org/world/) 與 [OONI API](https://api.ooni.io/).",
+    "Test_Circumvention_Fullname": "繞行",
+    "Dashboard_Circumvention_Card_Description": "测試翻墙工具屏蔽狀況",
+    "Dashboard_Circumvention_Overview_Paragraph": "檢查  [Psiphon](https://ooni.org/nettest/psiphon/), [Tor](https://ooni.org/nettest/tor/)或[RiseupVPN](https://ooni.org/nettest/riseupvpn/)  是否已被封鎖。\n\n其結果會發佈於 [OONI Explorer](https://explorer.ooni.org/) 與 [OONI API](https://api.ooni.io/).",
+    "Test_Performance_Fullname": "效能",
+    "Dashboard_Performance_Card_Description": "測試網路速度和效能",
+    "Dashboard_Performance_Overview_Paragraph": "利用 [NDT](https://ooni.org/nettest/ndt/) 測試來衡量網路速度和效能。\n\n用 [DASH](https://ooni.org/nettest/dash/) 測試來了解影片串流的表現。\n\n這些測試會因所在網路速度而消耗數據\n\n測試結果會發佈在 [OONI Explorer](https://explorer.ooni.org/world/) 和 [OONI API](https://api.ooni.io/).\n\n免責聲明: 這些測試是透過第三方伺服器，故我們無法保證你的 IP 地址不被他人收集。",
+    "Test_Experimental_Fullname": "試驗性",
+    "Dashboard_Experimental_Card_Description": "執行新試驗測試",
+    "Dashboard_Experimental_Overview_Paragraph": "執行下方 OONI 團隊所開發的新實驗測試\n%1$s\n\n其結果會發佈於 [OONI Explorer](https://explorer.ooni.org/) 與 [OONI API](https://api.ooni.io/)."
+}

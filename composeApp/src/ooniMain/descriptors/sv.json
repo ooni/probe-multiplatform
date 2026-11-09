@@ -1,0 +1,9 @@
+{
+    "Test_Websites_Fullname": "Webbsidor",
+    "Dashboard_Websites_Card_Description": "Testa blockerade webbsidor",
+    "Test_InstantMessaging_Fullname": "Direkt meddelanden",
+    "Dashboard_InstantMessaging_Card_Description": "Testa om \"instant messaging\"-appar är blockerade",
+    "Test_Circumvention_Fullname": "Kringgående",
+    "Test_Performance_Fullname": "Prestanda",
+    "Dashboard_Performance_Card_Description": "Testa din nätverkshastighet och prestanda"
+}

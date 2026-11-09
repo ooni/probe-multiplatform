@@ -1,0 +1,10 @@
+{
+    "Test_Websites_Fullname": "Llocs web",
+    "Dashboard_Websites_Card_Description": "Prova el blocatge de llocs web",
+    "Test_InstantMessaging_Fullname": "Missatgeria instantània",
+    "Dashboard_InstantMessaging_Card_Description": "Prova el blocatge de les aplicacions de missatgeria instantània",
+    "Test_Circumvention_Fullname": "Elusió",
+    "Dashboard_Circumvention_Card_Description": "Prova el blocatge d'eines d'elusió de la censura",
+    "Test_Performance_Fullname": "Rendiment",
+    "Dashboard_Performance_Card_Description": "Proveu la velocitat i el rendiment de la xarxa"
+}
