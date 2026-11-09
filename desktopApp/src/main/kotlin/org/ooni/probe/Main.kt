@@ -9,6 +9,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
@@ -36,6 +37,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.sample
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import ooniprobe.composeapp.generated.resources.Dashboard_Running_Preparing_Notice
@@ -88,6 +90,7 @@ import java.awt.Dimension
 import java.awt.desktop.AppReopenedListener
 import java.awt.desktop.QuitEvent
 import java.awt.desktop.QuitResponse
+import kotlin.time.Duration.Companion.milliseconds
 
 fun main(args: Array<String>) {
     configureBundledNativeLibraries()
@@ -143,12 +146,15 @@ fun main(args: Array<String>) {
         val activationEvent by activationFlow.collectAsState(null)
         val runBackgroundState by dependencies.runBackgroundStateManager
             .observeState()
+            .sample(500.milliseconds)
             .collectAsState(RunBackgroundState.Idle)
+        val areTestsRunning by remember {
+            derivedStateOf { runBackgroundState !is RunBackgroundState.Idle }
+        }
 
         // Observe update state for UI
         val updateState by updateController.state.collectAsState(UpdateState.IDLE)
-        val updateError by updateController.error.collectAsState(null)
-        val trayIcon = trayIcon(updateState)
+        val trayIcon = trayIcon(updateState, areTestsRunning)
 
         fun showWindow() {
             isWindowVisible = true
@@ -253,7 +259,7 @@ fun main(args: Array<String>) {
                     enabled = false,
                     onClick = {},
                 )
-                if (runBackgroundState !is RunBackgroundState.Idle) {
+                if (areTestsRunning) {
                     Item(
                         text = runBackgroundState.text(),
                         enabled = false,
@@ -329,14 +335,10 @@ private fun ApplicationScope.onQuitApplicationClicked(
     }
 
 @Composable
-private fun trayIcon(updateState: UpdateState): DrawableResource {
+private fun trayIcon(updateState: UpdateState, areTestsRunning: Boolean): DrawableResource {
     val isDarkTheme = isSystemInDarkMode()
     val isWindows =
         (dependencies.platformInfo.platform as? Platform.Desktop)?.os == DesktopOS.Windows
-    val runBackgroundState by dependencies.runBackgroundStateManager
-        .observeState()
-        .collectAsState(RunBackgroundState.Idle)
-    val isRunning = runBackgroundState !is RunBackgroundState.Idle
     val isUpdateAvailable = updateState == UpdateState.UPDATE_AVAILABLE
     val (plain, running, update) = when {
         isWindows && isDarkTheme ->
@@ -366,7 +368,7 @@ private fun trayIcon(updateState: UpdateState): DrawableResource {
     }
     return when {
         isUpdateAvailable -> update
-        isRunning -> running
+        areTestsRunning -> running
         else -> plain
     }
 }

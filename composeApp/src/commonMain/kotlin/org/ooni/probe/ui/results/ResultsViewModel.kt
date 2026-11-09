@@ -21,7 +21,6 @@ import org.ooni.probe.data.models.ResultFilter
 import org.ooni.probe.data.models.ResultListItem
 import org.ooni.probe.data.models.ResultModel
 import org.ooni.probe.data.models.ResultsStats
-import org.ooni.probe.data.models.RunBackgroundState
 
 class ResultsViewModel(
     goToResult: (ResultModel.Id) -> Unit,
@@ -33,7 +32,7 @@ class ResultsViewModel(
     deleteResultsByFilter: suspend (ResultFilter) -> Unit,
     markAsViewed: suspend (ResultFilter) -> Unit,
     deleteResults: suspend (List<ResultModel.Id>) -> Unit = {},
-    observeRunBackgroundState: () -> Flow<RunBackgroundState>,
+    observeRunBackgroundIsRunning: () -> Flow<Boolean>,
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
 
@@ -73,10 +72,9 @@ class ResultsViewModel(
             .onEach { networks -> _state.update { it.copy(networks = networks) } }
             .launchIn(viewModelScope)
 
-        observeRunBackgroundState()
-            .onEach { runState ->
-                _state.update { it.copy(isTesting = runState !is RunBackgroundState.Idle) }
-            }.launchIn(viewModelScope)
+        observeRunBackgroundIsRunning()
+            .onEach { isRunning -> _state.update { it.copy(isTesting = isRunning) } }
+            .launchIn(viewModelScope)
 
         events
             .filterIsInstance<Event.ResultClick>()

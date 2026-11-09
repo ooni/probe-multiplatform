@@ -10,12 +10,14 @@ import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.sample
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.ooni.probe.data.models.ProxyOption
 import org.ooni.probe.data.models.RunBackgroundState
 import org.ooni.probe.data.models.TestRunError
+import kotlin.time.Duration.Companion.milliseconds
 
 class RunningViewModel(
     onBack: () -> Unit,
@@ -37,6 +39,7 @@ class RunningViewModel(
         }
 
         observeRunBackgroundState
+            .sample(250.milliseconds)
             .onEach { testRunState -> _state.update { it.copy(runBackgroundState = testRunState) } }
             .launchIn(viewModelScope)
 

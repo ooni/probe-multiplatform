@@ -1,9 +1,12 @@
 package org.ooni.probe.domain
 
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import org.ooni.probe.data.models.RunBackgroundState
 import org.ooni.probe.data.models.TestRunError
@@ -15,7 +18,13 @@ class RunBackgroundStateManager {
 
     // State
 
+    // Warning: this flow can update often and likely needs to be sampled
     fun observeState() = state.asStateFlow()
+
+    fun observeIsRunning(): Flow<Boolean> =
+        state
+            .map { it !is RunBackgroundState.Idle }
+            .distinctUntilChanged()
 
     fun updateState(update: (RunBackgroundState) -> RunBackgroundState) {
         state.update(update)
