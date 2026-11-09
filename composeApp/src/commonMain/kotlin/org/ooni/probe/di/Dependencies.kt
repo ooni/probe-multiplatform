@@ -1062,7 +1062,7 @@ class Dependencies(
         deleteResultsByFilter = deleteResults::byFilter,
         deleteResults = deleteResults::byIds,
         markAsViewed = resultRepository::markAllAsViewed,
-        observeRunBackgroundState = runBackgroundStateManager::observeState,
+        observeRunBackgroundIsRunning = runBackgroundStateManager::observeIsRunning,
     )
 
     fun runningViewModel(
@@ -1102,7 +1102,7 @@ class Dependencies(
         goToUpload = goToUpload,
         goToDashboard = goToDashboard,
         getResult = getResult::invoke,
-        getCurrentRunBackgroundState = runBackgroundStateManager.observeState(),
+        observeRunBackgroundIsRunning = runBackgroundStateManager::observeIsRunning,
         markResultAsViewed = resultRepository::markAsViewed,
         startBackgroundRun = startSingleRunInner,
     )
@@ -1202,7 +1202,7 @@ class Dependencies(
     fun bottomBarViewModel() =
         BottomBarViewModel(
             countAllNotViewedFlow = resultRepository::countAllNotViewedFlow,
-            runBackgroundStateFlow = runBackgroundStateManager::observeState,
+            observeRunBackgroundIsRunning = runBackgroundStateManager::observeIsRunning,
             observeDescriptorUpdateState = descriptorUpdateStateManager::observe,
         )
 

@@ -20,7 +20,6 @@ import org.ooni.probe.data.models.MeasurementModel
 import org.ooni.probe.data.models.MeasurementWithUrl
 import org.ooni.probe.data.models.ResultItem
 import org.ooni.probe.data.models.ResultModel
-import org.ooni.probe.data.models.RunBackgroundState
 import org.ooni.probe.data.models.RunSpecification
 
 class ResultViewModel(
@@ -31,7 +30,7 @@ class ResultViewModel(
     goToUpload: () -> Unit,
     goToDashboard: () -> Unit,
     getResult: (ResultModel.Id) -> Flow<ResultItem?>,
-    getCurrentRunBackgroundState: Flow<RunBackgroundState>,
+    observeRunBackgroundIsRunning: () -> Flow<Boolean>,
     markResultAsViewed: suspend (ResultModel.Id) -> Unit,
     startBackgroundRun: (RunSpecification) -> Unit,
 ) : ViewModel() {
@@ -59,12 +58,12 @@ class ResultViewModel(
 
         combine(
             state.map { it.result }.distinctUntilChanged(),
-            getCurrentRunBackgroundState,
-        ) { resultItem, testState ->
+            observeRunBackgroundIsRunning(),
+        ) { resultItem, isTesting ->
             _state.update {
                 it.copy(
-                    rerunEnabled = resultItem?.canBeRerun == true && testState is RunBackgroundState.Idle,
-                    isTesting = testState !is RunBackgroundState.Idle,
+                    rerunEnabled = resultItem?.canBeRerun == true && !isTesting,
+                    isTesting = isTesting,
                 )
             }
         }.launchIn(viewModelScope)

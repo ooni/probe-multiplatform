@@ -11,11 +11,10 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import org.ooni.probe.data.models.DescriptorUpdateOperationState
 import org.ooni.probe.data.models.DescriptorsUpdateState
-import org.ooni.probe.data.models.RunBackgroundState
 
 class BottomBarViewModel(
     countAllNotViewedFlow: () -> Flow<Long>,
-    runBackgroundStateFlow: () -> Flow<RunBackgroundState>,
+    observeRunBackgroundIsRunning: () -> Flow<Boolean>,
     observeDescriptorUpdateState: () -> Flow<DescriptorsUpdateState>,
 ) : ViewModel() {
     private val _state = MutableStateFlow(State())
@@ -23,14 +22,12 @@ class BottomBarViewModel(
 
     init {
         countAllNotViewedFlow()
-            .onEach { count ->
-                _state.update { it.copy(showNotViewedBadge = count > 0) }
-            }.launchIn(viewModelScope)
+            .onEach { count -> _state.update { it.copy(showNotViewedBadge = count > 0) } }
+            .launchIn(viewModelScope)
 
-        runBackgroundStateFlow()
-            .onEach { runState ->
-                _state.update { it.copy(areTestsRunning = runState !is RunBackgroundState.Idle) }
-            }.launchIn(viewModelScope)
+        observeRunBackgroundIsRunning()
+            .onEach { isRunning -> _state.update { it.copy(areTestsRunning = isRunning) } }
+            .launchIn(viewModelScope)
 
         observeDescriptorUpdateState()
             .onEach { state ->

@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.merge
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.sample
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.flow.update
 import org.ooni.probe.config.BatteryOptimization
@@ -23,6 +24,7 @@ import org.ooni.probe.data.models.RunSummary
 import org.ooni.probe.data.models.SettingsKey
 import org.ooni.probe.data.models.TestRunError
 import org.ooni.probe.shared.tickerFlow
+import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
 
 class DashboardViewModel(
@@ -75,6 +77,7 @@ class DashboardViewModel(
             }.launchIn(viewModelScope)
 
         observeRunBackgroundState()
+            .sample(500.milliseconds)
             .onEach { testState ->
                 _state.update { it.copy(runBackgroundState = testState) }
             }.launchIn(viewModelScope)
