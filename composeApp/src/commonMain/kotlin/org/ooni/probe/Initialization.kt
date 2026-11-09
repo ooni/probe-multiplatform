@@ -20,7 +20,7 @@ fun initialization(
         Logger.addLogWriter(dependencies.crashMonitoring.logWriter)
         Logger.addLogWriter(dependencies.appLogger.logWriter)
         logAppStart(dependencies.platformInfo)
-        dependencies.appLogger.writeLogsToFile()
+        dependencies.appLogger.start()
     }
     coroutineScope.launch {
         if (dependencies.flavorConfig.isCrashReportingEnabled) {
