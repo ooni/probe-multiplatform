@@ -348,7 +348,7 @@ class RunNetTest(
         if (noInternetWatcher.checkIfShouldCancelDueToNoInternet()) {
             cancelledDueToNoInternet = true
             Instrumentation.reportTransaction("RunNetTest.NoInternet")
-            Logger.i("No Internet for ${noInternetWatcher.noInternetCounter} consecutive checks, cancelling run")
+            Logger.i("No Internet for ${NoInternetWatcher.NO_INTERNET_CANCEL_THRESHOLD} consecutive checks, cancelling run")
             cancelRun()
             reportTestRunError(TestRunError.NoInternet)
         }

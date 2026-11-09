@@ -612,7 +612,7 @@ class Dependencies(
     }
 
     // Factory: RunDescriptors builds one watcher per run and passes it to each RunNetTest
-    private val buildNoInternetWatcher = { NoInternetWatcher(networkTypeFinder::invoke) }
+    private val noInternetWatcherProvider = { NoInternetWatcher(networkTypeFinder::invoke) }
 
     private val proxyManager by lazy {
         ProxyManager(
@@ -676,7 +676,7 @@ class Dependencies(
             getEnginePreferences = getEnginePreferences::invoke,
             finishInProgressData = finishInProgressData::invoke,
             networkTypeFinder = networkTypeFinder::invoke,
-            buildNoInternetWatcher = buildNoInternetWatcher,
+            noInternetWatcherProvider = noInternetWatcherProvider,
             testProxy = testProxy::invoke,
         )
     }
