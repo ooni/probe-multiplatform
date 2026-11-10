@@ -12,6 +12,7 @@ sealed class Organization(val key: String, val config: AppConfig) {
             appId = "org.openobservatory.ooniprobe",
             appName = "OONI Probe",
             folder = "ooniMain",
+            baseSoftwareName = "ooniprobe",
             supportsOoniRun = true,
             supportedLanguages = listOf(
                 "ar",
@@ -56,6 +57,7 @@ sealed class Organization(val key: String, val config: AppConfig) {
             appId = "com.dw.ooniprobe",
             appName = "News Media Scan",
             folder = "dwMain",
+            baseSoftwareName = "news-media-scan",
             supportsOoniRun = false,
             supportedLanguages = listOf(
                 "de", "en", "es", "fr", "pt-rBR", "ru", "tr"
