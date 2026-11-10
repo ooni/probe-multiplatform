@@ -1,11 +1,10 @@
 package org.ooni.probe.ui.results
 
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
 import org.ooni.probe.data.models.ResultsStats
-import org.ooni.probe.data.models.RunBackgroundState
 import kotlin.test.Test
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
@@ -14,7 +13,7 @@ class ResultsViewModelTest {
     @Test
     fun uploadVisibilityTracksBackgroundRunState() =
         runTest {
-            val backgroundState = MutableStateFlow<RunBackgroundState>(RunBackgroundState.Idle)
+            val isRunning = MutableStateFlow(false)
             val viewModel = ResultsViewModel(
                 goToResult = {},
                 goToUpload = {},
@@ -24,15 +23,15 @@ class ResultsViewModelTest {
                 getNetworks = { flowOf(emptyList()) },
                 deleteResultsByFilter = {},
                 markAsViewed = {},
-                observeRunBackgroundState = { backgroundState },
+                observeRunBackgroundIsRunning = { isRunning },
             )
 
             assertFalse(viewModel.state.first().isTesting)
 
-            backgroundState.value = RunBackgroundState.RunningTests()
+            isRunning.value = true
             assertTrue(viewModel.state.first { it.isTesting }.isTesting)
 
-            backgroundState.value = RunBackgroundState.Idle
+            isRunning.value = false
             assertFalse(viewModel.state.first { !it.isTesting }.isTesting)
         }
 }
