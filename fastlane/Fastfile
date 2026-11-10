@@ -437,7 +437,7 @@ def scheme!(organization)
 end
 
 def metadata_path(organization)
-    "./metadata/#{organization}/android"
+    "./fastlane/metadata/#{organization}/android"
 end
 
 def package_name(organization, debug: false)
