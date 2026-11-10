@@ -2,7 +2,6 @@ package org.ooni.probe.ui.result
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.TestCoroutineScheduler
@@ -74,7 +73,7 @@ class ResultViewModelTest {
         goToUpload = {},
         goToDashboard = {},
         getResult = getResult,
-        getCurrentRunBackgroundState = emptyFlow(),
+        observeRunBackgroundIsRunning = { flowOf(false) },
         markResultAsViewed = markResultAsViewed,
         startBackgroundRun = {},
     )
