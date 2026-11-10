@@ -276,9 +276,21 @@ tasks.withType<Test>().configureEach {
 // The launcher icons / notification_icon land in src/commonMain/res (copied
 // there from src/<org>/res by copyBrandingToCommonResources), so add that
 // directory to the Android resources for every variant.
+// Backup rules exclude the active organization's secure prefs file from Auto Backup
+// (see GenerateBackupRulesTask). Referenced by the :androidApp manifest.
+val generateBackupRules = tasks.register<ooni.android.GenerateBackupRulesTask>("generateBackupRules") {
+    group = "ooni"
+    description = "Generate Android backup rules for the selected organization"
+    baseSoftwareName.set(config.baseSoftwareName)
+}
+
 androidComponents {
     onVariants { variant ->
         variant.sources.res?.addStaticSourceDirectory("src/commonMain/res")
+        variant.sources.res?.addGeneratedSourceDirectory(
+            generateBackupRules,
+            ooni.android.GenerateBackupRulesTask::outputDir,
+        )
     }
 }
 
