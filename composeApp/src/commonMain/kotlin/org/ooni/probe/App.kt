@@ -145,6 +145,7 @@ fun App(
             .collect {
                 dependencies.prepareAnonymousCredentials()
                 dependencies.refreshArticles()
+                dependencies.refreshSession()
             }
     }
 
@@ -157,6 +158,11 @@ fun App(
 
             is DeepLink.RunUrls -> {
                 navController.navigate(Screen.ChooseWebsites(deepLink.url))
+                onDeeplinkHandled()
+            }
+
+            is DeepLink.Login -> {
+                navController.navigate(Screen.CreateDescriptor(loginToken = deepLink.token))
                 onDeeplinkHandled()
             }
 

@@ -64,6 +64,7 @@ class PassportHttpClientTest {
             val subject = PassportHttpClient(
                 passportGet = bridge,
                 passportPost = bridge,
+                passportPut = bridge,
                 passportAuthRegister = bridge,
                 passportAuthSubmit = bridge,
                 getProxyOption = {
@@ -198,6 +199,7 @@ class PassportHttpClientTest {
     ) = PassportHttpClient(
         passportGet = bridge,
         passportPost = bridge,
+        passportPut = bridge,
         passportAuthRegister = bridge,
         passportAuthSubmit = bridge,
         getProxyOption = { flowOf(proxy) },
@@ -223,6 +225,7 @@ class PassportHttpClientTest {
     private class RecordingBridge :
         PassportGet,
         PassportPost,
+        PassportPut,
         PassportAuthRegister,
         PassportAuthSubmit {
         var callCount = 0
@@ -258,6 +261,18 @@ class PassportHttpClientTest {
         }
 
         override fun post(
+            url: String,
+            headers: List<PassportBridge.KeyValue>,
+            payload: String,
+            proxy: String?,
+            timeout: Float?,
+        ): Result<PassportHttpResponse, PassportException> {
+            record(headers, proxy, timeout)
+            lastHeaders = headers
+            return Success(response())
+        }
+
+        override fun put(
             url: String,
             headers: List<PassportBridge.KeyValue>,
             payload: String,
