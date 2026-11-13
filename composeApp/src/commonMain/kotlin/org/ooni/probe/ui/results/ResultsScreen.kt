@@ -92,7 +92,7 @@ import org.jetbrains.compose.resources.pluralStringResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.data.models.ResultFilter
 import org.ooni.probe.data.models.ResultsStats
-import org.ooni.probe.shared.formatDataUsage
+import org.ooni.probe.shared.formatDataUsageFromKb
 import org.ooni.probe.shared.stringMonthArrayResource
 import org.ooni.probe.shared.today
 import org.ooni.probe.ui.shared.LightStatusBars
@@ -507,7 +507,7 @@ private fun Stats(stats: ResultsStats?) {
                         contentDescription = stringResource(Res.string.TestResults_Summary_Performance_Hero_Download),
                         modifier = Modifier.size(16.dp).padding(end = 4.dp),
                     )
-                    Text(stats.dataUsageDown.formatDataUsage())
+                    Text(stats.dataUsageDown.formatDataUsageFromKb())
                 }
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
@@ -517,7 +517,7 @@ private fun Stats(stats: ResultsStats?) {
                         contentDescription = stringResource(Res.string.TestResults_Summary_Performance_Hero_Upload),
                         modifier = Modifier.size(16.dp).padding(end = 4.dp),
                     )
-                    Text(stats.dataUsageUp.formatDataUsage())
+                    Text(stats.dataUsageUp.formatDataUsageFromKb())
                 }
             }
         }

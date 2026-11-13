@@ -95,7 +95,7 @@ import org.ooni.probe.data.models.downloadSpeed
 import org.ooni.probe.data.models.ping
 import org.ooni.probe.data.models.uploadSpeed
 import org.ooni.probe.data.models.videoQuality
-import org.ooni.probe.shared.formatDataUsage
+import org.ooni.probe.shared.formatDataUsageFromKb
 import org.ooni.probe.ui.result.ResultViewModel.MeasurementGroupItem.Group
 import org.ooni.probe.ui.result.ResultViewModel.MeasurementGroupItem.Single
 import org.ooni.probe.ui.results.UploadResults
@@ -426,13 +426,13 @@ private fun SummaryDetails(item: ResultItem) {
                     contentDescription = stringResource(Res.string.TestResults_Summary_Performance_Hero_Download),
                     modifier = Modifier.padding(end = 4.dp).size(16.dp),
                 )
-                Text(item.result.dataUsageDown.formatDataUsage())
+                Text(item.result.dataUsageDown.formatDataUsageFromKb())
                 Icon(
                     painterResource(Res.drawable.ic_upload),
                     contentDescription = stringResource(Res.string.TestResults_Summary_Performance_Hero_Upload),
                     modifier = Modifier.padding(start = 4.dp, end = 4.dp).size(16.dp),
                 )
-                Text(item.result.dataUsageUp.formatDataUsage())
+                Text(item.result.dataUsageUp.formatDataUsageFromKb())
             }
         }
         Row {
