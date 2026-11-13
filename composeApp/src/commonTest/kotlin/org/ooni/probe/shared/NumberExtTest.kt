@@ -15,6 +15,14 @@ class NumberExtTest {
     }
 
     @Test
+    fun formatDataUsageFromKb() {
+        assertEquals("0", 0L.formatDataUsageFromKb())
+        assertEquals("100 kB", 100L.formatDataUsageFromKb())
+        assertEquals("1 MB", 1_024L.formatDataUsageFromKb())
+        assertEquals("1 GB", (1_024L * 1_024L).formatDataUsageFromKb())
+    }
+
+    @Test
     fun format() {
         assertEquals("1", 1.0.format(2))
         assertEquals("1", 1.00009.format(1))
