@@ -58,6 +58,52 @@ class ResultViewModelTest {
             assertEquals(item, viewModel.state.first().result)
         }
 
+    @Test
+    fun measurementClickedUploaded() =
+        runTest(dispatcher) {
+            var navigatedToMeasurementId: MeasurementModel.Id? = null
+            var navigatedToMeasurementRawId: MeasurementModel.Id? = null
+            val viewModel = buildViewModel(
+                goToMeasurement = { navigatedToMeasurementId = it },
+                goToMeasurementRaw = { navigatedToMeasurementRawId = it },
+            )
+            val item = org.ooni.testing.factories.MeasurementModelFactory.buildWithUrl(
+                measurement = org.ooni.testing.factories.MeasurementModelFactory.build(
+                    id = MeasurementModel.Id(42),
+                    isDone = true,
+                    isUploaded = true,
+                ),
+            )
+
+            viewModel.onEvent(ResultViewModel.Event.MeasurementClicked(item))
+
+            assertEquals(MeasurementModel.Id(42), navigatedToMeasurementId)
+            assertEquals(null, navigatedToMeasurementRawId)
+        }
+
+    @Test
+    fun measurementClickedNotUploaded() =
+        runTest(dispatcher) {
+            var navigatedToMeasurementId: MeasurementModel.Id? = null
+            var navigatedToMeasurementRawId: MeasurementModel.Id? = null
+            val viewModel = buildViewModel(
+                goToMeasurement = { navigatedToMeasurementId = it },
+                goToMeasurementRaw = { navigatedToMeasurementRawId = it },
+            )
+            val item = org.ooni.testing.factories.MeasurementModelFactory.buildWithUrl(
+                measurement = org.ooni.testing.factories.MeasurementModelFactory.build(
+                    id = MeasurementModel.Id(42),
+                    isDone = true,
+                    isUploaded = false,
+                ),
+            )
+
+            viewModel.onEvent(ResultViewModel.Event.MeasurementClicked(item))
+
+            assertEquals(null, navigatedToMeasurementId)
+            assertEquals(MeasurementModel.Id(42), navigatedToMeasurementRawId)
+        }
+
     private fun buildViewModel(
         resultId: ResultModel.Id = ResultModel.Id(1234),
         onBack: () -> Unit = {},

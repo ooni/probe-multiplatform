@@ -147,6 +147,41 @@ class ResultScreenTest {
                 .assertExists()
         }
 
+    @Test
+    fun clickMeasurementNotUploaded() =
+        runComposeUiTest {
+            val events = mutableListOf<ResultViewModel.Event>()
+            val measurementWithUrl = MeasurementModelFactory.buildWithUrl(
+                measurement = MeasurementModelFactory.build(
+                    id = MeasurementModel.Id(1),
+                    isDone = true,
+                    isUploaded = false,
+                ),
+            )
+            val item = ResultItem(
+                result = ResultModelFactory.build(isDone = true),
+                network = null,
+                descriptor = DescriptorFactory.buildDescriptorWithInstalled(),
+                measurements = listOf(measurementWithUrl),
+                testKeys = emptyList(),
+            )
+            setContent {
+                ResultScreen(
+                    state = ResultViewModel.State(
+                        result = item,
+                        groupedMeasurements = listOf(
+                            ResultViewModel.MeasurementGroupItem.Single(measurementWithUrl),
+                        ),
+                    ),
+                    onEvent = events::add,
+                )
+            }
+
+            onNodeWithText(measurementWithUrl.url?.url ?: getString(measurementWithUrl.measurement.test.labelRes)).performClick()
+            assertEquals(1, events.size)
+            assertEquals(ResultViewModel.Event.MeasurementClicked(measurementWithUrl), events.first())
+        }
+
     private fun buildResultItem() =
         ResultItem(
             result = ResultModelFactory.build(isDone = true),
