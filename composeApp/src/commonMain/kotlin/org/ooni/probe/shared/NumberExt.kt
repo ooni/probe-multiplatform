@@ -11,6 +11,11 @@ fun Long.formatDataUsage(): String {
     return (this / 1024.0.pow(digitGroups.toDouble())).format() + " " + units[digitGroups]
 }
 
+/**
+ * The engine reports test data usage in kilobytes, and results store it as such.
+ */
+fun Long.formatDataUsageFromKb(): String = (this * 1024).formatDataUsage()
+
 fun Double.format(decimalChars: Int = 2): String {
     val order = 10.0.pow(decimalChars).toInt()
     val roundedValue = (this * order).roundToInt()
