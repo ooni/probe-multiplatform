@@ -53,7 +53,8 @@ class DescriptorsViewModel(
             getPreference(SettingsKey.DESCRIPTOR_SECTIONS_COLLAPSED),
         ) { tests, collapsedSectionsPreference ->
             val collapsedSections = collapsedSectionsPreference.toCollapsedSections()
-            _state.update { it.copy(sections = tests.groupByType(collapsedSections)) }
+            val sections = tests.groupByType(collapsedSections).filter { it.descriptors.any() }
+            _state.update { it.copy(sections = sections) }
         }.launchIn(viewModelScope)
 
         events
@@ -159,6 +160,10 @@ class DescriptorsViewModel(
             get() = descriptorsUpdateOperationState == DescriptorUpdateOperationState.FetchingUpdates
 
         val isFiltering get() = filterText != null
+
+        val areDescriptorsTitlesVisible: Boolean get() = !isFiltering && sections.size > 1
+
+        val areDescriptorsCollapsable: Boolean get() = areDescriptorsTitlesVisible
     }
 
     sealed interface Event {

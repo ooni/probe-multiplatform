@@ -16,6 +16,7 @@ insert_final_newline = true
 ktlint_standard_multiline-expression-wrapping = disabled
 ktlint_standard_string-template-indent = disabled
 ktlint_standard_import-ordering = disabled
+ktlint_function_naming_ignore_when_annotated_with = Composable
 
 [composeApp/src/commonTest/kotlin/org/ooni/probe/domain/credentials/*.{kt,kts}]
 max_line_length = off
