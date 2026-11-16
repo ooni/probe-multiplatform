@@ -33,7 +33,7 @@ import kotlin.time.Duration.Companion.seconds
 
 data class DescriptorItem(
     val descriptor: Descriptor,
-    val updateStatus: UpdateStatus,
+    val updateStatus: UpdateStatus = UpdateStatus.Unknown,
     val enabled: Boolean = true,
 ) {
     val name: String

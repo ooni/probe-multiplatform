@@ -57,9 +57,12 @@ import ooniprobe.composeapp.generated.resources.ic_search
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.config.OrganizationConfig
+import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.DescriptorItem
 import org.ooni.probe.data.models.DescriptorType
 import org.ooni.probe.data.models.DescriptorUpdateOperationState
+import org.ooni.probe.ui.descriptors.DescriptorsViewModel.DescriptorSection
+import org.ooni.probe.ui.descriptors.DescriptorsViewModel.Event
 import org.ooni.probe.ui.shared.ColorDefaults
 import org.ooni.probe.ui.shared.NavigationBackButton
 import org.ooni.probe.ui.shared.TopBar
@@ -70,101 +73,29 @@ import org.ooni.probe.ui.theme.AppTheme
 @Composable
 fun DescriptorsScreen(
     state: DescriptorsViewModel.State,
-    onEvent: (DescriptorsViewModel.Event) -> Unit,
+    onEvent: (Event) -> Unit,
 ) {
     val pullRefreshState = rememberPullToRefreshState()
     Box(
         Modifier
             .pullToRefresh(
                 isRefreshing = state.isRefreshing,
-                onRefresh = { onEvent(DescriptorsViewModel.Event.FetchUpdatedDescriptors) },
+                onRefresh = { onEvent(Event.FetchUpdatedDescriptors) },
                 state = pullRefreshState,
                 enabled = state.canPullToRefresh,
             ).background(MaterialTheme.colorScheme.background)
             .fillMaxSize(),
     ) {
         Column(Modifier.fillMaxSize()) {
-            if (state.isFiltering) {
-                Surface(
-                    color = ColorDefaults.topAppBar().containerColor,
-                    contentColor = ColorDefaults.topAppBar().titleContentColor,
-                ) {
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        modifier = Modifier
-                            .padding(WindowInsets.statusBars.asPaddingValues())
-                            .defaultMinSize(minHeight = TopAppBarDefaults.TopAppBarExpandedHeight),
-                    ) {
-                        NavigationBackButton(onClick = { onEvent(DescriptorsViewModel.Event.CloseFilterClicked) })
-
-                        OutlinedTextField(
-                            value = state.filterText.orEmpty(),
-                            onValueChange = {
-                                onEvent(DescriptorsViewModel.Event.FilterTextChanged(it))
-                            },
-                            placeholder = { Text(stringResource(Res.string.Tests_Search)) },
-                            trailingIcon = {
-                                IconButton(
-                                    onClick = {
-                                        onEvent(DescriptorsViewModel.Event.FilterTextChanged(""))
-                                    },
-                                    enabled = !state.filterText.isNullOrEmpty(),
-                                ) {
-                                    Icon(
-                                        painter = painterResource(Res.drawable.ic_close),
-                                        contentDescription = stringResource(Res.string.Common_Clear),
-                                    )
-                                }
-                            },
-                            colors = OutlinedTextFieldDefaults.colors(
-                                focusedBorderColor = Color.Transparent,
-                                unfocusedBorderColor = Color.Transparent,
-                                focusedTextColor = LocalContentColor.current,
-                                unfocusedTextColor = LocalContentColor.current,
-                                focusedPlaceholderColor = LocalContentColor.current.copy(alpha = 0.7f),
-                                unfocusedPlaceholderColor = LocalContentColor.current.copy(alpha = 0.7f),
-                                focusedTrailingIconColor = LocalContentColor.current,
-                                unfocusedTrailingIconColor = LocalContentColor.current,
-                                cursorColor = LocalContentColor.current,
-                            ),
-                            modifier = Modifier.fillMaxWidth(),
-                        )
-                    }
-                }
-            } else {
-                TopBar(
-                    title = { Text(stringResource(Res.string.Tests_Title)) },
-                    actions = {
-                        if (OrganizationConfig.canInstallDescriptors) {
-                            IconButton(onClick = { onEvent(DescriptorsViewModel.Event.FilterClicked) }) {
-                                Icon(
-                                    painter = painterResource(Res.drawable.ic_search),
-                                    contentDescription = stringResource(Res.string.Common_Search),
-                                )
-                            }
-                            if (!state.canPullToRefresh) {
-                                IconButton(
-                                    onClick = {
-                                        onEvent(DescriptorsViewModel.Event.FetchUpdatedDescriptors)
-                                    },
-                                    enabled = !state.isRefreshing,
-                                ) {
-                                    Icon(
-                                        painter = painterResource(Res.drawable.ic_refresh),
-                                        contentDescription = stringResource(
-                                            Res.string.DescriptorUpdate_CheckUpdates,
-                                        ),
-                                    )
-                                }
-                            }
-                            IconButton(onClick = { onEvent(DescriptorsViewModel.Event.AddClicked) }) {
-                                Icon(
-                                    painter = painterResource(Res.drawable.ic_add),
-                                    contentDescription = stringResource(Res.string.AddDescriptor_Title),
-                                )
-                            }
-                        }
-                    },
+            when {
+                state.isFiltering -> FilteringTopAppbar(
+                    filterText = state.filterText,
+                    onEvent = onEvent,
+                )
+                else -> RegularTopAppBar(
+                    canPullToRefresh = state.canPullToRefresh,
+                    isRefreshing = state.isRefreshing,
+                    onEvent = onEvent,
                 )
             }
 
@@ -175,37 +106,27 @@ fun DescriptorsScreen(
                     contentPadding = PaddingValues(top = 8.dp, bottom = 16.dp),
                     state = lazyListState,
                 ) {
-                    val allSectionsHaveValues = state.sections.all { it.descriptors.any() }
                     state.sections.forEach { (type, descriptors, isCollapsed) ->
-                        if (!state.isFiltering && allSectionsHaveValues && descriptors.isNotEmpty()) {
+                        val isCollapsed = state.areDescriptorsCollapsable && isCollapsed
+                        if (state.areDescriptorsTitlesVisible) {
                             item(type) {
                                 TestDescriptorSectionTitle(
                                     type = type,
                                     isCollapsed = isCollapsed,
-                                    state = state,
-                                    onEvent = onEvent,
+                                    onToggleSection = { onEvent(Event.ToggleSection(type)) },
                                 )
                             }
                         }
-                        if (isCollapsed && !state.isFiltering) return@forEach
+                        if (isCollapsed) return@forEach
                         items(descriptors, key = { it.descriptor.id.value }) { descriptor ->
-                            if (descriptor.matches(state.filterText)) {
-                                TestDescriptorItem(
-                                    item = descriptor,
-                                    onClick = {
-                                        onEvent(
-                                            DescriptorsViewModel.Event.DescriptorClicked(descriptor),
-                                        )
-                                    },
-                                    onUpdateClick = {
-                                        onEvent(
-                                            DescriptorsViewModel.Event.UpdateDescriptorClicked(
-                                                descriptor,
-                                            ),
-                                        )
-                                    },
-                                )
-                            }
+                            if (!descriptor.matches(state.filterText)) return@items
+                            TestDescriptorItem(
+                                item = descriptor,
+                                onClick = { onEvent(Event.DescriptorClicked(descriptor)) },
+                                onUpdateClick = {
+                                    onEvent(Event.UpdateDescriptorClicked(descriptor))
+                                },
+                            )
                         }
                     }
                 }
@@ -220,8 +141,8 @@ fun DescriptorsScreen(
             UpdateProgressStatus(
                 modifier = Modifier.align(Alignment.BottomCenter),
                 type = state.descriptorsUpdateOperationState,
-                onReviewLinkClicked = { onEvent(DescriptorsViewModel.Event.ReviewUpdatesClicked) },
-                onCancelClicked = { onEvent(DescriptorsViewModel.Event.CancelUpdatesClicked) },
+                onReviewLinkClicked = { onEvent(Event.ReviewUpdatesClicked) },
+                onCancelClicked = { onEvent(Event.CancelUpdatesClicked) },
             )
         }
 
@@ -237,23 +158,111 @@ fun DescriptorsScreen(
     NavigationBackHandler(
         state = rememberNavigationEventState(NavigationEventInfo.None),
         isBackEnabled = state.isFiltering,
-        onBackCompleted = { onEvent(DescriptorsViewModel.Event.CloseFilterClicked) },
+        onBackCompleted = { onEvent(Event.CloseFilterClicked) },
     )
+}
+
+@Composable
+private fun RegularTopAppBar(
+    canPullToRefresh: Boolean,
+    isRefreshing: Boolean,
+    onEvent: (Event) -> Unit,
+) {
+    TopBar(
+        title = { Text(stringResource(Res.string.Tests_Title)) },
+        actions = {
+            if (OrganizationConfig.canInstallDescriptors) {
+                IconButton(onClick = { onEvent(Event.FilterClicked) }) {
+                    Icon(
+                        painter = painterResource(Res.drawable.ic_search),
+                        contentDescription = stringResource(Res.string.Common_Search),
+                    )
+                }
+                if (!canPullToRefresh) {
+                    IconButton(
+                        onClick = { onEvent(Event.FetchUpdatedDescriptors) },
+                        enabled = !isRefreshing,
+                    ) {
+                        Icon(
+                            painter = painterResource(Res.drawable.ic_refresh),
+                            contentDescription = stringResource(
+                                Res.string.DescriptorUpdate_CheckUpdates,
+                            ),
+                        )
+                    }
+                }
+                IconButton(onClick = { onEvent(Event.AddClicked) }) {
+                    Icon(
+                        painter = painterResource(Res.drawable.ic_add),
+                        contentDescription = stringResource(Res.string.AddDescriptor_Title),
+                    )
+                }
+            }
+        },
+    )
+}
+
+@Composable
+private fun FilteringTopAppbar(
+    filterText: String?,
+    onEvent: (Event) -> Unit,
+) {
+    Surface(
+        color = ColorDefaults.topAppBar().containerColor,
+        contentColor = ColorDefaults.topAppBar().titleContentColor,
+    ) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier
+                .padding(WindowInsets.statusBars.asPaddingValues())
+                .defaultMinSize(minHeight = TopAppBarDefaults.TopAppBarExpandedHeight),
+        ) {
+            NavigationBackButton(onClick = { onEvent(Event.CloseFilterClicked) })
+
+            OutlinedTextField(
+                value = filterText.orEmpty(),
+                onValueChange = { onEvent(Event.FilterTextChanged(it)) },
+                placeholder = { Text(stringResource(Res.string.Tests_Search)) },
+                trailingIcon = {
+                    IconButton(
+                        onClick = { onEvent(Event.FilterTextChanged("")) },
+                        enabled = !filterText.isNullOrEmpty(),
+                    ) {
+                        Icon(
+                            painter = painterResource(Res.drawable.ic_close),
+                            contentDescription = stringResource(Res.string.Common_Clear),
+                        )
+                    }
+                },
+                colors = OutlinedTextFieldDefaults.colors(
+                    focusedBorderColor = Color.Transparent,
+                    unfocusedBorderColor = Color.Transparent,
+                    focusedTextColor = LocalContentColor.current,
+                    unfocusedTextColor = LocalContentColor.current,
+                    focusedPlaceholderColor = LocalContentColor.current.copy(alpha = 0.7f),
+                    unfocusedPlaceholderColor = LocalContentColor.current.copy(alpha = 0.7f),
+                    focusedTrailingIconColor = LocalContentColor.current,
+                    unfocusedTrailingIconColor = LocalContentColor.current,
+                    cursorColor = LocalContentColor.current,
+                ),
+                modifier = Modifier.fillMaxWidth(),
+            )
+        }
+    }
 }
 
 @Composable
 private fun TestDescriptorSectionTitle(
     type: DescriptorType,
     isCollapsed: Boolean,
-    state: DescriptorsViewModel.State,
-    onEvent: (DescriptorsViewModel.Event) -> Unit,
+    onToggleSection: () -> Unit,
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .fillMaxWidth()
             .padding(top = 8.dp)
-            .clickable { onEvent(DescriptorsViewModel.Event.ToggleSection(type)) }
+            .clickable { onToggleSection() }
             .padding(horizontal = 16.dp)
             .defaultMinSize(minHeight = 40.dp)
             .padding(vertical = 1.dp),
@@ -261,22 +270,20 @@ private fun TestDescriptorSectionTitle(
         TestDescriptorTypeTitle(type)
         Icon(
             painterResource(
-                if (isCollapsed) {
-                    Res.drawable.ic_keyboard_arrow_down
-                } else {
-                    Res.drawable.ic_keyboard_arrow_up
+                when {
+                    isCollapsed -> Res.drawable.ic_keyboard_arrow_down
+                    else -> Res.drawable.ic_keyboard_arrow_up
                 },
             ),
             contentDescription = stringResource(
-                if (isCollapsed) {
-                    Res.string.Common_Expand
-                } else {
-                    Res.string.Common_Collapse
+                when {
+                    isCollapsed -> Res.string.Common_Expand
+                    else -> Res.string.Common_Collapse
                 },
             ) + " " + stringResource(type.title),
             modifier = Modifier
                 .padding(horizontal = 8.dp)
-                .size(16.dp),
+                .size(20.dp),
         )
     }
 }
@@ -292,7 +299,38 @@ private fun DescriptorItem.matches(filter: String?) =
 fun DashboardScreenPreview() {
     AppTheme {
         DescriptorsScreen(
-            state = DescriptorsViewModel.State(),
+            state = DescriptorsViewModel.State(
+                sections = listOf(
+                    DescriptorSection(
+                        type = DescriptorType.Installed,
+                        descriptors = listOf(
+                            DescriptorItem(
+                                descriptor = Descriptor(
+                                    id = Descriptor.Id(value = "1001"),
+                                    name = "Custom Test",
+                                ),
+                            ),
+                        ),
+                    ),
+                    DescriptorSection(
+                        type = DescriptorType.Default,
+                        descriptors = listOf(
+                            DescriptorItem(
+                                descriptor = Descriptor(
+                                    id = Descriptor.Id(value = "1"),
+                                    name = "Websites",
+                                ),
+                            ),
+                            DescriptorItem(
+                                descriptor = Descriptor(
+                                    id = Descriptor.Id(value = "2"),
+                                    name = "Instant Messaging",
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
+            ),
             onEvent = {},
         )
     }

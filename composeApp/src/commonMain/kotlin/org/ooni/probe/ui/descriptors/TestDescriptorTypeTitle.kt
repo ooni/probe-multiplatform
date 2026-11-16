@@ -14,7 +14,7 @@ fun TestDescriptorTypeTitle(
 ) {
     Text(
         stringResource(type.title).uppercase(),
-        style = MaterialTheme.typography.labelLarge,
+        style = MaterialTheme.typography.titleSmall,
         modifier = modifier,
     )
 }
