@@ -73,6 +73,7 @@ class TestDescriptorRepository(
                         date_installed = installedModel.date_installed,
                         auto_update = installedModel.auto_update,
                         rejected_revision = installedModel.rejected_revision,
+                        publish_email = installedModel.publish_email,
                     )
                 }
             }
@@ -104,6 +105,7 @@ class TestDescriptorRepository(
                         date_installed = installedModel.date_installed,
                         auto_update = installedModel.auto_update,
                         rejected_revision = installedModel.rejected_revision,
+                        publish_email = installedModel.publish_email,
                     )
                     database.testDescriptorQueries.clearOldNetTests(
                         installedModel.runId,
@@ -168,5 +170,6 @@ class TestDescriptorRepository(
             dateInstalled = date_installed?.toLocalDateTime(),
             autoUpdate = auto_update == 1L,
             rejectedRevision = rejected_revision,
+            publishEmail = publish_email?.let { it == 1L },
         )
 }

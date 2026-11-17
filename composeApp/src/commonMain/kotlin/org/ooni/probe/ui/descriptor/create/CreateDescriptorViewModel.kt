@@ -327,7 +327,7 @@ class CreateDescriptorViewModel(
             shortDescription = descriptor?.shortDescription.orEmpty(),
             description = descriptor?.description.orEmpty(),
             icon = descriptor?.icon,
-            publishEmail = descriptor?.publishEmail == true,
+            publishEmail = descriptor?.publishEmail ?: false,
             urls = webInputs
                 ?.map { UrlItem(url = it) }
                 ?.takeIf { it.isNotEmpty() }
