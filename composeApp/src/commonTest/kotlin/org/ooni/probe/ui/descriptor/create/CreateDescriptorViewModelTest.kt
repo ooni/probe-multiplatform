@@ -558,6 +558,24 @@ class CreateDescriptorViewModelTest {
             assertTrue(backCalled)
         }
 
+    @Test
+    fun defaultsPublishEmailToFalseWhenEditingDescriptorWithNullPublishEmail() =
+        runTest(dispatcher) {
+            val d = descriptor(
+                id = "123",
+                netTests = listOf(NetTest(test = TestType.WebConnectivity, inputs = listOf("https://a.org"))),
+            ).copy(publishEmail = null)
+
+            val viewModel = buildViewModel(
+                editingDescriptorId = d.id,
+                getDescriptor = { d },
+            )
+
+            val state = viewModel.state.first()
+            assertIs<CreateDescriptorViewModel.State.LoggedIn>(state)
+            assertFalse(state.publishEmail)
+        }
+
     private fun fillInForm(viewModel: CreateDescriptorViewModel) {
         viewModel.onEvent(CreateDescriptorViewModel.Event.NameChanged("My link"))
         viewModel.onEvent(CreateDescriptorViewModel.Event.ShortDescriptionChanged("Short"))

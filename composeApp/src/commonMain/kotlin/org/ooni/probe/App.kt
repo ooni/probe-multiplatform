@@ -162,7 +162,10 @@ fun App(
             }
 
             is DeepLink.Login -> {
-                navController.navigate(Screen.CreateDescriptor(loginToken = deepLink.token))
+                navController.navigate(Screen.CreateDescriptor(loginToken = deepLink.token)) {
+                    popUpTo<Screen.CreateDescriptor> { inclusive = true }
+                    launchSingleTop = true
+                }
                 onDeeplinkHandled()
             }
 

@@ -1,6 +1,10 @@
 package org.ooni.engine
 
 interface SecureStorage {
+    /**
+     * @return the stored value, or null when the key does not exist.
+     * @throws SecureStorageUnavailableException when storage is temporarily inaccessible.
+     */
     suspend fun read(key: String): String?
 
     suspend fun write(

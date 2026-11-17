@@ -11,7 +11,7 @@ internal fun OoniAuthUserSession.toAuthSessionResult(): Result<AuthSession, Auth
     val email = emailAddress
     val roleValue = role
     val time = loginTime
-    return if (isLoggedIn && token != null && email != null && roleValue != null && time != null) {
+    return if (isLoggedIn == true && token != null && email != null && roleValue != null && time != null) {
         Success(AuthSession(sessionToken = token, emailAddress = email, role = roleValue, loginTime = time))
     } else {
         Failure(AuthException.Decode(IllegalStateException("Incomplete or logged-out session in response")))
