@@ -38,5 +38,5 @@ data class OoniAuthUserSession(
     @SerialName("account_id") val accountId: String? = null,
     @SerialName("role") val role: String? = null,
     @SerialName("login_time") val loginTime: Instant? = null,
-    @SerialName("is_logged_in") val isLoggedIn: Boolean = false,
+    @SerialName("is_logged_in") val isLoggedIn: Boolean? = null,
 )

@@ -32,13 +32,19 @@ class RefreshSession(
         val current = (observeSessionState().first() as? SessionState.LoggedIn)?.session
             ?: return Failure(AuthException.NotLoggedIn())
 
-        val result = passportPostWithAuth(
+        val responseResult = passportPostWithAuth(
             "${OrganizationConfig.ooniApiBaseUrl}/api/v2/ooniauth/user-session",
             "",
             bearerAuthHeader(current.sessionToken),
         ).mapError<AuthException> { AuthException.Network(it) }
             .flatMap { decodeAuthResponse(it, OoniAuthUserSession.serializer()) }
-            .flatMap { it.toAuthSessionResult() }
+
+        if (responseResult is Success && responseResult.value.isLoggedIn == false) {
+            clearSession()
+            return Failure(AuthException.NotLoggedIn())
+        }
+
+        val result = responseResult.flatMap { it.toAuthSessionResult() }
 
         when {
             result is Success -> storeSession(result.value)
