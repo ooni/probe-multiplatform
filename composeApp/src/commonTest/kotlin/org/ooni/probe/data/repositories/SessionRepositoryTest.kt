@@ -1,7 +1,9 @@
 package org.ooni.probe.data.repositories
 
+import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.test.advanceTimeBy
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
 import kotlin.time.Instant
@@ -12,6 +14,7 @@ import org.ooni.probe.data.models.SessionState
 import org.ooni.probe.di.Dependencies
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.time.Duration.Companion.seconds
 
 class SessionRepositoryTest {
     private val json = Dependencies.buildJson()
@@ -76,5 +79,196 @@ class SessionRepositoryTest {
             shouldFailRead = true
             val state = repository.sessionState.first()
             assertEquals(SessionState.LoggedOut, state)
+        }
+
+    @Test
+    fun readSecureStorageIsOnlyCalledOnce() =
+        runTest {
+            var readCount = 0
+            val repo = SessionRepository(
+                readSecureStorage = {
+                    readCount++
+                    inMemoryStorage
+                },
+                writeSecureStorage = { key, value ->
+                    inMemoryStorage = value
+                    WriteResult.Updated(key)
+                },
+                deleteSecureStorage = { key ->
+                    inMemoryStorage = null
+                    DeleteResult.Deleted(key)
+                },
+                json = json,
+            )
+
+            assertEquals(SessionState.LoggedOut, repo.sessionState.first())
+            assertEquals(SessionState.LoggedOut, repo.sessionState.first())
+            repo.store(session)
+            assertEquals(SessionState.LoggedIn(session), repo.sessionState.first())
+            repo.clear()
+            assertEquals(SessionState.LoggedOut, repo.sessionState.first())
+
+            assertEquals(1, readCount)
+        }
+
+    @Test
+    fun failedReadIsNotCached() =
+        runTest {
+            var readCount = 0
+            var fail = true
+            val repo = SessionRepository(
+                readSecureStorage = {
+                    readCount++
+                    if (fail) throw IllegalStateException("Locked")
+                    inMemoryStorage
+                },
+                writeSecureStorage = { key, value ->
+                    inMemoryStorage = value
+                    WriteResult.Updated(key)
+                },
+                deleteSecureStorage = { key ->
+                    inMemoryStorage = null
+                    DeleteResult.Deleted(key)
+                },
+                json = json,
+            )
+
+            assertEquals(SessionState.LoggedOut, repo.sessionState.first())
+            assertEquals(1, readCount)
+
+            // Once storage unlocks / succeeds:
+            fail = false
+            inMemoryStorage = json.encodeToString(AuthSession.serializer(), session)
+
+            assertEquals(SessionState.LoggedIn(session), repo.sessionState.first())
+            assertEquals(2, readCount)
+        }
+
+    @Test
+    fun loadFromStorageDoesNotOverwriteConcurrentStore() =
+        runTest {
+            val readStarted = CompletableDeferred<Unit>()
+            val storeDone = CompletableDeferred<Unit>()
+            var readCount = 0
+
+            val repo = SessionRepository(
+                readSecureStorage = {
+                    readCount++
+                    readStarted.complete(Unit)
+                    storeDone.await()
+                    null
+                },
+                writeSecureStorage = { key, value ->
+                    inMemoryStorage = value
+                    WriteResult.Updated(key)
+                },
+                deleteSecureStorage = { key ->
+                    inMemoryStorage = null
+                    DeleteResult.Deleted(key)
+                },
+                json = json,
+            )
+
+            val job = launch {
+                repo.sessionState.first()
+            }
+
+            readStarted.await()
+            repo.store(session)
+            storeDone.complete(Unit)
+            job.join()
+
+            assertEquals(SessionState.LoggedIn(session), repo.sessionState.first())
+        }
+
+    @Test
+    fun clearDoesNotSetLoggedOutOnDeleteError() =
+        runTest {
+            val repo = SessionRepository(
+                readSecureStorage = { inMemoryStorage },
+                writeSecureStorage = { key, value ->
+                    inMemoryStorage = value
+                    WriteResult.Updated(key)
+                },
+                deleteSecureStorage = { key ->
+                    DeleteResult.Error(key, "Delete failed")
+                },
+                json = json,
+            )
+
+            repo.store(session)
+            assertEquals(SessionState.LoggedIn(session), repo.sessionState.first())
+
+            repo.clear()
+            // Since delete returned Error, session state remains LoggedIn in memory
+            assertEquals(SessionState.LoggedIn(session), repo.sessionState.first())
+        }
+
+    @Test
+    fun longLivedCollectorRetriesFailedRead() =
+        runTest {
+            var fail = true
+            val repo = SessionRepository(
+                readSecureStorage = {
+                    if (fail) throw IllegalStateException("Locked")
+                    inMemoryStorage
+                },
+                writeSecureStorage = { key, value ->
+                    inMemoryStorage = value
+                    WriteResult.Updated(key)
+                },
+                deleteSecureStorage = { key ->
+                    inMemoryStorage = null
+                    DeleteResult.Deleted(key)
+                },
+                json = json,
+                readRetryDelay = 5.seconds,
+            )
+
+            val emitted = mutableListOf<SessionState>()
+            val job = launch(UnconfinedTestDispatcher(testScheduler)) {
+                repo.sessionState.collect { emitted.add(it) }
+            }
+            assertEquals(listOf<SessionState>(SessionState.LoggedOut), emitted)
+
+            // Storage unlocks
+            fail = false
+            inMemoryStorage = json.encodeToString(AuthSession.serializer(), session)
+            advanceTimeBy(6.seconds)
+
+            assertEquals(listOf(SessionState.LoggedOut, SessionState.LoggedIn(session)), emitted)
+
+            // Updates still flow after recovery
+            repo.clear()
+            assertEquals(
+                listOf(SessionState.LoggedOut, SessionState.LoggedIn(session), SessionState.LoggedOut),
+                emitted,
+            )
+            job.cancel()
+        }
+
+    @Test
+    fun storeDuringReadRetryIsEmittedImmediately() =
+        runTest {
+            val repo = SessionRepository(
+                readSecureStorage = { throw IllegalStateException("Locked") },
+                writeSecureStorage = { key, value ->
+                    inMemoryStorage = value
+                    WriteResult.Updated(key)
+                },
+                deleteSecureStorage = { key -> DeleteResult.Deleted(key) },
+                json = json,
+                readRetryDelay = 5.seconds,
+            )
+
+            val emitted = mutableListOf<SessionState>()
+            val job = launch(UnconfinedTestDispatcher(testScheduler)) {
+                repo.sessionState.collect { emitted.add(it) }
+            }
+
+            repo.store(session)
+
+            assertEquals(listOf(SessionState.LoggedOut, SessionState.LoggedIn(session)), emitted)
+            job.cancel()
         }
 }

@@ -62,6 +62,8 @@ class IosSecureStorage(
                         val nsString = NSString.create(it, NSUTF8StringEncoding)
                         nsString?.toString()
                     }
+                } else if (status == errSecInteractionNotAllowed) {
+                    throw SecureStorageUnavailableException(key)
                 } else {
                     null
                 }

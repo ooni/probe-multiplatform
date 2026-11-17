@@ -1,5 +1,13 @@
 package org.ooni.engine
 
+/**
+ * Thrown by [SecureStorage.read] when storage is temporarily inaccessible
+ * (e.g., iOS keychain locked after reboot), so callers do not mistake it for a missing value.
+ */
+class SecureStorageUnavailableException(
+    key: String,
+) : Exception("Secure storage temporarily unavailable for key: $key")
+
 sealed interface DeleteResult {
     data class Deleted(
         val key: String,
