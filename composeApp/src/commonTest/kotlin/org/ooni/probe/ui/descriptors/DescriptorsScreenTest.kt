@@ -1,20 +1,26 @@
 package org.ooni.probe.ui.descriptors
 
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.v2.runComposeUiTest
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.navigationevent.compose.LocalNavigationEventDispatcherOwner
 import androidx.navigationevent.compose.rememberNavigationEventDispatcherOwner
+import ooniprobe.composeapp.generated.resources.CreateDescriptor_LoggedInAs
 import ooniprobe.composeapp.generated.resources.Dashboard_RunV2_MyLinks_Title
 import ooniprobe.composeapp.generated.resources.Dashboard_RunV2_Ooni_Title
 import ooniprobe.composeapp.generated.resources.Res
 import org.jetbrains.compose.resources.stringResource
+import org.ooni.probe.data.models.AuthSession
 import org.ooni.probe.data.models.DescriptorType
 import org.ooni.testing.TestLifecycleOwner
 import org.ooni.testing.factories.DescriptorFactory
 import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.time.Clock
 
 class DescriptorsScreenTest {
     @Test
@@ -115,5 +121,87 @@ class DescriptorsScreenTest {
 
             onNodeWithText(createdByUserTitle).assertExists()
             onNodeWithText(defaultTitle).assertExists()
+        }
+
+    @Test
+    fun showsLoggedInHeaderWhenUserIsLoggedIn() =
+        runComposeUiTest {
+            val email = "user@example.org"
+            lateinit var loggedInAsText: String
+
+            setContent {
+                loggedInAsText = stringResource(Res.string.CreateDescriptor_LoggedInAs, email)
+
+                CompositionLocalProvider(
+                    LocalLifecycleOwner provides TestLifecycleOwner(Lifecycle.State.RESUMED),
+                    LocalNavigationEventDispatcherOwner provides rememberNavigationEventDispatcherOwner(parent = null),
+                ) {
+                    DescriptorsScreen(
+                        state = DescriptorsViewModel.State(
+                            session = AuthSession(
+                                sessionToken = "token",
+                                emailAddress = email,
+                                role = "user",
+                                loginTime = Clock.System.now(),
+                            ),
+                        ),
+                        onEvent = {},
+                    )
+                }
+            }
+
+            onNodeWithText(loggedInAsText).assertExists()
+        }
+
+    @Test
+    fun hidesLoggedInHeaderWhenSessionIsNull() =
+        runComposeUiTest {
+            val email = "user@example.org"
+            lateinit var loggedInAsText: String
+
+            setContent {
+                loggedInAsText = stringResource(Res.string.CreateDescriptor_LoggedInAs, email)
+
+                CompositionLocalProvider(
+                    LocalLifecycleOwner provides TestLifecycleOwner(Lifecycle.State.RESUMED),
+                    LocalNavigationEventDispatcherOwner provides rememberNavigationEventDispatcherOwner(parent = null),
+                ) {
+                    DescriptorsScreen(
+                        state = DescriptorsViewModel.State(session = null),
+                        onEvent = {},
+                    )
+                }
+            }
+
+            onNodeWithText(loggedInAsText).assertDoesNotExist()
+        }
+
+    @Test
+    fun tappingLogOutEmitsLogOutClickedEvent() =
+        runComposeUiTest {
+            val email = "user@example.org"
+            var eventEmitted: DescriptorsViewModel.Event? = null
+
+            setContent {
+                CompositionLocalProvider(
+                    LocalLifecycleOwner provides TestLifecycleOwner(Lifecycle.State.RESUMED),
+                    LocalNavigationEventDispatcherOwner provides rememberNavigationEventDispatcherOwner(parent = null),
+                ) {
+                    DescriptorsScreen(
+                        state = DescriptorsViewModel.State(
+                            session = AuthSession(
+                                sessionToken = "token",
+                                emailAddress = email,
+                                role = "user",
+                                loginTime = Clock.System.now(),
+                            ),
+                        ),
+                        onEvent = { eventEmitted = it },
+                    )
+                }
+            }
+
+            onNodeWithTag("LoggedInHeader-LogOut").performClick()
+            assertEquals(DescriptorsViewModel.Event.LogOutClicked, eventEmitted)
         }
 }

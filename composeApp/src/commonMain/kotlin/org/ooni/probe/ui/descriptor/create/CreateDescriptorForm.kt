@@ -26,7 +26,6 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.SelectableDates
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberDatePickerState
@@ -50,8 +49,6 @@ import ooniprobe.composeapp.generated.resources.CreateDescriptor_Description
 import ooniprobe.composeapp.generated.resources.CreateDescriptor_ExpiresOn
 import ooniprobe.composeapp.generated.resources.CreateDescriptor_Icon
 import ooniprobe.composeapp.generated.resources.CreateDescriptor_Icon_Choose
-import ooniprobe.composeapp.generated.resources.CreateDescriptor_LogOut
-import ooniprobe.composeapp.generated.resources.CreateDescriptor_LoggedInAs
 import ooniprobe.composeapp.generated.resources.CreateDescriptor_Name
 import ooniprobe.composeapp.generated.resources.CreateDescriptor_PublishEmail
 import ooniprobe.composeapp.generated.resources.CreateDescriptor_PublishEmail_Explanation
@@ -78,6 +75,7 @@ import org.ooni.probe.shared.today
 import org.ooni.probe.ui.descriptor.create.CreateDescriptorViewModel.Event
 import org.ooni.probe.ui.descriptor.create.CreateDescriptorViewModel.State
 import org.ooni.probe.ui.descriptor.create.CreateDescriptorViewModel.UrlItem
+import org.ooni.probe.ui.shared.LoggedInHeader
 import org.ooni.probe.ui.shared.rememberClickableInteractionSource
 import org.ooni.probe.ui.theme.AppTheme
 import kotlin.time.Clock
@@ -87,27 +85,10 @@ internal fun CreateDescriptorForm(
     state: State.LoggedIn,
     onEvent: (Event) -> Unit,
 ) {
-    Surface(color = MaterialTheme.colorScheme.surfaceVariant) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.padding(start = 16.dp, end = 8.dp),
-        ) {
-            Text(
-                stringResource(Res.string.CreateDescriptor_LoggedInAs, state.session.emailAddress),
-                style = MaterialTheme.typography.labelLarge,
-                modifier = Modifier.weight(1f),
-            )
-            TextButton(
-                onClick = { onEvent(Event.LogOutClicked) },
-                modifier = Modifier.testTag("CreateDescriptor-LogOut"),
-            ) {
-                Text(
-                    stringResource(Res.string.CreateDescriptor_LogOut),
-                    style = MaterialTheme.typography.labelLarge,
-                )
-            }
-        }
-    }
+    LoggedInHeader(
+        emailAddress = state.session.emailAddress,
+        onLogOut = { onEvent(Event.LogOutClicked) },
+    )
 
     Column(
         modifier = Modifier

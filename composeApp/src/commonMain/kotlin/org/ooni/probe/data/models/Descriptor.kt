@@ -82,3 +82,8 @@ fun Descriptor.toDb(json: Json) =
         rejected_revision = rejectedRevision,
         publish_email = publishEmail?.let { if (it) 1L else 0L },
     )
+
+fun Descriptor.isCreatedBy(emailAddress: String?): Boolean {
+    val email = emailAddress?.trim() ?: return false
+    return email.isNotEmpty() && author != null && author == email
+}
