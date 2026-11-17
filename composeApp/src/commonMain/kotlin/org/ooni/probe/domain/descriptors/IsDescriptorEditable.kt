@@ -21,6 +21,6 @@ class IsDescriptorEditable(
             val isSingleWebConnectivity = descriptor.netTests.size == 1 &&
                 descriptor.netTests.first().test == TestType.WebConnectivity
 
-            isAuthor && isSingleWebConnectivity
+            isAuthor && isSingleWebConnectivity && !descriptor.isExpired
         }
 }
