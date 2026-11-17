@@ -67,6 +67,7 @@ import org.ooni.probe.data.models.DescriptorUpdateOperationState
 import org.ooni.probe.ui.descriptors.DescriptorsViewModel.DescriptorSection
 import org.ooni.probe.ui.descriptors.DescriptorsViewModel.Event
 import org.ooni.probe.ui.shared.ColorDefaults
+import org.ooni.probe.ui.shared.LoggedInHeader
 import org.ooni.probe.ui.shared.NavigationBackButton
 import org.ooni.probe.ui.shared.TopBar
 import org.ooni.probe.ui.shared.UpdateProgressStatus
@@ -100,6 +101,13 @@ fun DescriptorsScreen(
                     canPullToRefresh = state.canPullToRefresh,
                     isRefreshing = state.isRefreshing,
                     onEvent = onEvent,
+                )
+            }
+
+            if (OrganizationConfig.canInstallDescriptors && state.session != null) {
+                LoggedInHeader(
+                    emailAddress = state.session.emailAddress,
+                    onLogOut = { onEvent(DescriptorsViewModel.Event.LogOutClicked) },
                 )
             }
 

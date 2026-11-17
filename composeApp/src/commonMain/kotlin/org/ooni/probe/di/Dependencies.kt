@@ -1104,6 +1104,7 @@ class Dependencies(
         getPreference = preferenceRepository::getValueByKey,
         setPreference = preferenceRepository::setValueByKey,
         observeSessionState = sessionRepository::sessionState,
+        clearSession = sessionRepository::clear,
     )
 
     val isDescriptorEditable by lazy {
@@ -1142,6 +1143,8 @@ class Dependencies(
         startBackgroundRun = startSingleRunInner,
         canPullToRefresh = platformInfo.canPullToRefresh,
         isDescriptorEditable = isDescriptorEditable::invoke,
+        observeSessionState = sessionRepository::sessionState,
+        clearSession = sessionRepository::clear,
     )
 
     fun descriptorWebsitesViewModel(

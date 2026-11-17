@@ -20,6 +20,7 @@ import org.ooni.probe.data.models.DescriptorUpdateOperationState
 import org.ooni.probe.data.models.DescriptorsUpdateState
 import org.ooni.probe.data.models.SessionState
 import org.ooni.probe.data.models.SettingsKey
+import org.ooni.probe.data.models.isCreatedBy
 import org.ooni.probe.data.models.toDescriptorItem
 
 class DescriptorsViewModel(
@@ -35,6 +36,7 @@ class DescriptorsViewModel(
     private val getPreference: (SettingsKey) -> Flow<Any?>,
     private val setPreference: suspend (SettingsKey, Any?) -> Unit,
     observeSessionState: () -> Flow<SessionState>,
+    private val clearSession: suspend () -> Unit,
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
 
@@ -60,7 +62,12 @@ class DescriptorsViewModel(
             val session = (sessionState as? SessionState.LoggedIn)?.session
             val collapsedSections = collapsedSectionsPreference.toCollapsedSections()
             val sections = tests.groupByType(collapsedSections, session).filter { it.descriptors.any() }
-            _state.update { it.copy(sections = sections) }
+            _state.update {
+                it.copy(
+                    sections = sections,
+                    session = session,
+                )
+            }
         }.launchIn(viewModelScope)
 
         events
@@ -121,6 +128,11 @@ class DescriptorsViewModel(
             .filterIsInstance<Event.CloseFilterClicked>()
             .onEach { _state.update { it.copy(filterText = null) } }
             .launchIn(viewModelScope)
+
+        events
+            .filterIsInstance<Event.LogOutClicked>()
+            .onEach { clearSession() }
+            .launchIn(viewModelScope)
     }
 
     fun onEvent(event: Event) {
@@ -149,7 +161,7 @@ class DescriptorsViewModel(
         val (defaultDescriptors, nonDefaultDescriptors) = partition { it.isDefault() }
 
         val (userDescriptors, installedDescriptors) = if (session != null) {
-            nonDefaultDescriptors.partition { it.descriptor.author == session.emailAddress }
+            nonDefaultDescriptors.partition { it.descriptor.isCreatedBy(session.emailAddress) }
         } else {
             emptyList<DescriptorItem>() to nonDefaultDescriptors
         }
@@ -183,6 +195,7 @@ class DescriptorsViewModel(
         val descriptorsUpdateOperationState: DescriptorUpdateOperationState = DescriptorUpdateOperationState.Idle,
         val canPullToRefresh: Boolean = true,
         val filterText: String? = null,
+        val session: AuthSession? = null,
     ) {
         val isRefreshing: Boolean
             get() = descriptorsUpdateOperationState == DescriptorUpdateOperationState.FetchingUpdates
@@ -224,6 +237,8 @@ class DescriptorsViewModel(
         ) : Event
 
         data object CloseFilterClicked : Event
+
+        data object LogOutClicked : Event
     }
 
     data class DescriptorSection(
