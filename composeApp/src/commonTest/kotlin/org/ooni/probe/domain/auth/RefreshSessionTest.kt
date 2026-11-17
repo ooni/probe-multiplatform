@@ -106,6 +106,36 @@ class RefreshSessionTest {
             val result = subject()
 
             assertTrue(result is Failure)
+            assertTrue(result.reason is AuthException.Http)
+            assertTrue(cleared)
+        }
+
+    @Test
+    fun clearsSessionWhenNotLoggedInInResponse() =
+        runTest {
+            var cleared = false
+            val subject = RefreshSession(
+                passportPostWithAuth = { _, _, _ ->
+                    Success(
+                        PassportHttpResponseFactory.successful(
+                            bodyText = """
+                                {
+                                    "is_logged_in": false
+                                }
+                            """.trimIndent(),
+                        ),
+                    )
+                },
+                observeSessionState = { flowOf(SessionState.LoggedIn(existing)) },
+                storeSession = { error("should not store on failure") },
+                clearSession = { cleared = true },
+                decodeAuthResponse = ::decodeAuthResponse,
+            )
+
+            val result = subject()
+
+            assertTrue(result is Failure)
+            assertTrue(result.reason is AuthException.NotLoggedIn)
             assertTrue(cleared)
         }
 }
