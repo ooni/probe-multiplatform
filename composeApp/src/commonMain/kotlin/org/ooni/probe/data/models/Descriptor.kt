@@ -80,4 +80,5 @@ fun Descriptor.toDb(json: Json) =
         date_installed = dateInstalled?.toEpoch(),
         auto_update = if (autoUpdate) 1 else 0,
         rejected_revision = rejectedRevision,
+        publish_email = publishEmail?.let { if (it) 1L else 0L },
     )

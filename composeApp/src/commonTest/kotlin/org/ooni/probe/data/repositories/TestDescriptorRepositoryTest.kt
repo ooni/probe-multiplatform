@@ -151,5 +151,32 @@ class TestDescriptorRepositoryTest {
             assertContains(latest, modelA2)
         }
 
+    @Test
+    fun publishEmailPersistenceRoundTrip() =
+        runTest {
+            val modelTrue = DescriptorFactory
+                .buildInstalledModel(
+                    id = Descriptor.Id("TRUE"),
+                    revision = 1,
+                ).copy(publishEmail = true)
+            val modelFalse = DescriptorFactory
+                .buildInstalledModel(
+                    id = Descriptor.Id("FALSE"),
+                    revision = 1,
+                ).copy(publishEmail = false)
+            val modelNull = DescriptorFactory
+                .buildInstalledModel(
+                    id = Descriptor.Id("NULL"),
+                    revision = 1,
+                ).copy(publishEmail = null)
+
+            subject.createOrUpdate(listOf(modelTrue, modelFalse, modelNull))
+
+            val latest = subject.listLatestByIds(listOf(modelTrue.id, modelFalse.id, modelNull.id)).first()
+            assertEquals(true, latest.first { it.id == modelTrue.id }.publishEmail)
+            assertEquals(false, latest.first { it.id == modelFalse.id }.publishEmail)
+            assertEquals(null, latest.first { it.id == modelNull.id }.publishEmail)
+        }
+
     private fun now() = Instant.fromEpochMilliseconds(Clock.System.now().toEpochMilliseconds())
 }
