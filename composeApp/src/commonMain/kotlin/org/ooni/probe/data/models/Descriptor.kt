@@ -30,6 +30,7 @@ data class Descriptor(
     val dateInstalled: LocalDateTime? = null,
     val rejectedRevision: Long? = null,
     val autoUpdate: Boolean = true,
+    val publishEmail: Boolean? = null,
 ) {
     @Serializable
     data class Id(

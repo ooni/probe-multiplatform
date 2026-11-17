@@ -14,9 +14,12 @@ object DeepLinkParser {
             return DeepLink.Error
         }
 
+        val host = uri.host
+        val path = uri.path ?: ""
+
         return if (
-            (uri.scheme == "ooni" && uri.host == "runv2") ||
-            uri.host == OrganizationConfig.ooniRunDomain
+            host == "runv2" ||
+            (host == OrganizationConfig.ooniRunDomain && (path.startsWith("/runv2") || path.startsWith("/v2")))
         ) {
             uri.path.split("/").lastOrNull()?.let { id ->
                 DeepLink.AddDescriptor(id)
@@ -24,7 +27,21 @@ object DeepLinkParser {
                 Logger.w("Invalid deep link: $uri")
                 DeepLink.Error
             }
-        } else if (uri.scheme == "http" || uri.scheme == "https") {
+        } else if (
+            host == "login" ||
+            (host == OrganizationConfig.ooniRunDomain && path.startsWith("/login"))
+        ) {
+            uri.query
+                ?.split("&")
+                ?.firstOrNull { it.startsWith("token=") }
+                ?.substringAfter("token=")
+                ?.takeIf { it.isNotBlank() }
+                ?.let { token -> DeepLink.Login(token) }
+                ?: run {
+                    Logger.w("Login deep link without a token: $uri")
+                    DeepLink.Error
+                }
+        } else if (host == OrganizationConfig.ooniRunDomain || uri.scheme == "http" || uri.scheme == "https") {
             DeepLink.RunUrls(url)
         } else {
             Logger.w("Invalid deep link: $uri")

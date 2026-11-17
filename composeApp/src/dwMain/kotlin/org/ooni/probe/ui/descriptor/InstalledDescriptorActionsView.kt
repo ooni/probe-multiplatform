@@ -9,6 +9,7 @@ fun InstalledDescriptorActionsView(
     descriptor: Descriptor,
     onEvent: (DescriptorViewModel.Event) -> Unit,
     modifier: Modifier,
+    canEdit: Boolean,
 ) {
 }
 
