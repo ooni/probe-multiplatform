@@ -3,9 +3,9 @@ package org.ooni.probe.domain.descriptors
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import org.ooni.engine.models.TestType
-import org.ooni.probe.data.models.AuthSession
 import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.SessionState
+import org.ooni.probe.data.models.isCreatedBy
 
 class IsDescriptorEditable(
     private val observeSessionState: () -> Flow<SessionState>,
@@ -15,8 +15,7 @@ class IsDescriptorEditable(
             if (sessionState !is SessionState.LoggedIn || descriptor == null) return@map false
 
             val sessionEmail = sessionState.session.emailAddress
-            val author = descriptor.author
-            val isAuthor = sessionEmail.isNotEmpty() && author != null && author == sessionEmail
+            val isAuthor = descriptor.isCreatedBy(sessionEmail)
 
             val isSingleWebConnectivity = descriptor.netTests.size == 1 &&
                 descriptor.netTests.first().test == TestType.WebConnectivity

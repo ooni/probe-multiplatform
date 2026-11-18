@@ -1,6 +1,5 @@
 package org.ooni.probe.domain.descriptors
 
-import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
 import kotlin.time.Instant
 import org.ooni.engine.models.Failure
@@ -10,8 +9,8 @@ import org.ooni.engine.models.Success
 import org.ooni.passport.models.PassportHttpResponse
 import org.ooni.probe.data.models.AuthSession
 import org.ooni.probe.data.models.Descriptor
-import org.ooni.probe.data.models.SessionState
 import org.ooni.probe.di.Dependencies
+import org.ooni.probe.domain.auth.AuthException
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
@@ -63,7 +62,7 @@ class UpdateDescriptorTest {
                     called = true
                     error("should not be called")
                 },
-                observeSessionState = { flowOf(SessionState.LoggedOut) },
+                requireSession = { Failure(AuthException.NotLoggedIn()) },
                 parseOonirunApiError = ParseOonirunApiError(json),
                 requestJson = requestJson,
                 responseJson = json,
@@ -94,7 +93,7 @@ class UpdateDescriptorTest {
                         ),
                     )
                 },
-                observeSessionState = { flowOf(SessionState.LoggedIn(session)) },
+                requireSession = { Success(session) },
                 parseOonirunApiError = ParseOonirunApiError(json),
                 requestJson = requestJson,
                 responseJson = json,
@@ -125,7 +124,7 @@ class UpdateDescriptorTest {
                         ),
                     )
                 },
-                observeSessionState = { flowOf(SessionState.LoggedIn(session)) },
+                requireSession = { Success(session) },
                 parseOonirunApiError = ParseOonirunApiError(json),
                 requestJson = requestJson,
                 responseJson = json,
@@ -152,7 +151,7 @@ class UpdateDescriptorTest {
                         ),
                     )
                 },
-                observeSessionState = { flowOf(SessionState.LoggedIn(session)) },
+                requireSession = { Success(session) },
                 parseOonirunApiError = ParseOonirunApiError(json),
                 requestJson = requestJson,
                 responseJson = json,

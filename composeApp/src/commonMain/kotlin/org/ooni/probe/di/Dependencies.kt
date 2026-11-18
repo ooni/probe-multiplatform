@@ -449,7 +449,7 @@ class Dependencies(
             passportPostWithAuth = { url, payload, extraHeaders ->
                 passportHttpClient.post(url, payload, timeout = PassportTimeouts.DEFAULT_SECONDS, extraHeaders = extraHeaders)
             },
-            observeSessionState = sessionRepository::sessionState,
+            requireSession = sessionRepository::requireSession,
             parseOonirunApiError = parseOonirunApiError,
             requestJson = oonirunRequestJson,
             responseJson = json,
@@ -460,7 +460,7 @@ class Dependencies(
             passportPutWithAuth = { url, payload, extraHeaders ->
                 passportHttpClient.put(url, payload, timeout = PassportTimeouts.DEFAULT_SECONDS, extraHeaders = extraHeaders)
             },
-            observeSessionState = sessionRepository::sessionState,
+            requireSession = sessionRepository::requireSession,
             parseOonirunApiError = parseOonirunApiError,
             requestJson = oonirunRequestJson,
             responseJson = json,
@@ -556,7 +556,7 @@ class Dependencies(
             passportPostWithAuth = { url, payload, extraHeaders ->
                 passportHttpClient.post(url, payload, timeout = PassportTimeouts.DEFAULT_SECONDS, extraHeaders = extraHeaders)
             },
-            observeSessionState = sessionRepository::sessionState,
+            requireSession = sessionRepository::requireSession,
             storeSession = sessionRepository::store,
             clearSession = sessionRepository::clear,
             decodeAuthResponse = decodeAuthResponse::invoke,
@@ -1104,6 +1104,7 @@ class Dependencies(
         getPreference = preferenceRepository::getValueByKey,
         setPreference = preferenceRepository::setValueByKey,
         observeSessionState = sessionRepository::sessionState,
+        clearSession = sessionRepository::clear,
     )
 
     val isDescriptorEditable by lazy {
@@ -1142,6 +1143,8 @@ class Dependencies(
         startBackgroundRun = startSingleRunInner,
         canPullToRefresh = platformInfo.canPullToRefresh,
         isDescriptorEditable = isDescriptorEditable::invoke,
+        observeSessionState = sessionRepository::sessionState,
+        clearSession = sessionRepository::clear,
     )
 
     fun descriptorWebsitesViewModel(

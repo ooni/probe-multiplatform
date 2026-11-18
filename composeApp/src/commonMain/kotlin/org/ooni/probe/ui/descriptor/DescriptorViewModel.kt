@@ -18,6 +18,7 @@ import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.flow.update
 import org.ooni.engine.models.TestType
 import org.ooni.probe.config.OrganizationConfig
+import org.ooni.probe.data.models.AuthSession
 import org.ooni.probe.data.models.Descriptor
 import org.ooni.probe.data.models.DescriptorItem
 import org.ooni.probe.data.models.DescriptorUpdateOperationState
@@ -27,7 +28,9 @@ import org.ooni.probe.data.models.PlatformAction
 import org.ooni.probe.data.models.ResultListItem
 import org.ooni.probe.data.models.ResultModel
 import org.ooni.probe.data.models.RunSpecification
+import org.ooni.probe.data.models.SessionState
 import org.ooni.probe.data.models.SettingsKey
+import org.ooni.probe.data.models.isCreatedBy
 import org.ooni.probe.data.repositories.PreferenceRepository
 import org.ooni.probe.shared.monitoring.Instrumentation
 import org.ooni.probe.shared.monitoring.reportTransaction
@@ -58,6 +61,8 @@ class DescriptorViewModel(
     private val startBackgroundRun: (RunSpecification) -> Unit,
     canPullToRefresh: Boolean,
     private val isDescriptorEditable: (Descriptor?) -> Flow<Boolean>,
+    observeSessionState: () -> Flow<SessionState>,
+    private val clearSession: suspend () -> Unit,
 ) : ViewModel() {
     private val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
 
@@ -65,6 +70,11 @@ class DescriptorViewModel(
     val state = _state.asStateFlow()
 
     init {
+        observeSessionState()
+            .onEach { sessionState ->
+                val session = (sessionState as? SessionState.LoggedIn)?.session
+                _state.update { it.copy(session = session) }
+            }.launchIn(viewModelScope)
         observeDescriptorsUpdateState()
             .onEach { updateState ->
                 _state.update {
@@ -310,6 +320,11 @@ class DescriptorViewModel(
             .onEach {
                 _state.update { state -> state.copy(copyMessageToClipboard = null) }
             }.launchIn(viewModelScope)
+
+        events
+            .filterIsInstance<Event.LogOutClicked>()
+            .onEach { clearSession() }
+            .launchIn(viewModelScope)
     }
 
     fun onEvent(event: Event) {
@@ -351,6 +366,7 @@ class DescriptorViewModel(
         val showDisableVpnInstructions: Boolean = false,
         val copyMessageToClipboard: String? = null,
         val canEdit: Boolean = false,
+        val session: AuthSession? = null,
     ) {
         val isRefreshing: Boolean
             get() = updateOperationState == DescriptorUpdateOperationState.FetchingUpdates
@@ -361,6 +377,8 @@ class DescriptorViewModel(
                 else -> ToggleableState.Indeterminate
             }
         val isRefreshEnabled get() = descriptor?.descriptor != null
+        val isCreatedByUser: Boolean
+            get() = session != null && descriptor?.descriptor?.isCreatedBy(session.emailAddress) == true
     }
 
     sealed interface Event {
@@ -420,6 +438,8 @@ class DescriptorViewModel(
         data object ShareClicked : Event
 
         data object MessageCopied : Event
+
+        data object LogOutClicked : Event
     }
 }
 

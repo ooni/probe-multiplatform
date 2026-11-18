@@ -14,9 +14,13 @@ import kotlinx.coroutines.withTimeoutOrNull
 import kotlinx.serialization.json.Json
 import org.ooni.engine.DeleteResult
 import org.ooni.engine.WriteResult
+import org.ooni.engine.models.Failure
+import org.ooni.engine.models.Result
+import org.ooni.engine.models.Success
 import org.ooni.probe.data.models.AuthSession
 import org.ooni.probe.data.models.SessionState
 import org.ooni.probe.domain.auth.AuthConstants
+import org.ooni.probe.domain.auth.AuthException
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
@@ -74,6 +78,11 @@ class SessionRepository(
             Logger.w("Failed to read auth session from secure storage", e)
             SessionState.LoggedOut to false
         }
+
+    suspend fun getSession(): AuthSession? = (sessionState.first() as? SessionState.LoggedIn)?.session
+
+    suspend fun requireSession(): Result<AuthSession, AuthException> =
+        getSession()?.let { Success(it) } ?: Failure(AuthException.NotLoggedIn())
 
     suspend fun store(session: AuthSession): Boolean =
         try {

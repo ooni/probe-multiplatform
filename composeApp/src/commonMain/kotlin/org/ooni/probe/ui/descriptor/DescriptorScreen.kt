@@ -76,6 +76,7 @@ import org.ooni.probe.ui.results.RunCell
 import org.ooni.probe.ui.shared.DisableVpnInstructionsDialog
 import org.ooni.probe.ui.shared.ExpiredChip
 import org.ooni.probe.ui.shared.LocalClipboardActions
+import org.ooni.probe.ui.shared.LoggedInHeader
 import org.ooni.probe.ui.shared.MarkdownViewer
 import org.ooni.probe.ui.shared.NavigationBackButton
 import org.ooni.probe.ui.shared.SelectableItem
@@ -163,6 +164,14 @@ fun DescriptorScreen(
                 val descriptor = state.descriptor ?: return
 
                 DescriptorDetails(state, onEvent)
+                val session = state.session
+
+                if (session != null && state.isCreatedByUser) {
+                    LoggedInHeader(
+                        emailAddress = session.emailAddress,
+                        onLogOut = { onEvent(DescriptorViewModel.Event.LogOutClicked) },
+                    )
+                }
 
                 if (!state.descriptor.isDefault()) {
                     descriptor.metadata()?.let {
