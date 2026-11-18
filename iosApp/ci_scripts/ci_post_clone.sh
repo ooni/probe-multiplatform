@@ -10,8 +10,13 @@ export HOMEBREW_NO_INSTALL_UPGRADE=1
 brew install ruby@3.3
 
 # Install sentry-cli directly using Sentry's official installer to avoid Homebrew source builds
+# Install into a user-writable dir: /usr/local/bin needs sudo, which has no TTY on Xcode Cloud.
 if ! command -v sentry-cli >/dev/null 2>&1; then
-    curl -sL https://sentry.io/get-cli/ | bash
+    SENTRY_BIN_DIR="$HOME/.local/bin"
+    mkdir -p "$SENTRY_BIN_DIR"
+    curl -sL https://sentry.io/get-cli/ | INSTALL_DIR="$SENTRY_BIN_DIR" bash
+    echo "export PATH=\"$SENTRY_BIN_DIR:\$PATH\"" >> ~/.zshrc
+    export PATH="$SENTRY_BIN_DIR:$PATH"
 fi
 
 RUBY_PREFIX=$(brew --prefix ruby@3.3 2>/dev/null || echo "/usr/local/opt/ruby@3.3")
