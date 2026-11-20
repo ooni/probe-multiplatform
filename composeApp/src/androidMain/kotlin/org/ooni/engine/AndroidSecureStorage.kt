@@ -2,6 +2,7 @@ package org.ooni.engine
 
 import android.content.Context
 import android.security.keystore.KeyGenParameterSpec
+import android.security.keystore.KeyPermanentlyInvalidatedException
 import android.security.keystore.KeyProperties
 import android.util.Base64
 import androidx.core.content.edit
@@ -9,6 +10,7 @@ import co.touchlab.kermit.Logger
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.security.KeyStore
+import javax.crypto.AEADBadTagException
 import javax.crypto.Cipher
 import javax.crypto.KeyGenerator
 import javax.crypto.SecretKey
@@ -79,11 +81,33 @@ class AndroidSecureStorage(
         withContext(ioDispatcher) {
             try {
                 prefs.getString(key, null)?.let { decrypt(it) }
+            } catch (e: AEADBadTagException) {
+                discardUnreadable(key, e)
+            } catch (e: KeyPermanentlyInvalidatedException) {
+                discardUnreadable(key, e)
             } catch (e: Exception) {
                 Logger.w(e) { "SecureStorage: failed to read key '$key'" }
                 null
             }
         }
+
+    /**
+     * The stored value can never be decrypted with the current Keystore key (for example,
+     * the prefs file came back from a backup but the key did not). Drop it so callers
+     * start fresh instead of failing on every read.
+     */
+    private fun discardUnreadable(
+        key: String,
+        e: Exception,
+    ): String? {
+        Logger.w(e) { "SecureStorage: value for key '$key' is unreadable with current key, deleting it" }
+        try {
+            prefs.edit(commit = true) { remove(key) }
+        } catch (deleteError: Exception) {
+            Logger.w(deleteError) { "SecureStorage: failed to delete unreadable key '$key'" }
+        }
+        return null
+    }
 
     override suspend fun write(
         key: String,
