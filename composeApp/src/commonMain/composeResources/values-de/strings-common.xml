@@ -52,7 +52,6 @@
         <item quantity="other">Alle %1$d Websites anzeigen</item>
     </plurals>
     <string name="Dashboard_RunV2_ExpiredTag">ABGELAUFEN</string>
-    <string name="Dashboard_RunV2_UpdatedTag">AKTUALISIERT</string>
     <string name="Dashboard_RunV2_UpdateTag">AKTUALISIERUNG</string>
     <string name="Dashboard_Runv2_Overview_LastUpdated">Zuletzt aktualisiert %1$s</string>
     <string name="Dashboard_Runv2_Overview_RejectedUpdate">Abgelehnte Aktualisierung</string>
@@ -244,7 +243,6 @@
     <string name="Settings_Websites_Categories_Selection_All">Alles auswählen</string>
     <string name="Settings_Websites_CustomURL_Title">Wähle Webseiten zum testen aus</string>
     <string name="Settings_Websites_CustomURL_URL">URL</string>
-    <string name="Settings_Websites_CustomURL_Run">Ausführen</string>
     <string name="Settings_Websites_CustomURL_Add"> Webseite hinzufügen</string>
     <plurals name="CustomWebsites_Fab_Text">
         <item quantity="one">Teste %1$d URL</item>

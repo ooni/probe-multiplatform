@@ -95,7 +95,6 @@
     <string name="Settings_Websites_Categories_Selection_All">အားလုံးကို ရွေးချယ်မည်</string>
     <string name="Settings_Websites_CustomURL_Title">စမ်းသပ်မည့် ဝဘ်ဆိုဒ်များ ရွေးချယ်ရန်</string>
     <string name="Settings_Websites_CustomURL_URL">URL</string>
-    <string name="Settings_Websites_CustomURL_Run">စမ်းမည်</string>
     <string name="Settings_Websites_CustomURL_Add">ဝဘ်ဆိုဒ်ထည့်ရန်</string>
     <string name="CategoryCode_ALDR_Name">မူးယစ်ဆေးဝါးနှင့် အရက်</string>
     <string name="CategoryCode_REL_Name">ဘာသာတရား</string>

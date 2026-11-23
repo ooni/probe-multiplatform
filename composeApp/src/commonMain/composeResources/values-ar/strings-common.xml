@@ -13,7 +13,6 @@
     <string name="Dashboard_Articles_Recent">الأحدث</string>
     <string name="Dashboard_Runv2_Overview_PreviousRevisions">المراجعات السابقة</string>
     <string name="Dashboard_RunV2_ExpiredTag">منتهي الصلاحية</string>
-    <string name="Dashboard_RunV2_UpdatedTag">UPDATED</string>
     <string name="Dashboard_RunV2_UpdateTag">تحديث</string>
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">تراجع</string>
     <string name="Dashboard_Progress_ReviewLink_Action">مراجعة</string>
@@ -105,7 +104,6 @@
     <string name="Settings_Websites_Categories_Selection_All">حدد الكل</string>
     <string name="Settings_Websites_CustomURL_Title">اختيار المواقع للاختبار</string>
     <string name="Settings_Websites_CustomURL_URL">الرابط</string>
-    <string name="Settings_Websites_CustomURL_Run">ابدأ</string>
     <string name="Settings_Websites_CustomURL_Add">أضف موقعًا</string>
     <string name="CategoryCode_ALDR_Name">المخدرات والكحول</string>
     <string name="CategoryCode_REL_Name">الدين</string>

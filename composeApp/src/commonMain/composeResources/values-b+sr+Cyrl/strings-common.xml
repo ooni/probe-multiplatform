@@ -60,7 +60,6 @@
         <item quantity="other">Погледајте %1$d веб-сајтова</item>
     </plurals>
     <string name="Dashboard_RunV2_ExpiredTag">ИСТЕКЛО</string>
-    <string name="Dashboard_RunV2_UpdatedTag">АЖУРИРАНО</string>
     <string name="Dashboard_RunV2_UpdateTag">АЖУРИРАЈТЕ</string>
     <string name="Dashboard_Runv2_Overview_LastUpdated">Последњи пут ажурирано: %1$s</string>
     <string name="Dashboard_Runv2_Overview_RejectedUpdate">Одбијено ажурирање</string>
@@ -294,7 +293,6 @@
     <string name="Settings_Websites_Categories_Selection_All">Одабери све</string>
     <string name="Settings_Websites_CustomURL_Title">Изаберите сајтове за тест</string>
     <string name="Settings_Websites_CustomURL_URL">URL</string>
-    <string name="Settings_Websites_CustomURL_Run">Покрени</string>
     <string name="Settings_Websites_CustomURL_Add">Додај веб-сајт</string>
     <plurals name="CustomWebsites_Fab_Text">
         <item quantity="one">Тестирај %1$d URL</item>

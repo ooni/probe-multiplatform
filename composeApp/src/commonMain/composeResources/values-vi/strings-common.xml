@@ -95,7 +95,6 @@
     <string name="Settings_Websites_Categories_Selection_All">Chọn Tất cả</string>
     <string name="Settings_Websites_CustomURL_Title">Chọn các trang web để kiểm tra</string>
     <string name="Settings_Websites_CustomURL_URL">URL</string>
-    <string name="Settings_Websites_CustomURL_Run">Chạy</string>
     <string name="Settings_Websites_CustomURL_Add">Thêm trang web</string>
     <string name="CategoryCode_ALDR_Name">Ma túy và Rượu</string>
     <string name="CategoryCode_REL_Name">Tôn giáo</string>

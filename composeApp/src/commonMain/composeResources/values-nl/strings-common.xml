@@ -102,7 +102,6 @@
     <string name="Settings_Websites_Categories_Selection_All">Alles selecteren</string>
     <string name="Settings_Websites_CustomURL_Title">Kies websites om te testen</string>
     <string name="Settings_Websites_CustomURL_URL">URL</string>
-    <string name="Settings_Websites_CustomURL_Run">Voer uit</string>
     <string name="Settings_Websites_CustomURL_Add">Website toevoegen</string>
     <string name="CategoryCode_ALDR_Name">Drugs en alcohol</string>
     <string name="CategoryCode_REL_Name">Religie</string>
@@ -295,7 +294,6 @@
         <item quantity="other">Bekijk alle %1$d websites</item>
     </plurals>
     <string name="Dashboard_RunV2_ExpiredTag">VERLOPEN</string>
-    <string name="Dashboard_RunV2_UpdatedTag">BIJGEWERKT</string>
     <string name="Dashboard_RunV2_UpdateTag">UPDATEN</string>
     <string name="Dashboard_Runv2_Overview_LastUpdated">Laatst bijgewerkt %1$s</string>
     <string name="Dashboard_Runv2_Overview_RejectedUpdate">Update afgewezen</string>

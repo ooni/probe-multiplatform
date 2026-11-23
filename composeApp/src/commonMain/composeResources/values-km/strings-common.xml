@@ -21,7 +21,6 @@
     <string name="Dashboard_Runv2_Overview_PreviousRevisions">ការត្រួតពិនិត្យលើកមុន</string>
     <string name="Dashboard_Runv2_Overview_SeeMore">មើលបន្ថែម</string>
     <string name="Dashboard_RunV2_ExpiredTag">ផុតកំណត់</string>
-    <string name="Dashboard_RunV2_UpdatedTag">ទាន់សម័យ</string>
     <string name="Dashboard_RunV2_UpdateTag">បច្ចុប្បន្នភាព</string>
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">លែងធ្វើវិញ</string>
     <string name="Dashboard_Runv2_Overview_ReviewUpdates">ពិនិត្យមើលបច្ចុប្បន្នភាព</string>
@@ -114,7 +113,6 @@
     <string name="Settings_Websites_Categories_Selection_All">ជ្រើសរើសទាំងអស់</string>
     <string name="Settings_Websites_CustomURL_Title">ជ្រើសរើសវែបសាយដើម្បីតេស្ត</string>
     <string name="Settings_Websites_CustomURL_URL">URL</string>
-    <string name="Settings_Websites_CustomURL_Run">ដំណើរការ</string>
     <string name="Settings_Websites_CustomURL_Add">បន្ថែមវេបសាយ</string>
     <string name="CategoryCode_ALDR_Name">គ្រឿងញៀន &amp; គ្រឿងស្រវឹង</string>
     <string name="CategoryCode_REL_Name">សាសនា</string>

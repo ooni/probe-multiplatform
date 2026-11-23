@@ -73,7 +73,6 @@
     <string name="Settings_Websites_Categories_Selection_All">Označiť všetko</string>
     <string name="Settings_Websites_CustomURL_Title">Vyber webové stránky na testovanie</string>
     <string name="Settings_Websites_CustomURL_URL">URL adresa</string>
-    <string name="Settings_Websites_CustomURL_Run">Spustiť</string>
     <string name="Settings_Websites_CustomURL_Add">Pridať webovú stránku</string>
     <string name="CategoryCode_ALDR_Name">Drogy a alkohol</string>
     <string name="CategoryCode_REL_Name">Náboženstvo</string>

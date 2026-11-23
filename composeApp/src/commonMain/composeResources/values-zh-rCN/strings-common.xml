@@ -48,7 +48,6 @@
         <item quantity="other">查看全部 %1$d 个网站</item>
     </plurals>
     <string name="Dashboard_RunV2_ExpiredTag">已到期</string>
-    <string name="Dashboard_RunV2_UpdatedTag">已更新</string>
     <string name="Dashboard_RunV2_UpdateTag">更新</string>
     <string name="Dashboard_Runv2_Overview_LastUpdated">最后更新于 %1$s</string>
     <string name="Dashboard_Runv2_Overview_RejectedUpdate">拒绝了更新</string>
@@ -229,7 +228,6 @@
     <string name="Settings_Websites_Categories_Selection_All">全选</string>
     <string name="Settings_Websites_CustomURL_Title">选择要测试的网站</string>
     <string name="Settings_Websites_CustomURL_URL">网址</string>
-    <string name="Settings_Websites_CustomURL_Run">运行</string>
     <string name="Settings_Websites_CustomURL_Add">添加网站</string>
     <plurals name="CustomWebsites_Fab_Text">
         <item quantity="other">测试 %1$d 个网址</item>

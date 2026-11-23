@@ -72,7 +72,6 @@
     <string name="Settings_Websites_Categories_Selection_All">Markera allt</string>
     <string name="Settings_Websites_CustomURL_Title">Välj webbsidor att testa</string>
     <string name="Settings_Websites_CustomURL_URL">URL</string>
-    <string name="Settings_Websites_CustomURL_Run">Kör</string>
     <string name="Settings_Websites_CustomURL_Add">Lägg till webbsida</string>
     <string name="Onboarding_WhatIsOONIProbe_GotIt">Förstått</string>
     <string name="Onboarding_ThingsToKnow_Title">Se upp!</string>

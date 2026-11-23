@@ -59,13 +59,6 @@ class MeasurementRepository(
             .mapToList(backgroundContext)
             .map { list -> list.mapNotNull { it.toModel() } }
 
-    fun listByResultRunId(descriptorId: Descriptor.Id) =
-        database.measurementQueries
-            .selectByResultRunId(descriptorId.value)
-            .asFlow()
-            .mapToList(backgroundContext)
-            .map { list -> list.mapNotNull { it.toModel() } }
-
     fun listWithoutResult() =
         database.measurementQueries
             .selectWithoutResult()

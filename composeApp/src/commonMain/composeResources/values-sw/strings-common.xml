@@ -20,7 +20,6 @@
     <string name="Dashboard_Runv2_Overview_PreviousRevisions">Marekebisho ya awali</string>
     <string name="Dashboard_Runv2_Overview_SeeMore">Tazama Zaidi</string>
     <string name="Dashboard_RunV2_ExpiredTag">IMEISHA MUDA</string>
-    <string name="Dashboard_RunV2_UpdatedTag">IMESASISHA</string>
     <string name="Dashboard_Runv2_Overview_ReviewUpdates">Kagua Sasisho</string>
     <string name="Dashboard_Progress_UpdateLink_Label">Inapakia masasisho ya kiungo</string>
     <string name="Dashboard_Progress_ReviewLink_Label">Masasisho ya viungo tayari</string>
@@ -111,7 +110,6 @@
     <string name="Settings_Websites_Categories_Selection_All">Chagua zote</string>
     <string name="Settings_Websites_CustomURL_Title">Chagua tovuti ya kujaribu</string>
     <string name="Settings_Websites_CustomURL_URL">URL</string>
-    <string name="Settings_Websites_CustomURL_Run">Endesha</string>
     <string name="Settings_Websites_CustomURL_Add">Ongeza tovuti</string>
     <string name="CategoryCode_ALDR_Name">Madawa ya kulevya na Pombe</string>
     <string name="CategoryCode_REL_Name">Dini</string>

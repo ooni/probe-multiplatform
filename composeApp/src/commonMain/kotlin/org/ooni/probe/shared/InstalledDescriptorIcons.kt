@@ -44,6 +44,7 @@ import ooniprobe.composeapp.generated.resources.fa_kiwi_bird
 import ooniprobe.composeapp.generated.resources.fa_magnet
 import ooniprobe.composeapp.generated.resources.fa_map
 import ooniprobe.composeapp.generated.resources.fa_meteor
+import ooniprobe.composeapp.generated.resources.fa_microphone
 import ooniprobe.composeapp.generated.resources.fa_microscope
 import ooniprobe.composeapp.generated.resources.fa_moon
 import ooniprobe.composeapp.generated.resources.fa_mountain_sun
@@ -137,6 +138,7 @@ enum class InstalledDescriptorIcons(
     FaMagnet("FaMagnet", Res.drawable.fa_magnet),
     FaMap("FaMap", Res.drawable.fa_map),
     FaMeteor("FaMeteor", Res.drawable.fa_meteor),
+    FaMicrophone("FaMicrophone", Res.drawable.fa_microphone),
     FaMicroscope("FaMicroscope", Res.drawable.fa_microscope),
     FaMoon("FaMoon", Res.drawable.fa_moon),
     FaMountainSun("FaMountainSun", Res.drawable.fa_mountain_sun),

@@ -73,7 +73,6 @@ import platform.UIKit.UIViewController
 import platform.UIKit.UI_USER_INTERFACE_IDIOM
 import platform.UIKit.popoverPresentationController
 import platform.darwin.NSObject
-import platform.darwin.NSObjectMeta
 import kotlin.experimental.ExperimentalNativeApi
 
 class SetupDependencies(
@@ -193,10 +192,6 @@ class SetupDependencies(
         )
 
     private fun buildDatabaseDriver() = NativeSqliteDriver(schema = Database.Schema, name = "OONIProbe.db")
-
-    private class BundleMarker : NSObject() {
-        companion object : NSObjectMeta()
-    }
 
     private fun getBatteryState(): BatteryState {
         UIDevice.currentDevice.batteryMonitoringEnabled = true

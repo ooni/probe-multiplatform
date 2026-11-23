@@ -1,7 +1,6 @@
 <resources>
 
     <string name="Dashboard_Tab_Label">ਡੈਸ਼ਬੋਰਡ</string>
-    <string name="Settings_Websites_CustomURL_Run">ਚਲਾਓ</string>
     <string name="Onboarding_WhatIsOONIProbe_GotIt">ਸਮਝ ਗਏ</string>
     <string name="Onboarding_ThingsToKnow_Title">ਸਾਵਧਾਨ!</string>
     <string name="Onboarding_ThingsToKnow_Button">ਸਮਝ ਗਏ</string>
