@@ -251,6 +251,5 @@ class PreferenceRepository(
             .map { it.contains(preferenceKeyFromSettingsKey(key).preferenceKey) }
             .firstOrNull() ?: false
 
-    private fun NetTest.defaultPreferenceValue(isAutoRun: Boolean): Boolean =
-        if (isAutoRun) test.isBackgroundRunEnabled else test.isManualRunEnabled
+    private fun NetTest.defaultPreferenceValue(isAutoRun: Boolean): Boolean = if (isAutoRun) isBackgroundRunEnabled else isManualRunEnabled
 }
