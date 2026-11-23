@@ -10,8 +10,8 @@ data class NetTest(
     val inputs: List<String>? = emptyList(),
     val inputsExtra: List<Map<String, String>>? = emptyList(),
     val targetsName: String? = null,
-    val isBackgroundRunEnabled: Boolean = false,
-    val isManualRunEnabled: Boolean = false,
+    val isBackgroundRunEnabled: Boolean = test.isBackgroundRunEnabled,
+    val isManualRunEnabled: Boolean = test.isManualRunEnabled,
 ) {
     fun toOONI() =
         OONINetTest(
@@ -24,14 +24,20 @@ data class NetTest(
         )
 
     companion object {
-        fun fromOONI(netTest: OONINetTest) =
-            NetTest(
-                test = TestType.fromName(netTest.name),
+        fun fromOONI(netTest: OONINetTest): NetTest {
+            val testType = TestType.fromName(
+                name = netTest.name,
+                isBackgroundRunEnabled = if (netTest.isBackgroundRunEnabled) true else null,
+                isManualRunEnabled = if (netTest.isManualRunEnabled) true else null,
+            )
+            return NetTest(
+                test = testType,
                 inputs = netTest.inputs,
                 inputsExtra = netTest.inputsExtra,
                 targetsName = netTest.targetsName,
-                isBackgroundRunEnabled = netTest.isBackgroundRunEnabled,
-                isManualRunEnabled = netTest.isManualRunEnabled,
+                isBackgroundRunEnabled = netTest.isBackgroundRunEnabled || testType.isBackgroundRunEnabled,
+                isManualRunEnabled = netTest.isManualRunEnabled || testType.isManualRunEnabled,
             )
+        }
     }
 }

@@ -205,7 +205,20 @@ sealed class TestType {
             )
         }
 
-        fun fromName(name: String) = ALL_NAMED.firstOrNull { it.name == name.split("@").first() } ?: Experimental(name)
+        fun fromName(
+            name: String,
+            isBackgroundRunEnabled: Boolean? = null,
+            isManualRunEnabled: Boolean? = null,
+        ): TestType {
+            val baseName = name.split("@").first()
+            val namedTest = ALL_NAMED.firstOrNull { it.name == baseName }
+            if (namedTest != null) return namedTest
+            return Experimental(
+                name = name,
+                isBackgroundRunEnabled = isBackgroundRunEnabled ?: false,
+                isManualRunEnabled = isManualRunEnabled ?: true,
+            )
+        }
     }
 }
 

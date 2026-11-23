@@ -9,8 +9,8 @@
                 "test_name": "web_connectivity@v0.5",
                 "inputs": [],
                 "options": {},
-                "is_background_run_enabled_default": false,
-                "is_manual_run_enabled_default": false,
+                "is_background_run_enabled_default": true,
+                "is_manual_run_enabled_default": true,
                 "targets_name": null,
                 "inputs_extra": null
             }
@@ -116,8 +116,8 @@
                 "test_name": "whatsapp",
                 "inputs": [],
                 "options": {},
-                "is_background_run_enabled_default": false,
-                "is_manual_run_enabled_default": false,
+                "is_background_run_enabled_default": true,
+                "is_manual_run_enabled_default": true,
                 "targets_name": null,
                 "inputs_extra": null
             },
@@ -125,8 +125,8 @@
                 "test_name": "telegram",
                 "inputs": [],
                 "options": {},
-                "is_background_run_enabled_default": false,
-                "is_manual_run_enabled_default": false,
+                "is_background_run_enabled_default": true,
+                "is_manual_run_enabled_default": true,
                 "targets_name": null,
                 "inputs_extra": null
             },
@@ -134,8 +134,8 @@
                 "test_name": "facebook_messenger",
                 "inputs": [],
                 "options": {},
-                "is_background_run_enabled_default": false,
-                "is_manual_run_enabled_default": false,
+                "is_background_run_enabled_default": true,
+                "is_manual_run_enabled_default": true,
                 "targets_name": null,
                 "inputs_extra": null
             },
@@ -251,7 +251,7 @@
                 "test_name": "psiphon",
                 "inputs": [],
                 "options": {},
-                "is_background_run_enabled_default": false,
+                "is_background_run_enabled_default": true,
                 "is_manual_run_enabled_default": false,
                 "targets_name": null,
                 "inputs_extra": null
@@ -260,8 +260,8 @@
                 "test_name": "tor",
                 "inputs": [],
                 "options": {},
-                "is_background_run_enabled_default": false,
-                "is_manual_run_enabled_default": false,
+                "is_background_run_enabled_default": true,
+                "is_manual_run_enabled_default": true,
                 "targets_name": null,
                 "inputs_extra": null
             }
@@ -369,7 +369,7 @@
                 "inputs": [],
                 "options": {},
                 "is_background_run_enabled_default": false,
-                "is_manual_run_enabled_default": false,
+                "is_manual_run_enabled_default": true,
                 "targets_name": null,
                 "inputs_extra": null
             },
@@ -378,7 +378,7 @@
                 "inputs": [],
                 "options": {},
                 "is_background_run_enabled_default": false,
-                "is_manual_run_enabled_default": false,
+                "is_manual_run_enabled_default": true,
                 "targets_name": null,
                 "inputs_extra": null
             },
@@ -386,8 +386,8 @@
                 "test_name": "http_header_field_manipulation",
                 "inputs": [],
                 "options": {},
-                "is_background_run_enabled_default": false,
-                "is_manual_run_enabled_default": false,
+                "is_background_run_enabled_default": true,
+                "is_manual_run_enabled_default": true,
                 "targets_name": null,
                 "inputs_extra": null
             },
@@ -395,8 +395,8 @@
                 "test_name": "http_invalid_request_line",
                 "inputs": [],
                 "options": {},
-                "is_background_run_enabled_default": false,
-                "is_manual_run_enabled_default": false,
+                "is_background_run_enabled_default": true,
+                "is_manual_run_enabled_default": true,
                 "targets_name": null,
                 "inputs_extra": null
             }
@@ -503,8 +503,8 @@
                 "test_name": "stunreachability",
                 "inputs": [],
                 "options": {},
-                "is_background_run_enabled_default": false,
-                "is_manual_run_enabled_default": false,
+                "is_background_run_enabled_default": true,
+                "is_manual_run_enabled_default": true,
                 "targets_name": null,
                 "inputs_extra": null
             },
@@ -523,6 +523,15 @@
                 "options": {},
                 "is_background_run_enabled_default": false,
                 "is_manual_run_enabled_default": false,
+                "targets_name": null,
+                "inputs_extra": null
+            },
+            {
+                "test_name": "tlsmiddlebox",
+                "inputs": [],
+                "options": {},
+                "is_background_run_enabled_default": true,
+                "is_manual_run_enabled_default": true,
                 "targets_name": null,
                 "inputs_extra": null
             }
