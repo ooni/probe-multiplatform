@@ -37,7 +37,7 @@ import org.ooni.probe.data.models.RunBackgroundState
 import org.ooni.probe.data.models.RunSpecification
 import org.ooni.probe.di.Dependencies
 import org.ooni.probe.domain.UploadMissingMeasurements
-import org.ooni.probe.ui.primaryLight
+import org.ooni.probe.ui.primaryColor
 import kotlin.coroutines.cancellation.CancellationException
 import kotlin.math.roundToInt
 import kotlin.time.Duration.Companion.milliseconds
@@ -197,7 +197,7 @@ class RunWorker(
     private suspend fun buildNotification(state: RunBackgroundState.RunningTests) =
         buildNotification {
             setContentText(state.testType?.displayNameSuspended())
-                .setColor(state.descriptor?.color?.toArgb() ?: primaryLight.toArgb())
+                .setColor(state.descriptor?.color?.toArgb() ?: primaryColor.toArgb())
                 .setProgress(1000, (state.progress * 1000).roundToInt(), false)
                 .addAction(buildNotificationStopAction())
         }
@@ -222,7 +222,7 @@ class RunWorker(
                 .setVibrate(null)
                 .setOnlyAlertOnce(true)
                 .setLights(0, 0, 0)
-                .setColor(primaryLight.toArgb())
+                .setColor(primaryColor.toArgb())
                 .setContentIntent(openAppIntent),
         ).build()
 

@@ -17,15 +17,16 @@ import org.ooni.probe.ui.quizFalseAnimationColor
 import org.ooni.probe.ui.quizFalseColor
 import org.ooni.probe.ui.quizTrueAnimationColor
 import org.ooni.probe.ui.quizTrueColor
+import org.ooni.probe.ui.primaryColor
 
-// App specific colors outside of the Material Theme Colors
+// App specific colors outside the Material Theme Colors
 
 val successColorLight = Color(0xFF40c057)
 val onSuccessColorLight = Color.White
 val successColorDark = Color(0xFF2b8a3e)
 val onSuccessColorDark = Color.White
-val onDescriptorColorLight = Color.White
-val onDescriptorColorDark = Color.White
+val fallbackDescriptorColor = primaryColor
+val onDescriptorColor = Color.White
 
 val quizWarningColor = Color(0xFF495057)
 val onQuizWarningColor = Color.White
@@ -43,7 +44,8 @@ val donateBackgroundDark = Color(0xFF054B72)
 data class CustomColors(
     val success: Color,
     val onSuccess: Color,
-    val onDescriptor: Color,
+    val fallbackDescriptor: Color = fallbackDescriptorColor,
+    val onDescriptor: Color = onDescriptorColor,
     val onboarding1: Color = onboarding1Color,
     val onboarding2: Color = onboarding2Color,
     val onboarding3: Color = onboarding3Color,
@@ -70,13 +72,11 @@ data class CustomColors(
 val customColorsLight = CustomColors(
     success = successColorLight,
     onSuccess = onSuccessColorLight,
-    onDescriptor = onDescriptorColorLight,
     donateBackground = donateBackgroundLight,
 )
 val customColorsDark = CustomColors(
     success = successColorDark,
     onSuccess = onSuccessColorDark,
-    onDescriptor = onDescriptorColorDark,
     donateBackground = donateBackgroundDark,
 )
 

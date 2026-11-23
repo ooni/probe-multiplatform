@@ -23,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import ooniprobe.composeapp.generated.resources.Measurements_Count
 import ooniprobe.composeapp.generated.resources.Measurements_Failed_Count
@@ -47,31 +48,40 @@ import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.pluralStringResource
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.engine.models.SummaryType
+import org.ooni.engine.models.TaskOrigin
+import org.ooni.engine.models.TestKeys
+import org.ooni.engine.models.TestType
+import org.ooni.probe.data.models.Descriptor
+import org.ooni.probe.data.models.DescriptorItem
+import org.ooni.probe.data.models.MeasurementCounts
+import org.ooni.probe.data.models.MeasurementModel
+import org.ooni.probe.data.models.OoniTest
+import org.ooni.probe.data.models.ResultModel
 import org.ooni.probe.data.models.ResultListItem
+import org.ooni.probe.data.models.TestKeysWithResultId
 import org.ooni.probe.data.models.downloadSpeed
 import org.ooni.probe.data.models.uploadSpeed
 import org.ooni.probe.data.models.videoQuality
 import org.ooni.probe.ui.descriptors.TestDescriptorLabel
+import org.ooni.probe.ui.theme.AppTheme
 import org.ooni.probe.ui.theme.LocalCustomColors
 
 @Composable
 fun ResultCell(
     item: ResultListItem,
     onResultClick: () -> Unit,
+    modifier: Modifier = Modifier,
     isSelected: Boolean = false,
     onSelectChange: ((Boolean) -> Unit)? = null,
     onLongClick: (() -> Unit)? = null,
-    modifier: Modifier = Modifier,
 ) {
     val hasError = item.result.isDone && item.measurementCounts.done == 0L
 
     Surface(
-        color = if (isSelected) {
-            MaterialTheme.colorScheme.primary.copy(alpha = 0.18f)
-        } else if (item.result.isViewed || hasError) {
-            MaterialTheme.colorScheme.surface
-        } else {
-            MaterialTheme.colorScheme.surfaceVariant
+        color = when {
+            isSelected -> MaterialTheme.colorScheme.surfaceVariant
+            item.result.isViewed || hasError -> MaterialTheme.colorScheme.surface
+            else -> MaterialTheme.colorScheme.surfaceContainer
         },
         modifier = modifier,
     ) {
@@ -130,7 +140,7 @@ fun ResultCell(
                     ResultCountItem(
                         icon = Res.drawable.ic_measurement_anomaly,
                         text = stringResource(Res.string.Result_Error),
-                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f),
+                        color = LocalContentColor.current.copy(alpha = 0.5f),
                     )
                 } else {
                     ResultCounts(item)
@@ -293,3 +303,136 @@ private fun Modifier.metricChip(color: Color = LocalContentColor.current) =
             color = color.copy(alpha = 0.5f),
             shape = RoundedCornerShape(4.dp),
         ).padding(horizontal = 4.dp, vertical = 2.dp)
+
+@PreviewLightDark
+@Composable
+fun ResultCellPreview() {
+    AppTheme {
+        Column {
+            ResultCell(
+                item = previewResultItem(
+                    test = OoniTest.Websites,
+                    counts = MeasurementCounts(done = 120, failed = 2, anomaly = 5),
+                    allMeasurementsUploaded = true,
+                ),
+                onResultClick = {},
+            )
+            ResultCell(
+                item = previewResultItem(
+                    test = OoniTest.InstantMessaging,
+                    counts = MeasurementCounts(done = 4, failed = 0, anomaly = 0),
+                    isViewed = true,
+                    allMeasurementsUploaded = true,
+                ),
+                onResultClick = {},
+            )
+            ResultCell(
+                item = previewResultItem(
+                    test = OoniTest.Circumvention,
+                    counts = MeasurementCounts(done = 3, failed = 0, anomaly = 1),
+                    allMeasurementsUploaded = false,
+                ),
+                onResultClick = {},
+            )
+            ResultCell(
+                item = previewResultItem(
+                    test = OoniTest.Experimental,
+                    counts = MeasurementCounts(done = 6, failed = 1, anomaly = 0),
+                    isViewed = true,
+                    allMeasurementsUploaded = false,
+                    anyMeasurementUploadFailed = true,
+                ),
+                onResultClick = {},
+            )
+            ResultCell(
+                item = previewResultItem(
+                    test = OoniTest.Performance,
+                    counts = MeasurementCounts(done = 2, failed = 0, anomaly = 0),
+                    allMeasurementsUploaded = true,
+                    testKeys = previewPerformanceTestKeys(),
+                ),
+                onResultClick = {},
+            )
+            ResultCell(
+                item = previewResultItem(
+                    test = OoniTest.Websites,
+                    counts = MeasurementCounts(done = 0, failed = 0, anomaly = 0),
+                    allMeasurementsUploaded = true,
+                ),
+                onResultClick = {},
+            )
+        }
+    }
+}
+
+@PreviewLightDark
+@Composable
+fun ResultCellSelectedPreview() {
+    AppTheme {
+        ResultCell(
+            item = previewResultItem(
+                test = OoniTest.Websites,
+                counts = MeasurementCounts(done = 120, failed = 0, anomaly = 5),
+                allMeasurementsUploaded = true,
+            ),
+            onResultClick = {},
+            isSelected = true,
+            onSelectChange = {},
+        )
+    }
+}
+
+private fun previewResultItem(
+    test: OoniTest,
+    counts: MeasurementCounts,
+    isViewed: Boolean = false,
+    isDone: Boolean = true,
+    allMeasurementsUploaded: Boolean,
+    anyMeasurementUploadFailed: Boolean = false,
+    testKeys: List<TestKeysWithResultId>? = null,
+) = ResultListItem(
+    result = ResultModel(
+        id = ResultModel.Id(1),
+        isViewed = isViewed,
+        isDone = isDone,
+        taskOrigin = TaskOrigin.OoniRun,
+        descriptorName = test.key,
+        descriptorKey = null,
+        runId = null,
+    ),
+    descriptor = DescriptorItem(
+        descriptor = Descriptor(
+            id = Descriptor.Id(test.id),
+            name = test.key,
+        ),
+    ),
+    network = null,
+    measurementCounts = counts,
+    allMeasurementsUploaded = allMeasurementsUploaded,
+    anyMeasurementUploadFailed = anyMeasurementUploadFailed,
+    testKeys = testKeys,
+)
+
+private fun previewPerformanceTestKeys() =
+    listOf(
+        TestKeysWithResultId(
+            id = MeasurementModel.Id(1),
+            testName = TestType.Ndt.name,
+            testKeys = TestKeys(
+                summary = TestKeys.Summary(download = 45_300.0, upload = 12_800.0),
+            ),
+            resultId = ResultModel.Id(1),
+            descriptorName = null,
+            descriptorRunId = null,
+        ),
+        TestKeysWithResultId(
+            id = MeasurementModel.Id(2),
+            testName = TestType.Dash.name,
+            testKeys = TestKeys(
+                simple = TestKeys.Simple(medianBitrate = 6_000.0),
+            ),
+            resultId = ResultModel.Id(1),
+            descriptorName = null,
+            descriptorRunId = null,
+        ),
+    )

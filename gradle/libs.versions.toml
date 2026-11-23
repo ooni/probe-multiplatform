@@ -76,6 +76,7 @@ navigation-event = { module = "org.jetbrains.androidx.navigationevent:navigation
 window-size = { module = "org.jetbrains.compose.material3:material3-window-size-class", version = "1.9.0" }
 back-handler = { module = "org.jetbrains.compose.ui:ui-backhandler", version.ref = "compose-plugin" }
 dark-mode-detector = { module = "io.github.kdroidfilter:platformtools.darkmodedetector", version = "0.7.5" }
+material-kolor = { module = "com.materialkolor:material-kolor-material3", version = "6.0.0" }
 
 # Networking
 coil = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil" }
@@ -181,6 +182,7 @@ ui = [
     "window-size",
     "back-handler",
     "dark-mode-detector",
+    "material-kolor",
 ]
 tooling = [
     "kermit",
