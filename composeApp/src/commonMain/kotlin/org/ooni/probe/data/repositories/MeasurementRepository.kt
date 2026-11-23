@@ -1,5 +1,6 @@
 package org.ooni.probe.data.repositories
 
+import app.cash.sqldelight.Query
 import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
 import app.cash.sqldelight.coroutines.mapToOne
@@ -86,7 +87,7 @@ class MeasurementRepository(
                 filterByDescriptors = if (filterByDescriptors.any()) 1 else 0,
                 descriptorsKeys = filterByDescriptors.map { it.key },
             ).asFlow()
-            .mapToList(backgroundContext)
+            .mapToListWithTransaction(backgroundContext)
             .map { list -> list.mapNotNull { it.toModel() } }
 
     fun selectTestKeysByResultId(resultId: ResultModel.Id): Flow<List<TestKeysWithResultId>> =
@@ -94,7 +95,7 @@ class MeasurementRepository(
             .selectTestKeysByResultId(
                 resultId = resultId.value,
             ).asFlow()
-            .mapToList(backgroundContext)
+            .mapToListWithTransaction(backgroundContext)
             .map { list -> list.mapNotNull { it.toModel() } }
 
     fun getById(measurementId: MeasurementModel.Id) =
@@ -302,6 +303,15 @@ class MeasurementRepository(
             descriptorRunId = descriptor_runId?.let(Descriptor::Id),
         )
     }
+
+    fun <T : Any> Flow<Query<T>>.mapToListWithTransaction(context: CoroutineContext): Flow<List<T>> =
+        map { query ->
+            withContext(backgroundContext) {
+                // Read every cursor window from one consistent snapshot, so concurrent
+                // deletes can't shrink the result between window refills (NULL id crash)
+                database.transactionWithResult { query.executeAsList() }
+            }
+        }
 
     private fun decodeVerificationStatus(value: String): VerificationStatus? = runCatching { VerificationStatus.valueOf(value) }.getOrNull()
 
