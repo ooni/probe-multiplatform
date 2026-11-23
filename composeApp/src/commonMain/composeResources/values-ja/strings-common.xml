@@ -46,7 +46,6 @@
     <string name="Settings_Logs">ログ</string>
     <string name="Settings_Websites_Categories_Selection_All">すべて選択</string>
     <string name="Settings_Websites_CustomURL_URL">URL</string>
-    <string name="Settings_Websites_CustomURL_Run">実行</string>
     <string name="CategoryCode_SRCH_Name">検索エンジン</string>
     <string name="Onboarding_ThingsToKnow_Button">理解しました</string>
     <string name="Onboarding_ThingsToKnow_LearnMore">詳細情報</string>
@@ -150,7 +149,6 @@
         <item quantity="other">%1$d 件のウェブサイトを表示する</item>
     </plurals>
     <string name="Dashboard_RunV2_ExpiredTag">期限切れ</string>
-    <string name="Dashboard_RunV2_UpdatedTag">更新済み</string>
     <string name="Dashboard_RunV2_UpdateTag">更新</string>
     <string name="Dashboard_Runv2_Overview_LastUpdated">最終更新日: %1$s</string>
     <string name="Dashboard_Runv2_Overview_RejectedUpdate">拒否された更新</string>

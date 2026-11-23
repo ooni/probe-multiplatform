@@ -59,7 +59,6 @@
     <string name="Settings_Logs">Logger</string>
     <string name="Settings_Websites_Categories_Selection_All">Velg alt</string>
     <string name="Settings_Websites_CustomURL_URL">Nettadresse</string>
-    <string name="Settings_Websites_CustomURL_Run">Kjør</string>
     <string name="CategoryCode_ALDR_Name">Narkotika og alkohol</string>
     <string name="CategoryCode_REL_Name">Religion</string>
     <string name="CategoryCode_PORN_Name">Pornografi</string>

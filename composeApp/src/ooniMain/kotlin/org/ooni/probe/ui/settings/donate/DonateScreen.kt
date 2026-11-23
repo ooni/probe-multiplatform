@@ -36,6 +36,7 @@ import ooniprobe.composeapp.generated.resources.Settings_Donate_Action_Error
 import ooniprobe.composeapp.generated.resources.Settings_Donate_Action_Warning_ExternalBrowser
 import ooniprobe.composeapp.generated.resources.Settings_Donate_Heading
 import ooniprobe.composeapp.generated.resources.Settings_Donate_SubHeading
+import ooniprobe.composeapp.generated.resources.Settings_Donate_Support_Item_Analysis
 import ooniprobe.composeapp.generated.resources.Settings_Donate_Support_Item_OpenData
 import ooniprobe.composeapp.generated.resources.Settings_Donate_Support_Item_OpenSource
 import ooniprobe.composeapp.generated.resources.Settings_Donate_Support_Item_Research
@@ -150,6 +151,11 @@ fun DonateScreen(
                         Text(
                             bullet +
                                 stringResource(Res.string.Settings_Donate_Support_Item_OpenSource),
+                            modifier = Modifier.padding(bottom = 4.dp),
+                        )
+                        Text(
+                            bullet +
+                                stringResource(Res.string.Settings_Donate_Support_Item_Analysis),
                             modifier = Modifier.padding(bottom = 4.dp),
                         )
                         Text(

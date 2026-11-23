@@ -102,7 +102,6 @@
     <string name="Settings_Websites_Categories_Selection_All">Επιλογή όλων</string>
     <string name="Settings_Websites_CustomURL_Title">Επέλεξε ιστοσελίδες για έλεγχο</string>
     <string name="Settings_Websites_CustomURL_URL">URL</string>
-    <string name="Settings_Websites_CustomURL_Run">Εκτέλεση</string>
     <string name="Settings_Websites_CustomURL_Add">Προσθήκη ιστοσελίδας</string>
     <string name="CategoryCode_ALDR_Name">Ναρκωτικά &amp; αλκοόλ</string>
     <string name="CategoryCode_REL_Name">Θρησκεία</string>
@@ -313,7 +312,6 @@
     <string name="Dashboard_Stats_Empty">Εκτελέστε ελέγχους για να δείτε τα στατιστικά σας εδώ.</string>
     <string name="Dashboard_Articles_Title">Τα νέα του OONI</string>
     <string name="Dashboard_RunV2_ExpiredTag">ΕΛΗΞΕ</string>
-    <string name="Dashboard_RunV2_UpdatedTag">ΕΝΗΜΕΡΩΜΕΝΟ</string>
     <string name="Dashboard_RunV2_UpdateTag">ΕΝΗΜΕΡΩΣΗ</string>
     <string name="TestResults_Summary_Hero_Ethernet">Ethernet</string>
     <string name="TestResults_Summary_Hero_Usb">USB</string>

@@ -105,7 +105,6 @@
     <string name="Settings_Websites_Categories_Selection_All">انتخاب همه</string>
     <string name="Settings_Websites_CustomURL_Title">انتخاب وبسایت‌ها برای تست</string>
     <string name="Settings_Websites_CustomURL_URL">آدرس اینترنتی</string>
-    <string name="Settings_Websites_CustomURL_Run">اجرا</string>
     <string name="Settings_Websites_CustomURL_Add">افزودن وبسایت</string>
     <string name="CategoryCode_ALDR_Name">الکل و مواد مخدر</string>
     <string name="CategoryCode_REL_Name">دین</string>

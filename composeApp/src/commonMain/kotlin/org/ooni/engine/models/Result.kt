@@ -44,8 +44,6 @@ sealed class Result<out S, out F> {
 
     fun get(): S? = (this as? Success)?.value
 
-    fun getOrThrow(): S = get() ?: throw IllegalStateException("Result is not successful")
-
     fun getError(): F? = (this as? Failure)?.reason
 }
 

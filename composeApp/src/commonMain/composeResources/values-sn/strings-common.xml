@@ -32,7 +32,6 @@
     <string name="Settings_Storage_Delete">Dzima</string>
     <string name="Settings_Logs">Matarwa emakare</string>
     <string name="Settings_Websites_CustomURL_URL">URL</string>
-    <string name="Settings_Websites_CustomURL_Run">Shandisa</string>
     <string name="Onboarding_ThingsToKnow_Button">Ndanzwisisa</string>
     <string name="Onboarding_ThingsToKnow_LearnMore">Ziva zvizere</string>
     <string name="Onboarding_PopQuiz_True">Chokwadi</string>

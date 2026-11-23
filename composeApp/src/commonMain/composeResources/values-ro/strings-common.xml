@@ -86,7 +86,6 @@
     <string name="Settings_Websites_Categories_Selection_All">Selectare totală</string>
     <string name="Settings_Websites_CustomURL_Title">Alegeți site-uri web de testat</string>
     <string name="Settings_Websites_CustomURL_URL">URL</string>
-    <string name="Settings_Websites_CustomURL_Run">Executare</string>
     <string name="Settings_Websites_CustomURL_Add">Adăugare website</string>
     <string name="CategoryCode_ALDR_Name">Droguri și alcool</string>
     <string name="CategoryCode_REL_Name">Religie</string>

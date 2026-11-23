@@ -20,7 +20,6 @@
     <string name="Dashboard_Runv2_Overview_PreviousRevisions">আগের সংশোধনী</string>
     <string name="Dashboard_Runv2_Overview_SeeMore">আরও দেখুন</string>
     <string name="Dashboard_RunV2_ExpiredTag">মেয়াদোত্তীর্ণ</string>
-    <string name="Dashboard_RunV2_UpdatedTag">হালনাগাদকৃত</string>
     <string name="Dashboard_RunV2_UpdateTag">আপডেট</string>
     <string name="Dashboard_Runv2_Overview_LastUpdated">সর্বশেষ হালনাগাদ %1$s</string>
     <string name="Dashboard_Runv2_Overview_RejectedUpdate">অনুনোমোদিত আপডেট</string>
@@ -83,7 +82,6 @@
     <string name="Settings_Logs">লগ</string>
     <string name="Settings_Websites_Categories_Selection_All">সব নির্বাচন করুন</string>
     <string name="Settings_Websites_CustomURL_URL">URL</string>
-    <string name="Settings_Websites_CustomURL_Run">চালনা</string>
     <string name="Settings_Websites_CustomURL_Add">ওয়েবসাইট যোগ করুন</string>
     <string name="CategoryCode_COMM_Name">ই-কমার্স</string>
     <string name="CategoryCode_MISC_Name">বিবিধ বিষয়বস্তু</string>

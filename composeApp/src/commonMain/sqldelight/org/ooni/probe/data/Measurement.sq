@@ -74,13 +74,6 @@ AND Measurement.is_uploaded = 0
 AND (:filterByResultId = 0 OR Measurement.result_id = :resultId)
 ORDER BY Measurement.start_time ASC;
 
-selectByResultRunId:
-SELECT * FROM Measurement
-WHERE Measurement.result_id IN (
-    SELECT Result.id FROM Result
-    WHERE Result.descriptor_runId = ?
-);
-
 selectWithoutResult:
 SELECT * FROM Measurement
 WHERE Measurement.id IN (

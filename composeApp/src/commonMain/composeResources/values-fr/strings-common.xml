@@ -56,7 +56,6 @@
         <item quantity="other">Afficher les %1$d sites Web</item>
     </plurals>
     <string name="Dashboard_RunV2_ExpiredTag">EXPIRÉ</string>
-    <string name="Dashboard_RunV2_UpdatedTag">MIS À JOUR</string>
     <string name="Dashboard_RunV2_UpdateTag">MISE À JOUR</string>
     <string name="Dashboard_Runv2_Overview_LastUpdated">Dernière mise à jour le %1$s</string>
     <string name="Dashboard_Runv2_Overview_RejectedUpdate">Mise à jour refusée</string>
@@ -259,7 +258,6 @@
     <string name="Settings_Websites_Categories_Selection_All">Tout sélectionner</string>
     <string name="Settings_Websites_CustomURL_Title">Choisir les sites Web à tester</string>
     <string name="Settings_Websites_CustomURL_URL">URL</string>
-    <string name="Settings_Websites_CustomURL_Run">Lancer</string>
     <string name="Settings_Websites_CustomURL_Add">Ajouter le site Web</string>
     <plurals name="CustomWebsites_Fab_Text">
         <item quantity="one">Tester %1$d URL</item>

@@ -51,7 +51,6 @@
         <item quantity="other">%1$d sitenin tümünü görüntüle</item>
     </plurals>
     <string name="Dashboard_RunV2_ExpiredTag">SÜRESİ GEÇMİŞ</string>
-    <string name="Dashboard_RunV2_UpdatedTag">GÜNCELLENDİ</string>
     <string name="Dashboard_RunV2_UpdateTag">GÜNCELLE</string>
     <string name="Dashboard_Runv2_Overview_LastUpdated">Son güncellenme: %1$s</string>
     <string name="Dashboard_Runv2_Overview_RejectedUpdate">Güncelleme reddedildi</string>
@@ -243,7 +242,6 @@
     <string name="Settings_Websites_Categories_Selection_All">Tümünü seç</string>
     <string name="Settings_Websites_CustomURL_Title">Sınanacak siteleri seçin</string>
     <string name="Settings_Websites_CustomURL_URL">Adres</string>
-    <string name="Settings_Websites_CustomURL_Run">Çalıştır</string>
     <string name="Settings_Websites_CustomURL_Add">Site ekle</string>
     <plurals name="CustomWebsites_Fab_Text">
         <item quantity="one">%1$d adresi sına</item>

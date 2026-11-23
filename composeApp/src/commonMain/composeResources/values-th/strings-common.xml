@@ -94,7 +94,6 @@
     <string name="Settings_Websites_Categories_Selection_All">เลือกทั้งหมด</string>
     <string name="Settings_Websites_CustomURL_Title">เลือกเว็บไซต์เพื่อทดสอบ</string>
     <string name="Settings_Websites_CustomURL_URL">URL</string>
-    <string name="Settings_Websites_CustomURL_Run">เริ่มทดสอบ</string>
     <string name="Settings_Websites_CustomURL_Add">เพิ่มเว็บไซต์</string>
     <string name="CategoryCode_ALDR_Name">ยาเสพติดและแอลกอฮอล์</string>
     <string name="CategoryCode_REL_Name">ศาสนา</string>

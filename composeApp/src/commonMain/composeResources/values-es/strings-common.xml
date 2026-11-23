@@ -25,7 +25,6 @@
     <string name="Dashboard_Runv2_Overview_UninstallLink">Enlace de Desinstalación</string>
     <string name="Dashboard_Runv2_Overview_SeeMore">Ver más</string>
     <string name="Dashboard_RunV2_ExpiredTag">EXPIRED</string>
-    <string name="Dashboard_RunV2_UpdatedTag">UPDATED</string>
     <string name="Dashboard_RunV2_UpdateTag">ACTUALIZACIÓN</string>
     <string name="Dashboard_Runv2_Overview_RejectedUpdate">Actualización rechazada</string>
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Deshacer</string>
@@ -173,7 +172,6 @@
     <string name="Settings_Websites_Categories_Selection_All">Seleccionar todos</string>
     <string name="Settings_Websites_CustomURL_Title">Elige sitios web a probar</string>
     <string name="Settings_Websites_CustomURL_URL">URL</string>
-    <string name="Settings_Websites_CustomURL_Run">Ejecutar</string>
     <string name="Settings_Websites_CustomURL_Add">Añadir sitio web</string>
     <plurals name="CustomWebsites_Fab_Text">
         <item quantity="one">Probar %1$d URL</item>

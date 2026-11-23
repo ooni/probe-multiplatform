@@ -51,7 +51,6 @@
     <string name="Settings_Logs">Dnevniške datoteke</string>
     <string name="Settings_Websites_Categories_Selection_All">Izberite vse</string>
     <string name="Settings_Websites_CustomURL_URL">URL</string>
-    <string name="Settings_Websites_CustomURL_Run">Poženi</string>
     <string name="CategoryCode_PUBH_Name">Javno zdravstvo</string>
     <string name="CategoryCode_GMB_Name">Igralništvo</string>
     <string name="CategoryCode_DATE_Name">Spletni zmenki</string>

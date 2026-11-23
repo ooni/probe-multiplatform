@@ -59,7 +59,6 @@
         <item quantity="other">See all %1$d websites</item>
     </plurals>
     <string name="Dashboard_RunV2_ExpiredTag">EXPIRED</string>
-    <string name="Dashboard_RunV2_UpdatedTag">UPDATED</string>
     <string name="Dashboard_RunV2_UpdateTag">UPDATE</string>
     <!-- Example: Last updated January 1st, 2020 -->
     <string name="Dashboard_Runv2_Overview_LastUpdated">Last updated %1$s</string>
@@ -299,7 +298,6 @@
     <string name="Settings_Websites_Categories_Selection_All">Select All</string>
     <string name="Settings_Websites_CustomURL_Title">Choose websites to test</string>
     <string name="Settings_Websites_CustomURL_URL">URL</string>
-    <string name="Settings_Websites_CustomURL_Run">Run</string>
     <string name="Settings_Websites_CustomURL_Add">Add website</string>
     <plurals name="CustomWebsites_Fab_Text">
         <item quantity="one">Test %1$d URL</item>

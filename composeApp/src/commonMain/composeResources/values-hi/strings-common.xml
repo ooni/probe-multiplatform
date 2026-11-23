@@ -86,7 +86,6 @@
     <string name="Settings_Websites_Categories_Selection_All">सब कुछ चुने</string>
     <string name="Settings_Websites_CustomURL_Title">परीक्षण करने के लिए वेबसाइटों का चयन करें</string>
     <string name="Settings_Websites_CustomURL_URL">यूआरएल</string>
-    <string name="Settings_Websites_CustomURL_Run">चलाना</string>
     <string name="Settings_Websites_CustomURL_Add">वेबसाइट जोड़ें</string>
     <string name="CategoryCode_ALDR_Name">ड्रग्स और शराब</string>
     <string name="CategoryCode_REL_Name">धर्म</string>

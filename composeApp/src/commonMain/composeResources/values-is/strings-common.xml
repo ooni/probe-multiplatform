@@ -13,7 +13,6 @@
     <string name="Dashboard_RunV2_Ooni_Title">OONI prófanir</string>
     <string name="Dashboard_RunV2_Title">OONI Run tenglar</string>
     <string name="Dashboard_RunV2_ExpiredTag">EXPIRED</string>
-    <string name="Dashboard_RunV2_UpdatedTag">UPDATED</string>
     <string name="Dashboard_RunV2_UpdateTag">UPPFÆRSLA</string>
     <string name="Dashboard_Runv2_Overview_RejectedUpdate">Hafnaði uppfærslu</string>
     <string name="Dashboard_Runv2_Overview_UndoRejectedUpdate">Afturkalla</string>
@@ -106,7 +105,6 @@
     <string name="Settings_Websites_Categories_Selection_All">Velja allt</string>
     <string name="Settings_Websites_CustomURL_Title">Veldu vefsvæði til að prófa</string>
     <string name="Settings_Websites_CustomURL_URL">Slóð</string>
-    <string name="Settings_Websites_CustomURL_Run">Keyra</string>
     <string name="Settings_Websites_CustomURL_Add">Bæta við vefsvæði</string>
     <string name="CategoryCode_ALDR_Name">Áfengi og lyf</string>
     <string name="CategoryCode_REL_Name">Trúarbrögð</string>

@@ -55,12 +55,6 @@ interface OonimkallBridge {
         val measurementUid: String?,
     )
 
-    data class UrlInfo(
-        val url: String,
-        val categoryCode: String?,
-        val countryCode: String?,
-    )
-
     data class HTTPRequest(
         val method: String,
         val url: String,

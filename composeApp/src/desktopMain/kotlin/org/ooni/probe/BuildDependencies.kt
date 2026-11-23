@@ -199,11 +199,6 @@ private fun buildResolverTypeFinder(
         DefaultResolverTypeFinder(networkTypeFinder)
     }
 
-private fun formatBytes(bytes: Long): String {
-    val gib = bytes.toDouble() / (1024 * 1024 * 1024)
-    return "%.1f GiB".format(gib)
-}
-
 internal fun launchAction(action: PlatformAction): Boolean =
     when (action) {
         is PlatformAction.FileSharing -> shareFile(action)

@@ -35,7 +35,6 @@
         <item quantity="other">Посмотреть сайты %1$d</item>
     </plurals>
     <string name="Dashboard_RunV2_ExpiredTag">УСТАРЕЛА</string>
-    <string name="Dashboard_RunV2_UpdatedTag">ОБНОВЛЕНА</string>
     <string name="Dashboard_RunV2_UpdateTag">ОБНОВИТЬ</string>
     <string name="Dashboard_Runv2_Overview_LastUpdated">Последний раз обновлено %1$s</string>
     <string name="Dashboard_Runv2_Overview_RejectedUpdate">Отмененное обновление</string>
@@ -196,7 +195,6 @@
     <string name="Settings_Websites_Categories_Selection_All">Выбрать все</string>
     <string name="Settings_Websites_CustomURL_Title">Выберите сайты для тестирования</string>
     <string name="Settings_Websites_CustomURL_URL">URL</string>
-    <string name="Settings_Websites_CustomURL_Run">Запустить</string>
     <string name="Settings_Websites_CustomURL_Add">Добавить сайт</string>
     <plurals name="CustomWebsites_Fab_Text">
         <item quantity="one">Протестировать %1$d ссылку</item>
