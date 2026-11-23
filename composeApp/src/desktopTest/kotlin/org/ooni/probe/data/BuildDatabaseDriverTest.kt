@@ -56,6 +56,19 @@ class BuildDatabaseDriverTest {
     }
 
     @Test
+    fun foreignKeysAreDisabled() {
+        val foreignKeys = driver
+            .executeQuery(
+                null,
+                "PRAGMA foreign_keys;",
+                { cursor -> QueryResult.Value(cursor.getLong(0)) },
+                0,
+                null,
+            ).value
+        assertEquals(0L, foreignKeys)
+    }
+
+    @Test
     fun databaseSchemaIsCreated() {
         val version = driver
             .executeQuery(
