@@ -78,6 +78,13 @@ jobs:
       - name: Run common tests
         run: ./gradlew copyBrandingToCommonResources :composeApp:desktopTest -Porganization=${{ matrix.organization }}
 
+      - name: Publish Test Summary
+        if: always()
+        uses: ./.github/actions/publish-test-summary
+        with:
+          title: 'Common Tests Summary (${{ matrix.organization }})'
+          results_dirs: 'composeApp/build/test-results/desktopTest'
+
       - name: Uploads test reports
         uses: actions/upload-artifact@v7
         if: failure()
