@@ -3,6 +3,7 @@ package org.ooni.probe.ui.descriptor
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.selection.toggleable
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
@@ -10,6 +11,9 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Switch
+import androidx.compose.material3.Icon
+import ooniprobe.composeapp.generated.resources.Descriptor_Edit
+import org.jetbrains.compose.resources.painterResource
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -31,6 +35,7 @@ import ooniprobe.composeapp.generated.resources.Dashboard_Runv2_Overview_Uninsta
 import ooniprobe.composeapp.generated.resources.Dashboard_Runv2_Overview_Uninstall_Prompt
 import ooniprobe.composeapp.generated.resources.Modal_Cancel
 import ooniprobe.composeapp.generated.resources.Modal_CustomURL_Title_NotSaved
+import ooniprobe.composeapp.generated.resources.fa_pen_nib
 import ooniprobe.composeapp.generated.resources.Res
 import org.jetbrains.compose.resources.stringResource
 import org.ooni.probe.data.models.Descriptor
@@ -40,6 +45,7 @@ fun InstalledDescriptorActionsView(
     descriptor: Descriptor,
     onEvent: (DescriptorViewModel.Event) -> Unit,
     modifier: Modifier,
+    canEdit: Boolean,
 ) {
     var showDialog by remember { mutableStateOf(false) }
 
@@ -127,6 +133,22 @@ fun InstalledDescriptorActionsView(
         }
 
         Row {
+            if (canEdit) {
+                OutlinedButton(
+                    onClick = { onEvent(DescriptorViewModel.Event.EditClicked) },
+                    modifier = Modifier.padding(end = 8.dp),
+                ) {
+                    Icon(
+                        painterResource(Res.drawable.fa_pen_nib),
+                        contentDescription = null,
+                        modifier = Modifier
+                            .padding(end = ButtonDefaults.IconSpacing)
+                            .size(ButtonDefaults.IconSize),
+                    )
+                    Text(text = stringResource(Res.string.Descriptor_Edit))
+                }
+            }
+
             if (descriptor.isOoniDescriptor.not()) {
                 Button(
                     onClick = { showDialog = true },
