@@ -22,13 +22,16 @@ fun buildDatabaseDriver(folder: String): SqlDriver {
     val properties = Properties().apply {
         put("journal_mode", "wal")
         put("busy_timeout", "5000")
-        put("foreign_keys", "on")
+        // TODO: Temporarily disabled (matching Android/iOS) because deletes violate
+        //  foreign key constraints. Re-enable once deletes handle dependent rows.
+        put("foreign_keys", "off")
     }
     val driver = JdbcSqliteDriver("jdbc:sqlite:$databasePath", properties)
 
     // Ensure PRAGMAs are active regardless of sqlite-jdbc Properties support
     driver.execute(null, "PRAGMA journal_mode=WAL;", 0, null)
     driver.execute(null, "PRAGMA busy_timeout=5000;", 0, null)
+    driver.execute(null, "PRAGMA foreign_keys=OFF;", 0, null)
 
     val dbVersion = driver.getDatabaseVersion()
     val schemaVersion = Database.Schema.version
