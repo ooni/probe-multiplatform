@@ -11,11 +11,12 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  instrumentation-tests:
-    name: Run Android Instrumented Tests
+  firebase-instrumentation-tests:
+    name: Firebase Test Lab (${{ matrix.license }} - ${{ matrix.organization }})
     runs-on: macos-latest
 
     strategy:
+      fail-fast: false
       matrix:
         license: [ full, fdroid ]
         organization: [ ooni, dw ]
@@ -68,3 +69,57 @@ jobs:
           --environment-variables clearPackageData=true
           --project ooniprobe-android
           --test-targets "package org.ooni.probe.uitesting"
+
+  emulator-instrumentation-tests:
+    name: Android Emulator Runner (${{ matrix.license }} - ${{ matrix.organization }})
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        license: [ full, fdroid ]
+        organization: [ ooni, dw ]
+        exclude:
+          - license: fdroid
+            organization: dw
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Enable KVM virtualization
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm-rules.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+
+      - name: Setup
+        uses: ./.github/actions/setup
+
+      - name: Create .sentryclirc
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+        run: |
+          echo "[auth]" > ~/.sentryclirc
+          echo "token=$SENTRY_AUTH_TOKEN" >> ~/.sentryclirc
+
+      - name: Run Android Instrumented Tests on Emulator
+        uses: ReactiveCircus/android-emulator-runner@v2
+        with:
+          api-level: 29
+          target: google_apis
+          arch: x86_64
+          profile: pixel_6
+          disable-animations: true
+          emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim
+          script: ./gradlew copyBrandingToCommonResources connected${{ matrix.license }}DebugAndroidTest -Porganization=${{ matrix.organization }} -Pandroid.testInstrumentationRunnerArguments.package=org.ooni.probe.uitesting
+
+      - name: Upload Test Reports
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: emulator-test-report-${{ matrix.license }}-${{ matrix.organization }}
+          path: |
+            androidApp/build/reports/androidTests/connected/
+            androidApp/build/outputs/androidTest-results/
+          retention-days: 7
+
