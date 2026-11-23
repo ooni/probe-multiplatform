@@ -1,0 +1,26 @@
+name: 'Publish Test Summary'
+description: 'Parse JUnit report XML files and publish a formatted summary to GitHub Job Summary'
+
+inputs:
+  title:
+    description: 'Title for the test summary section'
+    required: false
+    default: 'Test Summary'
+  results_dirs:
+    description: 'Comma-separated list of directories containing JUnit XML result files'
+    required: false
+    default: 'composeApp/build/test-results/desktopTest'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Publish Test Summary
+      if: always()
+      uses: actions/github-script@v8
+      env:
+        SUMMARY_TITLE: ${{ inputs.title }}
+        RESULTS_DIRS: ${{ inputs.results_dirs }}
+      with:
+        script: |
+          const script = require('${{ github.action_path }}/publish-summary.js');
+          await script({ core });
