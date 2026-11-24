@@ -14,9 +14,11 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
 import androidx.core.net.toUri
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.compose.rememberNavController
 import co.touchlab.kermit.Logger
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.launch
 import org.ooni.probe.config.AndroidUpdateMonitoring
 import org.ooni.probe.config.OrganizationConfig
 import org.ooni.probe.config.UpdateMonitoring
@@ -66,6 +68,10 @@ class MainActivity : ComponentActivity() {
     override fun onResume() {
         super.onResume()
         updateMonitoring.onResume(this)
+        // Opening the app resets the system's limit
+        lifecycleScope.launch {
+            app.dependencies.backgroundWorkLimit.reset()
+        }
     }
 
     override fun onNewIntent(intent: Intent) {

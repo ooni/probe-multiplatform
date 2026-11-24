@@ -60,6 +60,8 @@ class RunWorker(
 
     private val stopRunReceiver by lazy { StopRunReceiver() }
 
+    private val backgroundWorkLimit by lazy { dependencies.backgroundWorkLimit }
+
     override suspend fun getForegroundInfo(): ForegroundInfo {
         buildNotificationChannelIfNeeded()
         val notification = buildNotification(RunBackgroundState.RunningTests())
@@ -68,6 +70,12 @@ class RunWorker(
 
     override suspend fun doWork(): Result {
         Logger.i("Run Worker: start")
+        // Bail out before setForeground
+        if (backgroundWorkLimit.isExhausted()) {
+            Logger.i("Run Worker: skipped, background work limit still exhausted")
+            return Result.failure()
+        }
+
         try {
             setForeground(getForegroundInfo())
         } catch (e: IllegalStateException) {
@@ -81,13 +89,12 @@ class RunWorker(
 
         try {
             registerReceiver()
-            work()
+            runStoppable(onStopped = ::onStoppedBySystem) { work() }
         } catch (_: CancellationException) {
+            // Fallback; no-op if onStoppedBySystem already interrupted the engine
+            cancelCurrentTest()
             if (isStopped) {
-                Logger.w(
-                    "Run Worker: early stop",
-                    EarlyStop(if (Build.VERSION.SDK_INT >= 31) stopReason else null),
-                )
+                Logger.w("Run Worker: early stop", EarlyStop(stopReasonOrNull()))
             } else {
                 Logger.i("Run Worker: cancelled")
             }
@@ -98,6 +105,12 @@ class RunWorker(
             Logger.i("Run Worker: finished")
         }
         return Result.success()
+    }
+
+    private fun onStoppedBySystem() {
+        backgroundWorkLimit.markReachedIfNeeded("Run Worker", stopReasonOrNull())
+        // Don't wait for the engine's next event, or the service may not stop in time
+        cancelCurrentTest()
     }
 
     private suspend fun work() {

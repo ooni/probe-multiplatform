@@ -33,6 +33,7 @@ class DescriptorUpdateWorker(
     private val dependencies by lazy { (appContext as AndroidApplication).dependencies }
     private val json by lazy { dependencies.json }
     private val testDescriptorRepository by lazy { dependencies.testDescriptorRepository }
+    private val backgroundWorkLimit by lazy { dependencies.backgroundWorkLimit }
     private val notificationManager by lazy {
         appContext.getSystemService(NotificationManager::class.java)
     }
@@ -56,6 +57,12 @@ class DescriptorUpdateWorker(
 
     override suspend fun doWork(): Result {
         Logger.i("DescriptorUpdateWorker: start")
+        // Bail out before setForeground
+        if (backgroundWorkLimit.isExhausted()) {
+            Logger.i("DescriptorUpdateWorker: skipped, background work limit still exhausted")
+            return Result.failure()
+        }
+
         try {
             setForeground(getForegroundInfo())
         } catch (e: IllegalStateException) {
@@ -69,7 +76,9 @@ class DescriptorUpdateWorker(
 
         return try {
             val descriptors = getDescriptors() ?: return Result.failure()
-            val outcome = dependencies.fetchDescriptorsUpdates(descriptors)
+            val outcome = runStoppable(onStopped = ::onStoppedBySystem) {
+                dependencies.fetchDescriptorsUpdates(descriptors)
+            }
 
             if (outcome.shouldRetry(runAttemptCount)) {
                 Logger.i(
@@ -83,10 +92,7 @@ class DescriptorUpdateWorker(
             Result.success(buildWorkData(descriptors.map { it.id }))
         } catch (e: CancellationException) {
             if (isStopped) {
-                Logger.w(
-                    "DescriptorUpdateWorker: early stop",
-                    EarlyStop(if (Build.VERSION.SDK_INT >= 31) stopReason else null),
-                )
+                Logger.w("DescriptorUpdateWorker: early stop", EarlyStop(stopReasonOrNull()))
             } else {
                 Logger.w("DescriptorUpdateWorker: cancelled", e)
             }
@@ -94,6 +100,10 @@ class DescriptorUpdateWorker(
         } finally {
             Logger.i("DescriptorUpdateWorker: finished")
         }
+    }
+
+    private fun onStoppedBySystem() {
+        backgroundWorkLimit.markReachedIfNeeded("DescriptorUpdateWorker", stopReasonOrNull())
     }
 
     private suspend fun getDescriptors(): List<Descriptor>? {
