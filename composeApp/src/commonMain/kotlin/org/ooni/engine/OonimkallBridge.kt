@@ -3,6 +3,10 @@ package org.ooni.engine
 import okio.Closeable
 
 interface OonimkallBridge {
+    fun engineName(): String
+
+    fun engineVersion(): String
+
     @Throws(Exception::class)
     fun startTask(settingsSerialized: String): Task
 

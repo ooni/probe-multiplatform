@@ -634,6 +634,8 @@ class Dependencies(
             passportAuthSubmit = passportBridge::userAuthSubmit,
             getProxyOption = proxyManager::selected,
             getProtocolVersion = passportBridge::getProtocolVersion,
+            getEngineVersion = oonimkallBridge::engineVersion,
+            getEngineName = oonimkallBridge::engineName,
             backgroundContext = backgroundContext,
             isOnline = connectivityMonitor::isOnline,
             platform = platformInfo.platform,

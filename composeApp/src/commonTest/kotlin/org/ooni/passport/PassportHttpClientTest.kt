@@ -72,6 +72,8 @@ class PassportHttpClientTest {
                     flowOf(ProxyOption.None)
                 },
                 getProtocolVersion = { "" },
+                getEngineVersion = { "3.17.2" },
+                getEngineName = { "ooniprobe-engine" },
                 backgroundContext = RecordingDispatcher(),
                 isOnline = { false },
             )
@@ -146,8 +148,16 @@ class PassportHttpClientTest {
 
             subject.post("https://api.ooni.org/api/v1/check-in", "{}")
 
+            val expectedUserAgent = buildUserAgent(
+                softwareName = "ooniprobe",
+                platform = Platform.Android,
+                engineVersion = "3.17.2",
+            )
             assertEquals(
-                listOf(PassportBridge.KeyValue("Content-Type", "application/json")),
+                listOf(
+                    PassportBridge.KeyValue("X-OO-User-Agent", expectedUserAgent),
+                    PassportBridge.KeyValue("Content-Type", "application/json"),
+                ),
                 bridge.lastHeaders,
             )
         }
@@ -173,15 +183,17 @@ class PassportHttpClientTest {
 
             subject.get("https://example.org")
 
-            assertEquals(emptyList(), bridge.lastHeaders)
-            assertEquals(
-                buildUserAgent(
-                    softwareName = "ooniprobe",
-                    platform = Platform.Android,
-                    protocolVersion = "1.2.3",
-                ),
-                bridge.lastUserAgent,
+            val expectedUserAgent = buildUserAgent(
+                softwareName = "ooniprobe",
+                platform = Platform.Android,
+                engineVersion = "3.17.2",
+                protocolVersion = "1.2.3",
             )
+            assertEquals(
+                listOf(PassportBridge.KeyValue("X-OO-User-Agent", expectedUserAgent)),
+                bridge.lastHeaders,
+            )
+            assertEquals(expectedUserAgent, bridge.lastUserAgent)
         }
 
     @Test
@@ -192,15 +204,17 @@ class PassportHttpClientTest {
 
             subject.get("https://example.org")
 
-            assertEquals(emptyList(), bridge.lastHeaders)
-            assertEquals(
-                buildUserAgent(
-                    softwareName = "ooniprobe",
-                    platform = Platform.Android,
-                    protocolVersion = "",
-                ),
-                bridge.lastUserAgent,
+            val expectedUserAgent = buildUserAgent(
+                softwareName = "ooniprobe",
+                platform = Platform.Android,
+                engineVersion = "3.17.2",
+                protocolVersion = "",
             )
+            assertEquals(
+                listOf(PassportBridge.KeyValue("X-OO-User-Agent", expectedUserAgent)),
+                bridge.lastHeaders,
+            )
+            assertEquals(expectedUserAgent, bridge.lastUserAgent)
         }
 
     private fun subject(
@@ -208,6 +222,8 @@ class PassportHttpClientTest {
         isOnline: Boolean,
         proxy: ProxyOption = ProxyOption.None,
         protocolVersion: String = "",
+        engineVersion: String = "3.17.2",
+        engineName: String = "ooniprobe-engine",
         softwareName: String = "ooniprobe",
         platform: Platform = Platform.Android,
         backgroundContext: CoroutineContext = RecordingDispatcher(),
@@ -218,6 +234,8 @@ class PassportHttpClientTest {
         passportAuthSubmit = bridge,
         getProxyOption = { flowOf(proxy) },
         getProtocolVersion = { protocolVersion },
+        getEngineVersion = { engineVersion },
+        getEngineName = { engineName },
         backgroundContext = backgroundContext,
         isOnline = { isOnline },
         softwareName = softwareName,

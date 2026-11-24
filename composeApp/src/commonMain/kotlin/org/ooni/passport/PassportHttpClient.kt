@@ -33,6 +33,8 @@ class PassportHttpClient(
     private val passportAuthSubmit: PassportAuthSubmit,
     private val getProxyOption: () -> Flow<ProxyOption>,
     private val getProtocolVersion: () -> String,
+    private val getEngineVersion: () -> String,
+    private val getEngineName: () -> String,
     private val backgroundContext: CoroutineContext,
     private val isOnline: () -> Boolean,
     private val softwareName: String = OrganizationConfig.baseSoftwareName,
@@ -49,7 +51,9 @@ class PassportHttpClient(
         val protocolVersion = getProtocolVersion().takeIf { it.isNotEmpty() }
         return buildUserAgent(
             softwareName = softwareName,
+            engineName = getEngineName(),
             platform = platform,
+            engineVersion = getEngineVersion(),
             protocolVersion = protocolVersion,
         )
     }

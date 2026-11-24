@@ -23,6 +23,10 @@ class TestOonimkallBridge : OonimkallBridge {
 
     // Base implementation
 
+    override fun engineName(): String = "ooniprobe-engine"
+
+    override fun engineVersion(): String = "3.17.2"
+
     override fun startTask(settingsSerialized: String): OonimkallBridge.Task {
         lastStartTaskSettingsSerialized = settingsSerialized
         return object : OonimkallBridge.Task {

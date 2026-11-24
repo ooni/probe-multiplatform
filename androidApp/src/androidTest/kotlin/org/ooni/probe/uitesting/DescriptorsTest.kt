@@ -35,6 +35,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.ooni.engine.models.Success
+import org.ooni.passport.PassportGet
 import org.ooni.passport.models.PassportHttpResponse
 import org.ooni.probe.MainActivity
 import org.ooni.probe.uitesting.helpers.TestFixtures
@@ -78,7 +79,7 @@ class DescriptorsTest {
     private fun installDescriptorFixtures() {
         descriptorUpdatePublished = false
         setupMockedEngine()
-        dependencies.passportGet = { url, _, _, _, _ ->
+        dependencies.passportGet = PassportGet { url, _, _, _, _, _ ->
             when {
                 url.endsWith(TestFixtures.DESCRIPTOR_REVISIONS_PATH) ->
                     Success(
