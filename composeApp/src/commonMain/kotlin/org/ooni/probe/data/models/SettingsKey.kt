@@ -87,4 +87,7 @@ enum class SettingsKey(
     LAST_WORKING_UPDATE_FEED_INDEX("last_working_update_feed_index"),
 
     CLEAR_LEGACY_DIRECTORIES("clear_legacy_directories"),
+
+    // Android: when a worker hit the foreground service time limit
+    BACKGROUND_WORK_LIMIT_REACHED_AT("background_work_limit_reached_at"),
 }

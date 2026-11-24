@@ -58,6 +58,7 @@ import org.ooni.probe.data.repositories.PreferenceRepository
 import org.ooni.probe.data.repositories.ResultRepository
 import org.ooni.probe.data.repositories.TestDescriptorRepository
 import org.ooni.probe.data.repositories.UrlRepository
+import org.ooni.probe.domain.BackgroundWorkLimit
 import org.ooni.probe.domain.BootstrapPreferences
 import org.ooni.probe.domain.BuildCheckInRequest
 import org.ooni.probe.domain.CheckAutoRunConstraints
@@ -331,6 +332,13 @@ class Dependencies(
         AcceptDescriptorUpdate(
             saveTestDescriptors = saveTestDescriptors::invoke,
             updateState = descriptorUpdateStateManager::update,
+        )
+    }
+    val backgroundWorkLimit by lazy {
+        BackgroundWorkLimit(
+            getPreference = preferenceRepository::getValueByKey,
+            setPreference = preferenceRepository::setValueByKey,
+            removePreference = preferenceRepository::remove,
         )
     }
     val bootstrapPreferences by lazy {

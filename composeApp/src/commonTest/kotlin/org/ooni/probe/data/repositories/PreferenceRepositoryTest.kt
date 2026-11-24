@@ -80,6 +80,7 @@ class PreferenceRepositoryTest {
                 SettingsKey.LAST_ARTICLES_REFRESH,
                 SettingsKey.LAST_ARTICLES_REFRESH_ATTEMPT,
                 SettingsKey.MMDB_LAST_CHECK,
+                SettingsKey.BACKGROUND_WORK_LIMIT_REACHED_AT,
             )
 
             timestampKeys.forEach { key ->
