@@ -4,11 +4,9 @@ import org.ooni.engine.models.Failure
 import org.ooni.engine.models.Result
 import org.ooni.engine.models.Success
 import org.ooni.passport.models.CredentialResponse
-import org.ooni.passport.models.SubmitCredentialConfig
 import org.ooni.passport.models.PassportException
 import org.ooni.passport.models.PassportHttpResponse
-import org.ooni.probe.config.OrganizationConfig
-import org.ooni.probe.shared.Platform
+import org.ooni.passport.models.SubmitCredentialConfig
 import uniffi.ooniprobe.CredentialResult
 import uniffi.ooniprobe.HttpResponse
 import uniffi.ooniprobe.KeyValue
@@ -18,17 +16,14 @@ import uniffi.ooniprobe.clientPost
 import uniffi.ooniprobe.userauthRegister
 import uniffi.ooniprobe.userauthSubmit
 
-class DesktopPassportBridge(
-    platform: Platform,
-) : PassportBridge {
-    private val userAgent = passportUserAgent(platform, OrganizationConfig.baseSoftwareName)
-
+class DesktopPassportBridge : PassportBridge {
     override fun get(
         url: String,
         headers: List<PassportBridge.KeyValue>,
         query: List<PassportBridge.KeyValue>,
         proxy: String?,
         timeout: Float?,
+        userAgent: String?,
     ): Result<PassportHttpResponse, PassportException> =
         try {
             val response = clientGet(
@@ -52,6 +47,7 @@ class DesktopPassportBridge(
         payload: String,
         proxy: String?,
         timeout: Float?,
+        userAgent: String?,
     ): Result<PassportHttpResponse, PassportException> =
         try {
             val response = clientPost(
@@ -76,6 +72,7 @@ class DesktopPassportBridge(
         manifestVersion: String,
         proxy: String?,
         timeout: Float?,
+        userAgent: String?,
     ): Result<CredentialResponse, PassportException> =
         try {
             val result = userauthRegister(
@@ -103,6 +100,7 @@ class DesktopPassportBridge(
         proxy: String?,
         timeout: Float?,
         credentialConfig: SubmitCredentialConfig?,
+        userAgent: String?,
     ): Result<CredentialResponse, PassportException> =
         try {
             val result = userauthSubmit(

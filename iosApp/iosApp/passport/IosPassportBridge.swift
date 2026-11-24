@@ -1,14 +1,13 @@
 import composeApp
 
 class IosPassportBridge: PassportBridge {
-    private let userAgent = IosPassportBridgeHelpersKt.iosPassportUserAgent()
-
     func get(
         url: String,
         headers: [PassportBridgeKeyValue],
         query: [PassportBridgeKeyValue],
         proxy: String?,
-        timeout: KotlinFloat?
+        timeout: KotlinFloat?,
+        userAgent: String?
     ) -> Result<PassportHttpResponse, PassportException> {
         do {
             let response = try clientGet(
@@ -29,7 +28,14 @@ class IosPassportBridge: PassportBridge {
         }
     }
 
-    func post(url: String, headers: [PassportBridgeKeyValue], payload: String, proxy: String?, timeout: KotlinFloat?) -> Result<PassportHttpResponse, PassportException> {
+    func post(
+        url: String,
+        headers: [PassportBridgeKeyValue],
+        payload: String,
+        proxy: String?,
+        timeout: KotlinFloat?,
+        userAgent: String?
+    ) -> Result<PassportHttpResponse, PassportException> {
         do {
             let response = try clientPost(
                 url: url,
@@ -55,7 +61,8 @@ class IosPassportBridge: PassportBridge {
         publicParams: String,
         manifestVersion: String,
         proxy: String?,
-        timeout: KotlinFloat?
+        timeout: KotlinFloat?,
+        userAgent: String?
     ) -> Result<CredentialResponse, PassportException> {
         do {
             let response = try userauthRegister(
@@ -85,7 +92,8 @@ class IosPassportBridge: PassportBridge {
         probeAsn: String,
         proxy: String?,
         timeout: KotlinFloat?,
-        credentialConfig: SubmitCredentialConfig?
+        credentialConfig: SubmitCredentialConfig?,
+        userAgent: String?
     ) -> Result<CredentialResponse, PassportException> {
         do {
             let response = try userauthSubmit(

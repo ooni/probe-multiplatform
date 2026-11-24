@@ -6,6 +6,10 @@ import oonimkall.Oonimkall
 import oonimkall.SessionConfig
 
 class AndroidOonimkallBridge : OonimkallBridge {
+    override fun engineName(): String = Oonimkall.engineName()
+
+    override fun engineVersion(): String = Oonimkall.engineVersion()
+
     override fun startTask(settingsSerialized: String): OonimkallBridge.Task {
         val task = Oonimkall.startTask(settingsSerialized)
         return object : OonimkallBridge.Task {

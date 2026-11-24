@@ -5,6 +5,14 @@ let CONTEXT_TIMEOUT: Int64 = -1
 
 class IosOonimkallBridge: OonimkallBridge {
 
+    func engineName() -> String {
+        OonimkallEngineName()
+    }
+
+    func engineVersion() -> String {
+        OonimkallEngineVersion()
+    }
+
     func startTask(settingsSerialized: String) throws -> OonimkallBridgeTask {
         var error: NSError?
         let task = OonimkallStartTask(settingsSerialized, &error)!

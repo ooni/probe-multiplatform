@@ -24,6 +24,10 @@ import org.ooni.engine.models.TaskSettings
  * lambdas with safe, network-free defaults.
  */
 class MockOonimkallBridge : OonimkallBridge {
+    override fun engineName(): String = "ooniprobe-engine"
+
+    override fun engineVersion(): String = "3.17.2"
+
     var httpDo: (OonimkallBridge.HTTPRequest) -> OonimkallBridge.HTTPResponse = {
         // Inert default; tests that exercise descriptor fetch override this
         // via setupMockedEngine { httpDo = ... }.
