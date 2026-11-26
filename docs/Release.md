@@ -67,9 +67,8 @@ Update the engine (`oonimkall`) and Passport on every platform. Follow
 [Updating oonimkall and Passport](../README.md#updating-oonimkall-and-passport) in the README:
 
 - Android and Desktop: bump `oonimkall` and `passport` in `gradle/libs.versions.toml`.
-- iOS: run `scripts/update-ios-passport-package.sh` and `scripts/update-ios-oonimkall-package.sh`,
-  then commit the changes in `iosApp/Packages/`. To pin the Passport release in
-  `gradle/libs.versions.toml`, run `scripts/update-ios-passport-package.sh release`.
+- iOS: run `./gradlew :composeApp:updateIosOonimkallPackage :composeApp:updateIosPassportPackage`,
+  which use the versions above, then commit the changes in `iosApp/Packages/`.
 
 ##### 1.2.2 Run Xcode Cloud workflow
 

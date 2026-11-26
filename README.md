@@ -120,31 +120,38 @@ The rest of `.swiftpm-locks/` is regenerated on every build and is git-ignored.
 Android and Desktop take both libraries from Maven Central. Bump `oonimkall` and `passport` in
 `gradle/libs.versions.toml`.
 
-iOS uses local Swift packages in `iosApp/Packages/`:
+iOS uses local Swift packages in `iosApp/Packages/`, refreshed by Gradle tasks from the files
+published with a GitHub release. The tasks run only on macOS:
 
-| Package   | Source                                                                                   | Update with                                               |
-|-----------|------------------------------------------------------------------------------------------|-----------------------------------------------------------|
-| oonimkall | [ooni/probe-cli `rolling`](https://github.com/ooni/probe-cli/releases/tag/rolling)       | `scripts/update-ios-oonimkall-package.sh [tag]`           |
-| Passport  | [ooni/ooniprobe-rs `rolling`](https://github.com/ooni/ooniprobe-rs/releases/tag/rolling) | `scripts/update-ios-passport-package.sh [tag \| release]` |
+| Package   | Source                                                                                   | Update with                                       |
+|-----------|------------------------------------------------------------------------------------------|---------------------------------------------------|
+| oonimkall | [ooni/probe-cli `rolling`](https://github.com/ooni/probe-cli/releases/tag/rolling)       | `./gradlew :composeApp:updateIosOonimkallPackage` |
+| Passport  | [ooni/ooniprobe-rs `rolling`](https://github.com/ooni/ooniprobe-rs/releases/tag/rolling) | `./gradlew :composeApp:updateIosPassportPackage`  |
 
-- **Passport** follows the ooniprobe-rs `rolling` release. The script copies the release's
-  `Package.swift` and its matching UniFFI bindings (`ooniprobe.swift`), and fails if the release
-  doesn't publish both. To pin a release, pass its tag (`v0.1.9`), or `release` for the tag of
-  `passport` in `gradle/libs.versions.toml`, the version Android and Desktop use. Releases up to
-  v0.1.8 don't publish these files.
-- **oonimkall** follows the probe-cli `rolling` release, which publishes a `Package.swift`.
-  Tagged probe-cli releases up to v3.31.1 don't publish one, and their native libraries can't be
-  code-signed by Xcode. Pass a tag to the script once a probe-cli release ships `Package.swift`.
+By default each task uses the release for the version in `gradle/libs.versions.toml`
+(`v` + `oonimkall` or `passport`), the version Android and Desktop use. `--tag` picks another
+release, for example `--tag=rolling` or `--tag=v0.1.9`.
+
+Every release must publish a `Package.swift` (and, for Passport, the matching UniFFI bindings
+`ooniprobe.swift`), or the task fails and leaves the package unchanged. Releases up to probe-cli
+v3.31.1 and ooniprobe-rs v0.1.8 don't publish them, so both packages currently come from
+`rolling` (`--tag=rolling`).
+
+`--tag` applies only to the task right before it, so give each task its own:
+
+```
+./gradlew :composeApp:updateIosOonimkallPackage --tag=rolling :composeApp:updateIosPassportPackage --tag=rolling
+```
 
 To update:
 
-1. Run the script.
+1. Run the task.
 2. In Xcode, select File > Packages > Reset Package Caches, then build.
 3. Commit the changed files in `iosApp/Packages/`.
 
 The `rolling` release is overwritten on every upstream build, which changes the artifact
-checksums. When Xcode reports a checksum mismatch for oonimkall or Passport, run its script again. Swift
-Package Manager also caches artifacts by URL. If the mismatch persists after resetting the package
+checksums. When Xcode reports a checksum mismatch for oonimkall or Passport, run its task again.
+Swift Package Manager also caches artifacts by URL. If the mismatch persists after resetting the package
 caches, delete the stale entries and build again:
 
 ```

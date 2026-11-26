@@ -103,7 +103,7 @@ kotlin {
 
         // OONI probe engine (oonimkall) plus Tor, OpenSSL, libevent and zlib. Package.swift is the
         // one published with ooni/probe-cli's `rolling` release; the Swift app calls oonimkall
-        // directly (IosOonimkallBridge). Refresh with scripts/update-ios-oonimkall-package.sh.
+        // directly (IosOonimkallBridge). Refresh with `./gradlew :composeApp:updateIosOonimkallPackage`.
         localSwiftPackage(
             directory = rootProject.layout.projectDirectory.dir("iosApp/Packages/Oonimkall"),
             products = listOf("oonimkall"),
@@ -111,7 +111,7 @@ kotlin {
 
         // Passport (ooniprobe-rs) UniFFI Swift bindings plus passport.xcframework, from the
         // ooniprobe-rs `rolling` release. The Swift app calls it directly (IosPassportBridge).
-        // Refresh with scripts/update-ios-passport-package.sh (see README.md).
+        // Refresh with `./gradlew :composeApp:updateIosPassportPackage` (see README.md).
         localSwiftPackage(
             directory = rootProject.layout.projectDirectory.dir("iosApp/Packages/Passport"),
             products = listOf("Passport"),
