@@ -84,6 +84,83 @@ Configure run configurations for easy execution within Android Studio:
 - **Name:** News_Media_Scan
 - **Run:** :composeApp:runDebug -Porganization=dw
 
+### iOS setup
+
+iOS dependencies are Swift packages declared in `composeApp/build.gradle.kts`
+(`swiftPMDependencies`); there is no `pod install` step. Open `iosApp/iosApp.xcodeproj` in Xcode.
+The Kotlin Gradle Plugin generates `iosApp/KotlinMultiplatformLinkedPackage`, and the Xcode project
+references it as a local package to link every Swift package into the app. Commit it, but don't
+edit it by hand.
+
+#### Changing SwiftPM dependencies
+
+After you edit `swiftPMDependencies`, the next Xcode build regenerates
+`KotlinMultiplatformLinkedPackage` and fails once with *"Synthetic linkage package files changed
+during the build"*. Select File > Packages > Resolve Package Versions in Xcode, or build again.
+Then commit the regenerated files, together with:
+
+- `.swiftpm-locks/default/swiftImport/Package.resolved`, the versions Kotlin compiles against;
+- `iosApp/iosApp.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved`, the
+  versions Xcode links.
+
+The rest of `.swiftpm-locks/` is regenerated on every build and is git-ignored.
+
+#### Build settings to keep
+
+- `ENABLE_USER_SCRIPT_SANDBOXING = NO` (`iosApp/Configuration/Config.xcconfig`). The *Compile
+  Kotlin Framework* phase runs Gradle, which reads and writes outside the sandbox.
+- `-ObjC` in `OTHER_LDFLAGS` of the app targets. It loads the Objective-C categories in the
+  static libraries the app links.
+- `FRAMEWORK_SEARCH_PATHS` and `-framework composeApp` in the UI test targets. They import
+  `composeApp` but don't run the *Compile Kotlin Framework* phase, so they find the framework that
+  the app target's build leaves in `composeApp/build/xcode-frameworks/`.
+
+### Updating oonimkall and Passport
+
+Android and Desktop take both libraries from Maven Central. Bump `oonimkall` and `passport` in
+`gradle/libs.versions.toml`.
+
+iOS uses local Swift packages in `iosApp/Packages/`:
+
+| Package   | Source                                                                                   | Update with                                               |
+|-----------|------------------------------------------------------------------------------------------|-----------------------------------------------------------|
+| oonimkall | [ooni/probe-cli `rolling`](https://github.com/ooni/probe-cli/releases/tag/rolling)       | `scripts/update-ios-oonimkall-package.sh [tag]`           |
+| Passport  | [ooni/ooniprobe-rs `rolling`](https://github.com/ooni/ooniprobe-rs/releases/tag/rolling) | `scripts/update-ios-passport-package.sh [tag \| release]` |
+
+- **Passport** follows the ooniprobe-rs `rolling` release. The script copies the release's
+  `Package.swift` and its matching UniFFI bindings (`ooniprobe.swift`), and fails if the release
+  doesn't publish both. To pin a release, pass its tag (`v0.1.9`), or `release` for the tag of
+  `passport` in `gradle/libs.versions.toml`, the version Android and Desktop use. Releases up to
+  v0.1.8 don't publish these files.
+- **oonimkall** follows the probe-cli `rolling` release, which publishes a `Package.swift`.
+  Tagged probe-cli releases up to v3.31.1 don't publish one, and their native libraries can't be
+  code-signed by Xcode. Pass a tag to the script once a probe-cli release ships `Package.swift`.
+
+To update:
+
+1. Run the script.
+2. In Xcode, select File > Packages > Reset Package Caches, then build.
+3. Commit the changed files in `iosApp/Packages/`.
+
+The `rolling` release is overwritten on every upstream build, which changes the artifact
+checksums. When Xcode reports a checksum mismatch for oonimkall or Passport, run its script again. Swift
+Package Manager also caches artifacts by URL. If the mismatch persists after resetting the package
+caches, delete the stale entries and build again:
+
+```
+rm -rf ~/Library/Caches/org.swift.swiftpm/artifacts/*probe_cli_releases_download_rolling*
+rm -rf ~/Library/Caches/org.swift.swiftpm/artifacts/*ooniprobe_rs_releases_download_rolling*
+```
+
+Gradle keeps its own Xcode build of the Swift packages in `build/kotlin/swiftPMXcodeDumps/`. When
+a package's headers change in place (for example new Passport bindings), the *Compile Kotlin
+Framework* phase can fail with *"file '…/ooniprobeFFI.h' has been modified since the module file
+… was built"* or *"cannot find 'uniffi_…' in scope"*. Delete that folder and build again:
+
+```
+rm -rf build/kotlin/swiftPMXcodeDumps
+```
+
 ### OONI Probe iOS Configuration
 
 The "Run/Debug Configurations" already has the proper configuration and you just need to select the
@@ -97,7 +174,6 @@ XCode Project Scheme `NewsMediaScan` and run it.
 ### Switching between OONI Probe and News Media Scan
 
 - Ensure you can run clean and build the project successfully.
-- Run `pod install` in the `iosApp` directory.
 
 ## Testing
 

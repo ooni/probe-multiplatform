@@ -7,3 +7,6 @@ NMS_TEAM_ID=D6848Q89CC
 APP_VERSION=6.3.1
 BUNDLE_VERSION=390
 DEPLOYMENT_TARGET=15.0
+
+// Kotlin direct integration runs Gradle from Xcode script phases, which needs file access outside the sandbox.
+ENABLE_USER_SCRIPT_SANDBOXING=NO

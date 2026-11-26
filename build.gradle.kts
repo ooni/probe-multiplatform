@@ -7,7 +7,6 @@ plugins {
     alias(libs.plugins.jetbrainsComposeCompiler) apply false
     alias(libs.plugins.kotlinMultiplatform) apply false
     alias(libs.plugins.kotlinJvm) apply false
-    alias(libs.plugins.cocoapods) apply false
     alias(libs.plugins.ktlint) apply false
     alias(libs.plugins.javafx) apply false
     alias(libs.plugins.sentryAndroid) apply false

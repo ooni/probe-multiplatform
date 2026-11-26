@@ -61,7 +61,17 @@ For Android and Desktop, update the `versionCode` and `versionName` at
 For iOS, update the `BUNDLE_VERSION` to match `versionCode` and `APP_VERSION` to match `versionName`
 at `iosApp/Configuration/Config.xcconfig`.
 
-##### 1.2.1 Run Xcode Cloud workflow
+##### 1.2.1 Update oonimkall and Passport
+
+Update the engine (`oonimkall`) and Passport on every platform. Follow
+[Updating oonimkall and Passport](../README.md#updating-oonimkall-and-passport) in the README:
+
+- Android and Desktop: bump `oonimkall` and `passport` in `gradle/libs.versions.toml`.
+- iOS: run `scripts/update-ios-passport-package.sh` and `scripts/update-ios-oonimkall-package.sh`,
+  then commit the changes in `iosApp/Packages/`. To pin the Passport release in
+  `gradle/libs.versions.toml`, run `scripts/update-ios-passport-package.sh release`.
+
+##### 1.2.2 Run Xcode Cloud workflow
 
 Run the Xcode Cloud workflow if not triggered automatically to ensure all iOS related actions for release are able to run. It may fail due to differences in Xcode versions, macOS versions, or CI configuration. Use the build logs to diagnose and fix any issues, then re-run the build.
 

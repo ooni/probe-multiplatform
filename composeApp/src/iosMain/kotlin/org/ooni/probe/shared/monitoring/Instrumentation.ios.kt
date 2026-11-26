@@ -1,6 +1,9 @@
 package org.ooni.probe.shared.monitoring
 
 import cocoapods.Sentry.SentrySDK
+import cocoapods.Sentry.isEnabled
+import cocoapods.Sentry.span
+import cocoapods.Sentry.startTransactionWithName
 
 actual object Instrumentation {
     actual suspend fun <T> withTransaction(

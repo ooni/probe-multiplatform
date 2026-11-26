@@ -15,7 +15,17 @@ captures
 !*.xcodeproj/project.xcworkspace/
 !*.xcworkspace/contents.xcworkspacedata
 **/xcshareddata/WorkspaceSettings.xcsettings
-/iosApp/Pods/
+# Swift Package Manager build output and Xcode state (local packages under iosApp/)
+.build/
+.swiftpm/
+# Local Swift packages are libraries: Xcode's lock file is
+# iosApp/iosApp.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved
+/iosApp/KotlinMultiplatformLinkedPackage/Package.resolved
+/iosApp/Packages/*/Package.resolved
+# Kotlin SwiftPM import: commit only the lock file. Gradle regenerates the synthetic package
+# on every build, and the plugin's own .gitignore excludes the checkout.
+.swiftpm-locks/*/swiftImport/*
+!.swiftpm-locks/*/swiftImport/Package.resolved
 .kotlin
 Gemfile.lock
 output

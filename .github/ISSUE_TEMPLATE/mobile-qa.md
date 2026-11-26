@@ -9,10 +9,10 @@ assignees: aanorbel
 
 ## Preparing the master branch for release
 
-- [ ] (android) `gradle/libs.versions.toml`: use the latest probe-engine
+- [ ] (android) `gradle/libs.versions.toml`: use the latest `oonimkall` (probe-engine) and `passport`
 - [ ] (android) `composeApp/build.gradle.kts`: bump version number and code
 - [ ] (android) `composeApp/build.gradle.kts`: possibly upgrade the SDKs
-- [ ] (ios) `iosApp/Podfile`: update to the last probe-engine and run `pod install`
+- [ ] (ios) run `scripts/update-ios-passport-package.sh` (or `… release` to pin the `passport` version above) and `scripts/update-ios-oonimkall-package.sh`, then commit `iosApp/Packages/` (see README, "Updating oonimkall and Passport")
 - [ ] update the translation strings
 - [ ] merge any other feature PR we may need
 
