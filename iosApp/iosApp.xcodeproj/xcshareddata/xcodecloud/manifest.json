@@ -1,0 +1,13 @@
+{
+  "id" : "95af0a83-ea1c-4776-9685-6f27527ca6fe",
+  "targets" : [
+    {
+      "id" : "37372E38-DBAF-45B4-9D45-EC80C6D52AB4",
+      "name" : "News Media Scan"
+    },
+    {
+      "id" : "5553C26D-45DB-4BCB-A4DD-8E690A4DA201",
+      "name" : "OONI Probe"
+    }
+  ]
+}

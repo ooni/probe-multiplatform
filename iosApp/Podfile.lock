@@ -7,14 +7,9 @@ PODS:
   - libtor (3.31.1)
   - libz (3.31.1)
   - oonimkall (3.31.1)
-  - passport (0.1.8)
   - Sentry (8.58.4):
     - Sentry/Core (= 8.58.4)
   - Sentry/Core (8.58.4)
-  - Siren (6.1.3)
-  - sqlite3 (3.42.0):
-    - sqlite3/common (= 3.42.0)
-  - sqlite3/common (3.42.0)
 
 DEPENDENCIES:
   - composeApp (from `../composeApp`)
@@ -24,15 +19,10 @@ DEPENDENCIES:
   - libtor (from `https://repo1.maven.org/maven2/org/ooni/libtor-ios/3.31.1/libtor-ios-3.31.1.podspec`)
   - libz (from `https://repo1.maven.org/maven2/org/ooni/libz-ios/3.31.1/libz-ios-3.31.1.podspec`)
   - oonimkall (from `https://repo1.maven.org/maven2/org/ooni/oonimkall-ios/3.31.1/oonimkall-ios-3.31.1.podspec`)
-  - passport (from `https://repo1.maven.org/maven2/org/ooni/passport-ios/0.1.8/passport-ios-0.1.8.podspec`)
-  - Siren
-  - sqlite3 (~> 3.42.0)
 
 SPEC REPOS:
   trunk:
     - Sentry
-    - Siren
-    - sqlite3
 
 EXTERNAL SOURCES:
   composeApp:
@@ -49,8 +39,6 @@ EXTERNAL SOURCES:
     :podspec: https://repo1.maven.org/maven2/org/ooni/libz-ios/3.31.1/libz-ios-3.31.1.podspec
   oonimkall:
     :podspec: https://repo1.maven.org/maven2/org/ooni/oonimkall-ios/3.31.1/oonimkall-ios-3.31.1.podspec
-  passport:
-    :podspec: https://repo1.maven.org/maven2/org/ooni/passport-ios/0.1.8/passport-ios-0.1.8.podspec
 
 SPEC CHECKSUMS:
   composeApp: 2ef50010f51d2d77ca467edc615d0daf13f809e7
@@ -60,11 +48,8 @@ SPEC CHECKSUMS:
   libtor: 5ca16082857fcc44ab54ef060244cac374288ed8
   libz: 98533bcaa92ad2cb22d5c1b194ff05d7a852fdbe
   oonimkall: 78a9afcd46ed190d05c99df8d035d81219170949
-  passport: 02ccdf2983daf3e8a3573e87305785af42c3911c
   Sentry: 5321d74bdd28d6f6f8beaa1ca06f1fdc746bff49
-  Siren: c0f6012f61196b73455202db07730f6454a4beb0
-  sqlite3: f163dbbb7aa3339ad8fc622782c2d9d7b72f7e9c
 
-PODFILE CHECKSUM: 828981919a19df835e2c1cfc11404b723c4d59c3
+PODFILE CHECKSUM: 9a0da233dea9f2f0d19abcb04ef0d47555177d02
 
 COCOAPODS: 1.17.0

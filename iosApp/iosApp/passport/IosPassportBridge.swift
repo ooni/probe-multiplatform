@@ -1,4 +1,5 @@
 import composeApp
+import Passport
 
 class IosPassportBridge: PassportBridge {
     private let userAgent = IosPassportBridgeHelpersKt.iosPassportUserAgent()
