@@ -9,7 +9,6 @@ end
 
 def shared_pods
     ooni_version = "3.31.1"
-    passport_version = "0.1.8"
 
     pod 'composeApp', :path => '../composeApp'
 
@@ -21,7 +20,6 @@ def shared_pods
     pod "libtor", :podspec => ooni_podspec("libtor", ooni_version)
     pod "libz", :podspec => ooni_podspec("libz", ooni_version)
     pod "oonimkall", :podspec => ooni_podspec("oonimkall", ooni_version)
-    pod "passport", :podspec => ooni_podspec("passport", passport_version)
     pod "Siren"
 end
 

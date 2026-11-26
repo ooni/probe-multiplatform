@@ -7,14 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5A55B0042F90000000C0FFEE /* Passport in Frameworks */ = {isa = PBXBuildFile; productRef = 5A55B0022F90000000C0FFEE /* Passport */; };
+		5A55B0052F90000000C0FFEE /* Passport in Frameworks */ = {isa = PBXBuildFile; productRef = 5A55B0032F90000000C0FFEE /* Passport */; };
 		058557BB273AAA24004C7B11 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557BA273AAA24004C7B11 /* Assets.xcassets */; };
 		058557D9273AAEEB004C7B11 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */; };
 		2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152FB032600AC8F00CF470E /* iOSApp.swift */; };
 		4B3EB11158BEF8E313184F03 /* Pods_OONIProbeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D66F034741194372DDA4078 /* Pods_OONIProbeUITests.framework */; };
 		53D3BE26559E9626379058CC /* Pods_NewsMediaScanUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4B28F104580A82EDFEDC452 /* Pods_NewsMediaScanUITests.framework */; };
 		7555FF83242A565900829871 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555FF82242A565900829871 /* ContentView.swift */; };
-		770AEF952F4DF53A00A73343 /* ooniprobe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770AEF942F4DF53A00A73343 /* ooniprobe.swift */; };
-		770AEF962F4DF53A00A73343 /* ooniprobe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770AEF942F4DF53A00A73343 /* ooniprobe.swift */; };
 		793F99462CE646DE0094FAFC /* IosBackgroundRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793F99452CE646DE0094FAFC /* IosBackgroundRunner.swift */; };
 		793F99472CE646DE0094FAFC /* IosBackgroundRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793F99452CE646DE0094FAFC /* IosBackgroundRunner.swift */; };
 		795E37782CD5053900086360 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795E37772CD5053900086360 /* ShareViewController.swift */; };
@@ -87,8 +87,6 @@
 		7555FF7B242A565900829871 /* OONI Probe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "OONI Probe.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7555FF82242A565900829871 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		7555FF8C242A565B00829871 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		7701B0FB2F71AD4B00DE9258 /* passport.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = passport.xcframework; path = Pods/passport/passport.xcframework; sourceTree = "<group>"; };
-		770AEF942F4DF53A00A73343 /* ooniprobe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ooniprobe.swift; path = "Pods/passport/passport.xcframework/ios-arm64/Headers/ooniprobe.swift"; sourceTree = SOURCE_ROOT; };
 		7746A3DC2D7D895200C007B6 /* OONIProbeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OONIProbeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7746A4752D80383D00C007B6 /* NewsMediaScanUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NewsMediaScanUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		793F99452CE646DE0094FAFC /* IosBackgroundRunner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = IosBackgroundRunner.swift; path = background/IosBackgroundRunner.swift; sourceTree = "<group>"; };
@@ -105,7 +103,6 @@
 		8918F4B39DEEFE89FDF20821 /* Pods-iosApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iosApp.debug.xcconfig"; path = "Target Support Files/Pods-iosApp/Pods-iosApp.debug.xcconfig"; sourceTree = "<group>"; };
 		9155D307318D3F295444355A /* Pods-NewsMediaScanUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NewsMediaScanUITests.debug.xcconfig"; path = "Target Support Files/Pods-NewsMediaScanUITests/Pods-NewsMediaScanUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		935409922F4CCC280055415F /* IosPassportBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IosPassportBridge.swift; sourceTree = "<group>"; };
-		9364F5362F4DC08500A4D08C /* ooniprobe-passport.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = "ooniprobe-passport.xcframework"; sourceTree = "<group>"; };
 		93D3BF5B2C6B684800E9A9B7 /* descriptors.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = descriptors.json; sourceTree = "<group>"; };
 		93D3BF602C6B70AD00E9A9B7 /* descriptors.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = descriptors.json; sourceTree = "<group>"; };
 		93E977702C4FCCE3009CCABC /* IosOonimkallBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IosOonimkallBridge.swift; sourceTree = "<group>"; };
@@ -159,6 +156,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A55B0052F90000000C0FFEE /* Passport in Frameworks */,
 				A0BFEE644239A9C4B4F518F9 /* Pods_NewsMediaScan.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -167,6 +165,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A55B0042F90000000C0FFEE /* Passport in Frameworks */,
 				A63D4DAB2DEF80E322CD2A82 /* Pods_OONIProbe.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -185,12 +184,10 @@
 		143866E27495AC21766E05A7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				7701B0FB2F71AD4B00DE9258 /* passport.xcframework */,
 				D64CB7120DD6292730C16110 /* Pods_NewsMediaScan.framework */,
 				DD59ED7E2702C84FF0455021 /* Pods_OONIProbe.framework */,
 				B4B28F104580A82EDFEDC452 /* Pods_NewsMediaScanUITests.framework */,
 				2D66F034741194372DDA4078 /* Pods_OONIProbeUITests.framework */,
-				9364F5362F4DC08500A4D08C /* ooniprobe-passport.xcframework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -270,7 +267,6 @@
 			isa = PBXGroup;
 			children = (
 				935409922F4CCC280055415F /* IosPassportBridge.swift */,
-				770AEF942F4DF53A00A73343 /* ooniprobe.swift */,
 			);
 			path = passport;
 			sourceTree = "<group>";
@@ -349,6 +345,9 @@
 			);
 			dependencies = (
 				795E377E2CD5053900086360 /* PBXTargetDependency */,
+			);
+			packageProductDependencies = (
+				5A55B0022F90000000C0FFEE /* Passport */,
 			);
 			name = OONIProbe;
 			productName = iosApp;
@@ -438,6 +437,9 @@
 			);
 			dependencies = (
 			);
+			packageProductDependencies = (
+				5A55B0032F90000000C0FFEE /* Passport */,
+			);
 			name = NewsMediaScan;
 			productName = iosApp;
 			productReference = 79FBD01A2C5A70AF004E041C /* News Media Scan.app */;
@@ -477,6 +479,9 @@
 				Base,
 			);
 			mainGroup = 7555FF72242A565900829871;
+			packageReferences = (
+				5A55B0012F90000000C0FFEE /* XCLocalSwiftPackageReference "Packages/Passport" */,
+			);
 			productRefGroup = 7555FF7C242A565900829871 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -880,7 +885,6 @@
 				93E977712C4FCCE3009CCABC /* IosOonimkallBridge.swift in Sources */,
 				935409952F4CCC280055415F /* IosPassportBridge.swift in Sources */,
 				7555FF83242A565900829871 /* ContentView.swift in Sources */,
-				770AEF952F4DF53A00A73343 /* ooniprobe.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -917,7 +921,6 @@
 				79FBD00E2C5A70AF004E041C /* IosOonimkallBridge.swift in Sources */,
 				935409942F4CCC280055415F /* IosPassportBridge.swift in Sources */,
 				79FBD00F2C5A70AF004E041C /* ContentView.swift in Sources */,
-				770AEF962F4DF53A00A73343 /* ooniprobe.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1453,6 +1456,26 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		5A55B0012F90000000C0FFEE /* XCLocalSwiftPackageReference "Packages/Passport" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/Passport;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		5A55B0022F90000000C0FFEE /* Passport */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5A55B0012F90000000C0FFEE /* XCLocalSwiftPackageReference "Packages/Passport" */;
+			productName = Passport;
+		};
+		5A55B0032F90000000C0FFEE /* Passport */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5A55B0012F90000000C0FFEE /* XCLocalSwiftPackageReference "Packages/Passport" */;
+			productName = Passport;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 7555FF73242A565900829871 /* Project object */;
 }
