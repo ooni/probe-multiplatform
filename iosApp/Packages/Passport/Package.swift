@@ -12,7 +12,7 @@ let package = Package(
         .binaryTarget(
             name: "passport",
             url: "https://github.com/ooni/ooniprobe-rs/releases/download/rolling/passport.xcframework.zip",
-            checksum: "8c5ca22721bef876ed298b453ac1f85c0fb408afa0935794ec119f611f8e45fd"
+            checksum: "6346e13540a84b0e0471519bf4bc1faceced1522aaa5d9aa785057f043e217e5"
         ),
         // UniFFI bindings: ooniprobe.swift from the same release.
         .target(
