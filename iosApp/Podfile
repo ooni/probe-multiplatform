@@ -12,15 +12,12 @@ def shared_pods
 
     pod 'composeApp', :path => '../composeApp'
 
-    pod 'sqlite3', '~> 3.42.0'
-
     pod "libcrypto", :podspec => ooni_podspec("libcrypto", ooni_version)
     pod "libevent", :podspec => ooni_podspec("libevent", ooni_version)
     pod "libssl", :podspec => ooni_podspec("libssl", ooni_version)
     pod "libtor", :podspec => ooni_podspec("libtor", ooni_version)
     pod "libz", :podspec => ooni_podspec("libz", ooni_version)
     pod "oonimkall", :podspec => ooni_podspec("oonimkall", ooni_version)
-    pod "Siren"
 end
 
 target 'OONIProbe' do

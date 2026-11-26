@@ -1,0 +1,24 @@
+{
+  "originHash" : "b47eadae3b3253024ef1b10a5a96e03b808d50b93ba9a4a2149d1e6565e3ad0d",
+  "pins" : [
+    {
+      "identity" : "siren",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/ArtSabintsev/Siren",
+      "state" : {
+        "revision" : "6139af3394bc3635c6c8d5255339796feaa7d1a0",
+        "version" : "6.1.3"
+      }
+    },
+    {
+      "identity" : "swift-toolchain-sqlite",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/swiftlang/swift-toolchain-sqlite",
+      "state" : {
+        "revision" : "d9b11cb79071d5ab992ff47dfd2e8d6e19418d97",
+        "version" : "1.0.13"
+      }
+    }
+  ],
+  "version" : 3
+}
