@@ -6,6 +6,7 @@ import ooni.desktop.registerDesktopCaptureMacAppStoreTask
 import ooni.desktop.registerDesktopCaptureMicrosoftStoreTask
 import ooni.desktop.registerDesktopCaptureScreensTask
 import ooni.desktop.registerPrepareDesktopResourcesTask
+import ooni.ios.UpdateIosSwiftPackageTask
 import ooni.jna.ExtractMacOsNativeLibrariesTask
 import ooni.sparkle.GenerateSparkleAppCastTask
 import ooni.sparkle.SetupSparkleTask
@@ -34,7 +35,42 @@ import java.io.File
 fun Project.registerTasks(config: AppConfig) {
     registerAndroidTasks(config)
     registerResourceTasks(config)
+    registerIosTasks()
     configureLibraryTaskDependencies()
+}
+
+/**
+ * Registers the tasks that refresh the local Swift packages in iosApp/Packages from the files
+ * published with upstream GitHub releases (see [UpdateIosSwiftPackageTask]):
+ *
+ * - `updateIosOonimkallPackage`: Package.swift from ooni/probe-cli;
+ * - `updateIosPassportPackage`: Package.swift and the UniFFI bindings from ooni/ooniprobe-rs.
+ *
+ * By default each task uses the release for the version in gradle/libs.versions.toml
+ * (`v<oonimkall>`, `v<passport>`); `--tag=<tag>` picks another one, e.g. `--tag=rolling`.
+ * Only :composeApp declares these packages (swiftPMDependencies), so only it gets the tasks.
+ */
+private fun Project.registerIosTasks() {
+    if (path != ":composeApp") return
+    val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
+    fun version(name: String) = libs.findVersion(name).get().requiredVersion
+    val packages = rootProject.layout.projectDirectory.dir("iosApp/Packages")
+
+    tasks.register("updateIosOonimkallPackage", UpdateIosSwiftPackageTask::class) {
+        description = "Updates iosApp/Packages/Oonimkall from an ooni/probe-cli release."
+        repository.set("ooni/probe-cli")
+        releaseVersion.set(version("oonimkall"))
+        files.put("Package.swift", "Package.swift")
+        packageDir.set(packages.dir("Oonimkall"))
+    }
+    tasks.register("updateIosPassportPackage", UpdateIosSwiftPackageTask::class) {
+        description = "Updates iosApp/Packages/Passport from an ooni/ooniprobe-rs release."
+        repository.set("ooni/ooniprobe-rs")
+        releaseVersion.set(version("passport"))
+        files.put("Package.swift", "Package.swift")
+        files.put("ooniprobe.swift", "Sources/Passport/ooniprobe.swift")
+        packageDir.set(packages.dir("Passport"))
+    }
 }
 
 /**

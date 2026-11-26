@@ -196,15 +196,17 @@ jobs:
             ~/.konan
           key: kotlin-native-${{ hashFiles('**/libs.versions.toml') }}
 
-      - name: CocoaPods Cache
+      # Swift Package Manager downloads (git checkouts and binary artifacts). No restore-keys:
+      # SwiftPM caches binary artifacts by URL, and the probe-cli `rolling` URLs keep their
+      # name when their content changes, so a partial match could restore an artifact that
+      # fails the new checksum.
+      - name: Swift Package Manager Cache
         uses: actions/cache@v6
         with:
           path: |
-            Pods
-            ~/Library/Caches/CocoaPods
-            ~/.cocoapods
-          key: pods-${{ hashFiles('**/Podfile.lock') }}
-          restore-keys: pods-
+            ~/Library/Caches/org.swift.swiftpm
+            ~/Library/org.swift.swiftpm
+          key: swiftpm-${{ hashFiles('iosApp/iosApp.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved', 'iosApp/Packages/*/Package.swift', '.swiftpm-locks/*/swiftImport/Package.resolved') }}
 
       - name: Build iOS App
         run: bundle exec fastlane ios build organization:${{ matrix.organization }}

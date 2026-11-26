@@ -1,3 +1,4 @@
+import io.sentry.kotlin.multiplatform.gradle.AppleDependencyProvider
 import org.gradle.internal.os.OperatingSystem
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
@@ -7,7 +8,6 @@ plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.jetbrainsComposeCompiler)
-    alias(libs.plugins.cocoapods)
     alias(libs.plugins.kotlinSerialization)
     alias(libs.plugins.ktlint)
     alias(libs.plugins.sqldelight)
@@ -81,25 +81,59 @@ kotlin {
     // iosX64 is no longer supported by Compose Multiplatform
     // https://github.com/JetBrains/compose-multiplatform/pull/5514
     // iosX64()
-    iosArm64()
-    iosSimulatorArm64()
-
-    jvm("desktop")
-
-    cocoapods {
-        ios.deploymentTarget = "15.0"
-
-        version = "1.0.0"
-        summary = "Compose App"
-        homepage = "https://github.com/ooni/probe-multiplatform"
-
-        framework {
+    listOf(
+        iosArm64(),
+        iosSimulatorArm64(),
+    ).forEach { iosTarget ->
+        iosTarget.binaries.framework {
             baseName = "composeApp"
             isStatic = true
             binaryOption("bundleId", "composeApp")
         }
-        podfile = project.file("../iosApp/Podfile")
     }
+
+    // iOS native dependencies, resolved with Swift Package Manager. Xcode links them into the
+    // app through iosApp/KotlinMultiplatformLinkedPackage. After changing this block, the next
+    // Xcode build regenerates that package and fails once; resolve packages in Xcode, build
+    // again, and commit the regenerated files (see "Changing SwiftPM dependencies" in README.md).
+    // Sentry Cocoa is added here by the Sentry plugin (see `sentryKmp` below).
+    swiftPMDependencies {
+        // Match DEPLOYMENT_TARGET in iosApp/Configuration/Config.xcconfig.
+        iosMinimumDeploymentTarget = "15.0"
+
+        // OONI probe engine (oonimkall) plus Tor, OpenSSL, libevent and zlib. Package.swift is the
+        // one published with ooni/probe-cli's `rolling` release; the Swift app calls oonimkall
+        // directly (IosOonimkallBridge). Refresh with `./gradlew :composeApp:updateIosOonimkallPackage`.
+        localSwiftPackage(
+            directory = rootProject.layout.projectDirectory.dir("iosApp/Packages/Oonimkall"),
+            products = listOf("oonimkall"),
+        )
+
+        // Passport (ooniprobe-rs) UniFFI Swift bindings plus passport.xcframework, from the
+        // ooniprobe-rs `rolling` release. The Swift app calls it directly (IosPassportBridge).
+        // Refresh with `./gradlew :composeApp:updateIosPassportPackage` (see README.md).
+        localSwiftPackage(
+            directory = rootProject.layout.projectDirectory.dir("iosApp/Packages/Passport"),
+            products = listOf("Passport"),
+        )
+
+        // App Store update prompts, used by the Swift app (iOSApp.swift).
+        // 7.x requires iOS 17, so this stays on 6.x while DEPLOYMENT_TARGET is 15.0.
+        swiftPackage(
+            url = url("https://github.com/ArtSabintsev/Siren"),
+            version = from("6.1.3"),
+            products = listOf(product("Siren")),
+        )
+
+        // SQLite for the SQLDelight native driver, which links against sqlite3 symbols.
+        swiftPackage(
+            url = url("https://github.com/swiftlang/swift-toolchain-sqlite"),
+            version = from("1.0.13"),
+            products = listOf(product("SwiftToolchainCSQLite")),
+        )
+    }
+
+    jvm("desktop")
 
     sourceSets {
         androidMain {
@@ -329,5 +363,11 @@ sentryKmp {
         commonMain {
             enabled.set(!isFdroidTaskRequested())
         }
+        // Sentry Cocoa 9 (KMP SDK 0.28.0+) no longer supports CocoaPods. Install it through
+        // Kotlin's official SwiftPM import; Xcode links it via iosApp/KotlinMultiplatformLinkedPackage.
+        // SWIFT_PM (instead of the AUTO default) fails the build rather than silently skipping
+        // the install if the Kotlin CocoaPods plugin is ever applied again.
+        // https://docs.sentry.io/platforms/kotlin/guides/kotlin-multiplatform/configuration/gradle/#migrate-from-cocoapods
+        apple.provider.set(AppleDependencyProvider.SWIFT_PM)
     }
 }

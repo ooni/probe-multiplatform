@@ -211,12 +211,11 @@ platform :ios do
 
         scheme = scheme!(organization)
 
-        gradle(task: "copyBrandingToCommonResources podInstall -Porganization=#{organization}")
-        cocoapods(podfile: "./iosApp/Podfile")
+        gradle(task: "copyBrandingToCommonResources -Porganization=#{organization}")
 
         puts "Building #{scheme}"
         sh "cd .. && echo \"organization=#{organization}\" >> gradle.properties"
-        sh "set -o pipefail && cd .. && xcodebuild -workspace iosApp/iosApp.xcworkspace -scheme '#{scheme}' -destination='name=Any iOS Device' -sdk iphoneos archive CODE_SIGNING_ALLOWED='NO' -archivePath iosApp/build/#{scheme}.xcarchive | xcpretty"
+        sh "set -o pipefail && cd .. && xcodebuild -project iosApp/iosApp.xcodeproj -scheme '#{scheme}' -destination='name=Any iOS Device' -sdk iphoneos archive CODE_SIGNING_ALLOWED='NO' -archivePath iosApp/build/#{scheme}.xcarchive | xcpretty"
         # sh "cd .. && xcodebuild -exportArchive -archivePath iosApp/build/#{scheme}.xcarchive  -exportPath iosApp/build/#{scheme}.ipa -exportOptionsPlist iosApp/#{scheme}.exportOptions.plist"
     end
 
@@ -261,7 +260,7 @@ platform :ios do
         scheme = scheme!(organization)
 
         capture_screenshots(
-            workspace: "iosApp/iosApp.xcworkspace",
+            project: "iosApp/iosApp.xcodeproj",
             output_directory: "fastlane/metadata/#{organization}/ios",
             scheme: "#{scheme}UITests",
             test_target_name: scheme,

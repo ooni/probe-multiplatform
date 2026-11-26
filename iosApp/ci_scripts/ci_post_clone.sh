@@ -125,8 +125,3 @@ cd $CI_PRIMARY_REPOSITORY_PATH # change working directory to the root of your cl
 echo "organization=${ORGANIZATION}" >> gradle.properties
 
 ./gradlew copyBrandingToCommonResources -Porganization=$ORGANIZATION
-
-./gradlew podInstall -Porganization=$ORGANIZATION
-
-# Install CocoaPods dependencies.
-cd iosApp && pod install # run `pod install` in the `ios` directory.
